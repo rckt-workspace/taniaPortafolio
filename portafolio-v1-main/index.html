@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tania Peláez Valverde — Comunicadora Social</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #fefcf7; --rose: #e974a3; --brown: #4a3d33; --sand: #f5ece1; --gold: #D8B36A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--brown); overflow-x: hidden; cursor: none; }
+
+    .cur-dot { width: 8px; height: 8px; background: var(--rose); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .25s, height .25s; }
+    .cur-ring { width: 36px; height: 36px; border: 1.5px solid var(--rose); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: .55; transition: width .3s, height .3s, border-color .3s, opacity .3s; }
+    body.hov .cur-ring { width: 54px; height: 54px; border-color: var(--gold); opacity: .9; }
+
+    /* NAVBAR */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 5rem; display: flex; justify-content: space-between; align-items: center; background: rgba(248,245,239,.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(226,125,151,.12); transform: translateY(-100%); transition: transform .55s cubic-bezier(.4,0,.2,1); }
+    #navbar.vis { transform: translateY(0); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.55rem; color: var(--rose); text-decoration: none; transition: opacity .2s; }
+    .nav-logo:hover { opacity: .7; }
+    .nav-links { display: flex; gap: 2.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--brown); position: relative; transition: color .3s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--rose); transition: width .35s cubic-bezier(.4,0,.2,1); }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* HERO */
+    #hero { height: 100vh; min-height: 680px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; position: relative; overflow: hidden; background: var(--cream); }
+    .hero-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-blob.b1 { width: 580px; height: 580px; background: radial-gradient(circle, rgba(226,125,151,.13) 0%, transparent 70%); top: -140px; right: -80px; }
+    .hero-blob.b2 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(216,179,106,.1) 0%, transparent 70%); bottom: 60px; left: -50px; }
+    .hero-text { padding: 0 4rem 0 5rem; opacity: 0; transform: translateX(-44px); animation: sil 1s .35s forwards; }
+    .hero-name { margin-bottom: 1.3rem; }
+    .hero-main-name { font-family: 'Playfair Display', serif; font-weight: 300;font-size: clamp(3.4rem,6vw,6rem); color: var(--rose); line-height: 0.95; display: block; white-space: nowrap; }
+    .hero-bar { width: 50px; height: 2px; background: var(--gold); margin-bottom: 1.3rem; }
+    .hero-subtitle { font-size: .95rem; font-weight: 200; letter-spacing: .2em; text-transform: uppercase; color: var(--brown); margin-bottom: .5rem; }
+    .hero-eyebrow { font-size: .7rem; font-weight: 800; letter-spacing: .258em; text-transform: uppercase; color: var(--brown); margin-bottom: 2.5rem; }
+    .hero-cta { display: inline-flex; align-items: center; gap: .8rem; font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); opacity: .55; text-decoration: none; transition: opacity .3s; }
+    .hero-cta:hover { opacity: 1; }
+    .hero-cta-line { width: 38px; height: 1px; background: var(--rose); }
+    .hero-cta-arrow { animation: bRight 1.9s infinite; }
+    .hero-photo { height: 100%; display: flex; align-items: flex-end; justify-content: center; opacity: 0; transform: translateX(44px); animation: sir 1s .45s forwards; }
+    .hero-frame { width: 78%; max-width: 420px; height: 88vh; max-height: 700px; position: relative; }
+    .hero-frame::before { content: ''; position: absolute; inset: 0; border-radius: 210px 210px 0 0; background: var(--sand); }
+    .hero-frame::after { content: ''; position: absolute; top: 22px; left: 22px; right: -14px; bottom: -14px; border: 1.5px solid rgba(216,179,106,.28); border-radius: 210px 210px 0 0; pointer-events: none; }
+    .hero-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 210px 210px 0 0; position: relative; z-index: 1; }
+    .hero-frame-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 210px 210px 0 0; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--rose); opacity: .2; z-index: 1; }
+
+    /* HELPERS */
+    section { padding: 8rem 0; }
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 2.5rem; }
+    .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem,4.2vw,3.2rem); font-weight: 500; color: var(--brown); line-height: 0.7; margin-bottom: .4rem; }
+    .sec-subtitle { font-family: 'Outfit', sans-serif; font-size: clamp(0.8rem,1.6vw,1.1rem); color: var(--rose); line-height: 1.8; margin-bottom: .8rem; }
+    .sec-div { width: 100px; height: 2px; background: var(--gold); margin-bottom: 3rem; }
+
+    /* PERFIL */
+    #perfil { background: var(--sand); overflow: hidden; position: relative; }
+    .perfil-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; gap: 2rem; }
+    .perfil-header-right { flex-shrink: 0; }
+    .btn-cv { display: inline-flex; align-items: center; gap: .65rem; padding: .9rem 2rem; background: var(--rose); color: var(--cream); border: none; border-radius: 50px; font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: background .3s, transform .25s, box-shadow .3s; }
+    .btn-cv:hover { background: #c96882; transform: translateY(-3px); box-shadow: 0 14px 30px rgba(226,125,151,.3); }
+    .perfil-grid { display: flex; flex-direction: column; gap: 0; }
+    .perfil-col-div { display: none; }
+    .perfil-col-bio { margin-bottom: 3rem; }
+    .perfil-col-bio p { font-size: .97rem; line-height: 1.95; opacity: .82; margin-bottom: 1.2rem; }
+    .perfil-col-bio p:last-child { margin-bottom: 0; }
+    .video-placeholder { width: 100%; aspect-ratio: 16/9; background: var(--brown); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; border: 1.5px solid rgba(226,125,151,.15); position: relative; overflow: hidden; }
+    .video-placeholder::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 60% 40%, rgba(226,125,151,.08) 0%, transparent 65%); }
+    .video-play { width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(226,125,151,.4); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+    .video-play svg { color: var(--rose); margin-left: 4px; }
+    .video-label { font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.35); position: relative; z-index: 1; }
+    .perfil-col-numbers { display: flex; flex-direction: row; gap: 0; margin-bottom: 3rem; border-top: 1px solid rgba(226,125,151,.2); border-bottom: 1px solid rgba(226,125,151,.2); padding: 2rem 0; }
+    .p-num-item { flex: 1; text-align: center; border-right: 1px solid rgba(226,125,151,.2); padding: 0 1.5rem; }
+    .p-num-item:last-child { border-right: none; }
+    .p-num-value { font-family: 'Playfair Display', serif; font-size: 3.2rem; color: var(--rose); line-height: 1; margin-bottom: .3rem; }
+    .p-num-label { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--brown); opacity: .7; line-height: 1.4; }
+    .p-skills-title { font-size: .68rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.2rem; }
+    .p-skill-tag { display: inline-block; font-size: .82rem; font-weight: 400; color: var(--brown); background: rgba(226,125,151,.1); border: 1px solid rgba(226,125,151,.2); border-radius: 50px; padding: .45rem 1rem; margin: 0 .4rem .6rem 0; transition: background .25s, border-color .25s, transform .2s; }
+    .p-skill-tag:hover { background: rgba(226,125,151,.18); border-color: var(--rose); transform: translateY(-2px); }
+
+    /* EMPRESA / EXPERIENCIA */
+    #empresa { background: var(--cream); }
+    #experiencia { background: var(--sand); }
+    .mag-wrap { will-change: transform; }
+    .empresa-card { background: var(--cream); border-radius: 16px; overflow: hidden; border: 1.8px solid rgba(226,125,151,.1); display: grid; grid-template-columns: 320px 1fr; min-height: 360px; transition: box-shadow .4s; }
+    .empresa-card:hover { box-shadow: 0 24px 60px rgba(74,61,51,.1); }
+    .empresa-img { background: var(--sand); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .empresa-img-ph { font-family: 'Playfair Display', serif; font-size: 4.5rem; color: var(--rose); opacity: .22; }
+    .empresa-text { padding: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .e-tag { display: inline-block; font-size: .67rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); border: 1px solid rgba(226,125,151,.3); padding: .3rem .9rem; border-radius: 50px; margin-bottom: 1.4rem; }
+    .empresa-text h2 { font-family: 'Playfair Display', serif; font-weight: 500;font-size: 2.2rem; color: var(--brown); line-height: 1.15; margin-bottom: .5rem; }
+    /* ── CAMBIO: empresa-sub más pequeño ── */
+    .empresa-sub { font-size: .67rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.6rem; }
+    .empresa-text p { font-size: 1rem; line-height: 1.85; margin-bottom: 2rem; }
+    .btn-arrow { display: inline-flex; align-items: center; gap: .7rem; font-size: .8rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--rose); text-decoration: none; transition: gap .3s; }
+    .btn-arrow svg { transition: transform .3s; }
+    .btn-arrow:hover { gap: 1.2rem; }
+    .btn-arrow:hover svg { transform: translateX(4px); }
+    .experiencia-card { grid-template-columns: 1.8fr .9fr; }
+
+    /* CONTACTO */
+    #contacto { background: var(--brown); position: relative; overflow: hidden; }
+    #contacto::before { content: ''; position: absolute; width: 580px; height: 580px; border-radius: 50%; background: radial-gradient(circle, rgba(226,125,151,.07) 0%, transparent 70%); top: -180px; right: -80px; pointer-events: none; }
+    #contacto .sec-title { color: var(--cream); }
+    #contacto .sec-div { background: var(--rose); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; margin-top: .3rem; }
+    .contact-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 2rem 1.6rem; display: flex; flex-direction: column; gap: .6rem; transition: background .3s, border-color .3s, transform .3s; }
+    .contact-card:hover { background: rgba(226,125,151,.1); border-color: rgba(226,125,151,.25); transform: translateY(-4px); }
+    .c-lbl { font-size: .67rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+    .c-val { font-size: 1rem; color: var(--cream); text-decoration: none; transition: color .2s; }
+    .c-val:hover { color: var(--rose); }
+
+    /* FOOTER */
+    footer { background: var(--brown); padding: 2.8rem 5rem; display: flex; justify-content: space-between; align-items: center; }
+    .f-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--rose); }
+    .f-socials { display: flex; gap: 1.2rem; list-style: none; }
+    .f-socials a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(226,125,151,.25); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.45); text-decoration: none; transition: border-color .3s, color .3s, transform .3s; }
+    .f-socials a:hover { border-color: var(--rose); color: var(--rose); transform: translateY(-3px); }
+    .f-copy { font-size: .72rem; color: rgba(255,255,255,.2); letter-spacing: .08em; }
+
+    .rv { opacity: 0; transform: translateY(44px); transition: opacity .85s cubic-bezier(.4,0,.2,1), transform .85s cubic-bezier(.4,0,.2,1); }
+    .rv.on { opacity: 1; transform: translateY(0); }
+
+    @keyframes sil { to { opacity:1; transform:translateX(0); } }
+    @keyframes sir { to { opacity:1; transform:translateX(0); } }
+    @keyframes bRight { 0%,100%{transform:translateX(0)} 50%{transform:translateX(7px)} }
+
+    @media(max-width:900px) {
+      #navbar { padding: 1rem 1.8rem; }
+      .nav-links { gap: 1.6rem; }
+      #hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+      .hero-photo { order: -1; height: 55vw; max-height: 420px; align-items: center; animation: none; opacity: 1; transform: none; }
+      .hero-frame { height: 100%; width: 68%; max-width: 300px; }
+      .hero-text { padding: 2.5rem 2rem 4rem; animation: none; opacity: 1; transform: none; }
+      .perfil-header { flex-direction: column; align-items: flex-start; }
+      .empresa-card, .experiencia-card { grid-template-columns: 1fr !important; }
+      .empresa-img { height: 220px; }
+      .experiencia-card .empresa-img { order: -1; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem; }
+    }
+    /* Navbar móvil: reducir tamaño para que quepan los links */
+    .nav-hamburger { display: none; }
+    @media(max-width:700px) {
+      #navbar { padding: .8rem 1.2rem; }
+      .nav-logo { font-size: 1.15rem; }
+      .nav-links { gap: .7rem; }
+      .nav-links a { font-size: .52rem; letter-spacing: .04em; }
+      #perfil { padding-top: 6rem; }
+    }
+    @media(max-width:430px) {
+      .nav-links { gap: .45rem; }
+      .nav-links a { font-size: .48rem; letter-spacing: .02em; }
+    }
+    @media(max-width:768px) {
+      .hero-main-name { white-space: normal; line-height: 1; }
+      .p-num-item { padding: 0 .8rem; }
+      .p-num-value { font-size: 2.4rem; }
+    }
+    @media(max-width:600px) {
+      section { padding: 5rem 0; }
+      .nav-links a { font-size: .7rem; }
+      body { cursor: auto; }
+      .cur-dot, .cur-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cur-dot" id="cDot"></div>
+  <div class="cur-ring" id="cRing"></div>
+
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Tania P.</a>
+    <ul class="nav-links">
+      <li><a href="#perfil">Perfil</a></li>
+      <li><a href="#empresa">Empresa</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-blob b1"></div>
+    <div class="hero-blob b2"></div>
+    <div class="hero-text">
+      <h1 class="hero-name">
+        <span class="hero-main-name">Tania Peláez Valverde</span>
+      </h1>
+      <div class="hero-bar"></div>
+      <p class="hero-subtitle">Comunicación Social y Periodismo</p>
+      <p class="hero-eyebrow">Comunicación estratégica con propósito social. Conectar, visibilizar y transformar.</p>
+      <a href="#perfil" class="hero-cta">
+        <span class="hero-cta-line"></span>
+        Descubrir
+        <svg class="hero-cta-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-photo">
+      <div class="hero-frame">
+        <div class="hero-frame-ph">✦</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="perfil">
+    <div class="wrap">
+      <div class="perfil-header rv">
+        <div class="perfil-header-left">
+          <h2 class="sec-title">Perfil Profesional</h2>
+          <p class="sec-subtitle">Comunicación estratégica con propósito social.</p>
+          <div class="sec-div" style="margin-bottom:0;"></div>
+        </div>
+        <div class="perfil-header-right">
+          <a href="hoja-de-vida-tania.pdf" download class="btn-cv">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Descargar hoja de vida
+          </a>
+        </div>
+      </div>
+
+      <div class="perfil-grid">
+        <div class="perfil-col-bio rv" style="transition-delay:.1s;">
+          <p>Soy estudiante de Comunicación Social y Periodismo, con interés en la comunicación estratégica, la creación de contenido institucional y la narración de procesos sociales desde una perspectiva humana y territorial. Me interesa especialmente el papel de la comunicación como herramienta para visibilizar iniciativas que generan desarrollo, fortalecen comunidades y promueven transformaciones sociales.</p>
+          <p>Me caracterizo por ser una persona comprometida, creativa y sensible frente a las realidades sociales, con interés en desarrollar procesos comunicativos que integren narrativa, estrategia y propósito social.</p>
+        </div>
+        <div class="perfil-col-div"></div>
+        <div class="rv" style="transition-delay:.15s;">
+          <div class="video-placeholder">
+            <div class="video-play">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </div>
+            <p class="video-label">Video de presentación</p>
+          </div>
+        </div>
+        <div class="perfil-col-div"></div>
+        <div class="perfil-col-numbers rv" style="transition-delay:.2s;">
+          <div class="p-num-item">
+            <p class="p-num-value">10°</p>
+            <p class="p-num-label">Semestre<br>de carrera</p>
+          </div>
+          <div class="p-num-item">
+            <p class="p-num-value">22K+</p>
+            <p class="p-num-label">Familias caficultoras<br>representadas</p>
+          </div>
+          <div class="p-num-item">
+            <p class="p-num-value">3</p>
+            <p class="p-num-label">Tipos de trabajo<br>durante la práctica</p>
+          </div>
+        </div>
+        <div class="perfil-col-div"></div>
+        <div class="perfil-col-skills rv" style="transition-delay:.3s;">
+          <p class="p-skills-title">Áreas de interés</p>
+          <div>
+            <span class="p-skill-tag">Comunicación estratégica</span>
+            <span class="p-skill-tag">Contenido institucional</span>
+            <span class="p-skill-tag">Periodismo social</span>
+            <span class="p-skill-tag">Producción digital</span>
+            <span class="p-skill-tag">Cobertura de eventos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="empresa">
+    <div class="wrap">
+      <div class="mag-wrap rv" style="transition-delay:.16s;" id="magWrap">
+        <div class="empresa-card">
+          <div class="empresa-img">
+            <div class="empresa-img-ph">✦</div>
+          </div>
+          <div class="empresa-text">
+            <span class="e-tag">Prácticas profesionales</span>
+            <h2>Comité de Cafeteros del Valle del Cauca</h2>
+            <p class="empresa-sub">Federación Nacional de Cafeteros · Valle del Cauca, Colombia</p>
+            <p>Entidad gremial encargada de representar y acompañar a los caficultores del departamento dentro del sistema institucional del café colombiano. Fundada el 14 de mayo de 1928, agrupa a más de 22.000 familias caficultoras del Valle del Cauca, como parte de la estructura regional de la Federación Nacional de Cafeteros de Colombia, fundada en 1927.</p>
+            <a href="empresa.html" class="btn-arrow">
+              Conoce más sobre la empresa
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <div class="mag-wrap rv" style="transition-delay:.16s;" id="magWrapExp">
+        <div class="empresa-card experiencia-card">
+          <div class="empresa-text">
+            <span class="e-tag">Experiencia profesional</span>
+            <h2>Mi experiencia</h2>
+            <p class="empresa-sub">Comité de Cafeteros del Valle del Cauca · 2026</p>
+            <p>Actualmente realizo mi práctica profesional en el Comité de Cafeteros del Valle del Cauca, donde apoyo procesos de comunicación institucional orientados a la difusión de proyectos, programas e iniciativas que impactan al sector cafetero del departamento.</p>
+            <p>Mi experiencia me ha permitido comprender la comunicación como una herramienta estratégica para fortalecer el vínculo entre la institucionalidad cafetera, los territorios y las comunidades productoras.</p>
+            <a href="experiencia.html" class="btn-arrow">
+              Ver toda mi experiencia
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+          <div class="empresa-img">
+            <div class="empresa-img-ph">✦</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap">
+      <h2 class="sec-title rv">Contacto</h2>
+      <div class="sec-div rv" style="transition-delay:.08s;"></div>
+      <div class="contact-grid rv" style="transition-delay:.16s;">
+        <div class="contact-card">
+          <span class="c-lbl">Correo electrónico</span>
+          <a href="mailto:correo@ejemplo.com" class="c-val">[correo@ejemplo.com]</a>
+        </div>
+        <div class="contact-card">
+          <span class="c-lbl">WhatsApp</span>
+          <a href="https://wa.me/573172273408" target="_blank" rel="noopener" class="c-val">+57 317 227 3408</a>
+        </div>
+        <div class="contact-card">
+          <span class="c-lbl">Ciudad</span>
+          <span class="c-val">Cali, Colombia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="f-name">Tania Peláez Valverde</p>
+    <ul class="f-socials">
+      <li><a href="#" aria-label="Instagram">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a></li>
+      <li><a href="#" aria-label="LinkedIn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a></li>
+    </ul>
+    <p class="f-copy">© 2025 Tania Peláez Valverde</p>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function tick(){dot.style.cssText+=`;left:${mx}px;top:${my}px`;rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.cssText+=`;left:${rx}px;top:${ry}px`;requestAnimationFrame(tick);})();
+    document.querySelectorAll('a,button,.empresa-card,.p-skill-tag').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+    });
+    const nb=document.getElementById('navbar'),hero=document.getElementById('hero');
+    new IntersectionObserver(([e])=>{e.isIntersecting?nb.classList.remove('vis'):nb.classList.add('vis');},{threshold:.15}).observe(hero);
+    const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}}),{threshold:.12});
+    document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+    function addTilt(id){
+      const w=document.getElementById(id);if(!w)return;
+      w.addEventListener('mousemove',e=>{const r=w.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/(r.width/2);const y=(e.clientY-r.top-r.height/2)/(r.height/2);w.style.transform=`perspective(1200px) rotateY(${x*5}deg) rotateX(${-y*3}deg) translateY(-4px)`;});
+      w.addEventListener('mouseleave',()=>{w.style.transition='transform .5s cubic-bezier(.23,1,.32,1)';w.style.transform='';w.addEventListener('transitionend',()=>{w.style.transition='';},{once:true});});
+    }
+    addTilt('magWrap');addTilt('magWrapExp');
+    window.addEventListener('scroll',()=>{const y=window.scrollY,h=document.querySelector('.hero-photo');if(h&&y<window.innerHeight)h.style.transform=`translateY(${y*.1}px)`;});
+    /* Hamburguesa */
+    const burger = document.getElementById('hamburger');
+    if (burger) {
+      burger.addEventListener('click', () => {
+        nb.classList.toggle('menu-open');
+      });
+      // Cerrar al hacer clic en cualquier link
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.addEventListener('click', () => nb.classList.remove('menu-open'));
+      });
+    }
+  </script>
+</body>
+</html>

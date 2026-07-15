@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comité de Cafeteros del Valle del Cauca — Tania Peláez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--cream:#f8f5ef;--rose:#e27d97;--brown:#4a3d33;--sand:#e9dfd2;--gold:#D8B36A;--white:#ffffff;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--brown);overflow-x:hidden;cursor:none;}
+
+    .cur-dot{width:8px;height:8px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+    .cur-ring{width:36px;height:36px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.55;transition:width .3s,height .3s,border-color .3s;}
+    body.hov .cur-ring{width:54px;height:54px;border-color:var(--gold);opacity:.9;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(248,245,239,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(226,125,151,.15);}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--rose);text-decoration:none;}
+    .nav-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--brown);text-decoration:none;transition:color .25s;}
+    .nav-back:hover{color:var(--rose);}
+
+    /* HERO */
+    .empresa-hero{min-height:55vh;background:var(--brown);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden;}
+    .empresa-hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(226,125,151,.08);top:-150px;right:-100px;}
+    .empresa-hero::after{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(216,179,106,.06);bottom:-80px;left:-60px;}
+    .empresa-hero-logo{width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(226,125,151,.3);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--rose);margin-bottom:1.7rem;position:relative;z-index:1;}
+    .empresa-hero-label{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;position:relative;z-index:1;}
+    .empresa-hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,4.8rem);color:var(--white);line-height:1;margin-bottom:1rem;position:relative;z-index:1;}
+    .empresa-hero-sector{font-size:.86rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);position:relative;z-index:1;}
+
+    /* CONTENT */
+    .page-content{max-width:900px;margin:0 auto;padding:5rem 2rem;}
+    .section-block{margin-bottom:4.5rem;}
+    .block-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);margin-bottom:.5rem;}
+    .block-title{font-family:'Playfair Display',serif;font-size:2.3rem;color:var(--brown);margin-bottom:1.2rem;}
+    .block-divider{width:42px;height:2px;background:var(--gold);margin-bottom:1.8rem;}
+    .block-text p{font-size:1.02rem;line-height:1.95;opacity:.84;margin-bottom:1.2rem;}
+    .block-text p:last-child{margin-bottom:0;}
+
+    /* QUICK FACTS */
+    .quick-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;margin:3rem 0;perspective:1200px;}
+    .fact-card{background:var(--white);border:1px solid rgba(226,125,151,.12);border-radius:14px;padding:1.5rem 1.2rem;transition:transform .2s,box-shadow .3s;will-change:transform;}
+    .fact-card:hover{box-shadow:0 18px 40px rgba(74,61,51,.08);}
+    .fact-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);margin-bottom:.4rem;}
+    .fact-value{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--brown);}
+
+    /* FUNCIONES LIST */
+    .func-list{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+    .func-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem 1.4rem;background:var(--white);border-radius:10px;border:1px solid rgba(226,125,151,.1);transition:transform .3s,box-shadow .3s;}
+    .func-item:hover{transform:translateX(6px);box-shadow:-3px 0 0 var(--rose);}
+    .func-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);flex-shrink:0;margin-top:.45rem;}
+    .func-item p{font-size:.97rem;line-height:1.7;opacity:.82;}
+
+    /* IMPORTANCIA — 2 cols con imagen */
+    .import-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem;}
+    .import-card{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid rgba(226,125,151,.1);}
+    .import-card-img{height:180px;background:var(--sand);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:3rem;color:var(--rose);opacity:.25;}
+    .import-card-body{padding:1.5rem;}
+    .import-card-body p{font-size:.95rem;line-height:1.8;opacity:.82;}
+
+    /* POR QUÉ — foto al lado */
+    .porque-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+    .porque-img{background:var(--sand);border-radius:12px;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:3rem;color:var(--rose);opacity:.25;}
+    .porque-text p{font-size:1rem;line-height:1.95;opacity:.82;margin-bottom:1.2rem;}
+    .porque-text p:last-child{margin-bottom:0;}
+
+    /* REDES */
+    .redes-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
+    .red-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.4rem;border:1.5px solid rgba(226,125,151,.3);border-radius:50px;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);text-decoration:none;transition:background .3s,border-color .3s,transform .25s;}
+    .red-btn:hover{background:var(--rose);color:var(--white);border-color:var(--rose);transform:translateY(-2px);}
+
+    /* GALLERY */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;}
+    .gallery-item{aspect-ratio:1;background:var(--sand);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s;}
+    .gallery-item:hover{transform:translateY(-4px);}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;}
+    .gallery-placeholder{font-family:'Playfair Display',serif;font-size:2rem;color:var(--rose);opacity:.35;}
+
+    /* BACK */
+    .back-btn-wrap{text-align:center;margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(74,61,51,.1);}
+    .btn-back{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 2rem;border:1.5px solid var(--rose);border-radius:50px;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);text-decoration:none;transition:background .3s,color .3s,transform .3s;}
+    .btn-back:hover{background:var(--rose);color:var(--white);transform:translateY(-3px);}
+
+    .reveal{opacity:0;transform:translateY(35px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    @media(max-width:768px){nav{padding:1rem 1.5rem;}.porque-grid{grid-template-columns:1fr;}.import-grid{grid-template-columns:1fr;}.gallery{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:600px){body{cursor:auto;}.cur-dot,.cur-ring{display:none;}.gallery{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+  <div class="cur-dot" id="cDot"></div>
+  <div class="cur-ring" id="cRing"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Tania P.</a>
+    <a href="index.html#empresa" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Volver
+    </a>
+  </nav>
+
+  <section class="empresa-hero">
+    <div class="empresa-hero-logo">✦</div>
+    <p class="empresa-hero-label">Empresa de prácticas</p>
+    <h1 class="empresa-hero-name">Comité de Cafeteros<br>del Valle del Cauca</h1>
+    <p class="empresa-hero-sector">Federación Nacional de Cafeteros · Cali, Colombia</p>
+  </section>
+
+  <main class="page-content">
+
+    <!-- QUICK FACTS -->
+    <div class="quick-facts reveal">
+      <div class="fact-card">
+        <p class="fact-label">Sector</p>
+        <p class="fact-value">Cafetero</p>
+      </div>
+      <div class="fact-card">
+        <p class="fact-label">Fundado</p>
+        <p class="fact-value">1928</p>
+      </div>
+      <div class="fact-card">
+        <p class="fact-label">Familias representadas</p>
+        <p class="fact-value">+22.000</p>
+      </div>
+      <div class="fact-card">
+        <p class="fact-label">Municipios productores</p>
+        <p class="fact-value">39</p>
+      </div>
+    </div>
+
+    <!-- SOBRE LA EMPRESA -->
+    <section class="section-block reveal">
+      <p class="block-label">¿Quiénes son?</p>
+      <h2 class="block-title">Sobre la empresa</h2>
+      <div class="block-divider"></div>
+      <div class="block-text">
+        <p>El Comité de Cafeteros del Valle del Cauca es la entidad gremial encargada de representar y acompañar a los caficultores del departamento dentro del sistema institucional del café colombiano. Este comité hace parte de la estructura regional de la Federación Nacional de Cafeteros de Colombia, organización privada, sin ánimo de lucro y de carácter gremial fundada en 1927 por los propios productores de café del país.</p>
+        <p>La Federación cuenta con una estructura organizativa que incluye comités departamentales y municipales en las zonas productoras del país, lo que permite mantener una relación directa con las comunidades cafeteras y garantizar la implementación de programas y servicios en los territorios.</p>
+        <p>En el Valle del Cauca, la representación institucional se ejerce a través del Comité fundado el 14 de mayo de 1928, entidad que agrupa y representa a más de 22.000 familias caficultoras del departamento.</p>
+      </div>
+    </section>
+
+    <!-- FUNCIONES -->
+    <section class="section-block reveal" style="transition-delay:.08s;">
+      <p class="block-label">Rol institucional</p>
+      <h2 class="block-title">Funciones del Comité</h2>
+      <div class="block-divider"></div>
+      <ul class="func-list">
+        <li class="func-item"><div class="func-dot"></div><p>Velar por la correcta prestación de los servicios que la Federación Nacional de Cafeteros ofrece a los productores.</p></li>
+        <li class="func-item"><div class="func-dot"></div><p>Gestionar programas y acciones que beneficien a los caficultores del departamento.</p></li>
+        <li class="func-item"><div class="func-dot"></div><p>Promover el desarrollo del sector cafetero en el territorio.</p></li>
+        <li class="func-item"><div class="func-dot"></div><p>Representar los intereses de los productores ante las instancias nacionales del gremio cafetero.</p></li>
+      </ul>
+    </section>
+
+    <!-- IMPORTANCIA -->
+    <section class="section-block reveal" style="transition-delay:.1s;">
+      <p class="block-label">Su impacto</p>
+      <h2 class="block-title">Importancia del Comité</h2>
+      <div class="block-divider"></div>
+      <div class="import-grid">
+        <div class="import-card">
+          <!-- <img src="img-cafeteros1.jpg"> -->
+          <div class="import-card-img">✦</div>
+          <div class="import-card-body">
+            <p>La caficultura constituye una actividad económica y social fundamental para las zonas rurales del departamento. En el Valle del Cauca existen más de 23.000 familias dedicadas al cultivo de café, distribuidas en 39 municipios productores.</p>
+          </div>
+        </div>
+        <div class="import-card">
+          <!-- <img src="img-cafeteros2.jpg"> -->
+          <div class="import-card-img">✦</div>
+          <div class="import-card-body">
+            <p>El café no solo representa una fuente de ingresos para miles de familias rurales, sino que también genera empleo y dinamiza la economía local. El cultivo está compuesto principalmente por pequeños productores, lo que resalta su relevancia en la sostenibilidad social y económica del territorio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUÉ -->
+    <section class="section-block reveal" style="transition-delay:.12s;">
+      <p class="block-label">Mi decisión</p>
+      <h2 class="block-title">¿Por qué elegí el Comité de Cafeteros?</h2>
+      <div class="block-divider"></div>
+      <div class="porque-grid">
+        <div class="porque-text">
+          <p>Elegí realizar mi práctica profesional en el Comité de Cafeteros del Valle del Cauca porque encontré en esta institución un espacio donde la comunicación trasciende lo corporativo y se convierte en una herramienta para conectar territorios, comunidades e historias humanas.</p>
+          <p>El Comité representaba para mí la oportunidad de integrarme a un entorno donde la comunicación tiene un propósito ligado al desarrollo rural, la identidad cafetera y el fortalecimiento de las comunidades productoras del departamento. Me interesaba comprender cómo una institución de gran trayectoria construye estrategias de comunicación para visibilizar proyectos y fortalecer vínculos con los caficultores.</p>
+          <p>Esta experiencia me permitía articular varios enfoques que han marcado mi trayectoria académica: la comunicación organizacional, la creación de contenidos, el cubrimiento audiovisual y la comunicación con enfoque humano y social. Encontré en el Comité un escenario donde podía aportar desde mis habilidades creativas y estratégicas, mientras fortalecía mi visión de la comunicación como un puente entre las instituciones y las comunidades.</p>
+        </div>
+        <div>
+          <!-- <img src="foto-porque.jpg" alt="En el Comité de Cafeteros"> -->
+          <div class="porque-img">✦</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REDES SOCIALES -->
+    <section class="section-block reveal" style="transition-delay:.14s;">
+      <p class="block-label">Síguelos</p>
+      <h2 class="block-title">Redes sociales del Comité</h2>
+      <div class="block-divider"></div>
+      <div class="redes-row">
+        <a href="#" class="red-btn" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a href="#" class="red-btn" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="#" class="red-btn" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          YouTube
+        </a>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section-block reveal" style="transition-delay:.16s;">
+      <p class="block-label">Imágenes</p>
+      <h2 class="block-title">La empresa en fotos</h2>
+      <div class="block-divider"></div>
+      <div class="gallery">
+        <div class="gallery-item"><span class="gallery-placeholder">✦</span></div>
+        <div class="gallery-item"><span class="gallery-placeholder">✦</span></div>
+        <div class="gallery-item"><span class="gallery-placeholder">✦</span></div>
+      </div>
+    </section>
+
+    <div class="back-btn-wrap reveal">
+      <a href="index.html#empresa" class="btn-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver al portafolio
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    const dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function t(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t);})();
+    document.querySelectorAll('a,.fact-card,.gallery-item,.func-item').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+    });
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    document.querySelectorAll('.fact-card').forEach(card=>{
+      card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)/r.width;const y=(e.clientY-r.top-r.height/2)/r.height;card.style.transform=`perspective(1000px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-4px)`;});
+      card.addEventListener('mouseleave',()=>{card.style.transform='';});
+    });
+  </script>
+</body>
+</html>
