@@ -1,0 +1,101 @@
+.pageHero {
+  min-height: 50vh; background: var(--brown); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 9rem 2rem 5rem; position: relative; overflow: hidden;
+}
+.pageHero::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: rgba(226,125,151,.07); top: -140px; right: -80px; }
+.pageHero::after { content: ''; position: absolute; width: 280px; height: 280px; border-radius: 50%; background: rgba(216,179,106,.06); bottom: -60px; left: -40px; }
+.phEyebrow { font-size: .7rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; position: relative; z-index: 1; }
+.phTitle { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem,6vw,5rem); color: #fff; line-height: 1.05; margin-bottom: 1rem; position: relative; z-index: 1; }
+.phTitle em { color: var(--rose); font-style: italic; }
+.phSub { font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.45); position: relative; z-index: 1; }
+
+.wrapNarrow { max-width: 900px; margin: 0 auto; padding: 0 2.5rem; }
+
+.introSection { padding: 6rem 0 2rem; }
+.introGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.introText p { font-size: 1rem; line-height: 1.9; opacity: .82; margin-bottom: 1.2rem; }
+.introText p:last-child { margin-bottom: 0; }
+.introImg { background: var(--sand); border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: .2em; color: var(--rose); opacity: .3; }
+
+.cardsSection { padding: 4rem 0; }
+.cardsLabel { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: .5rem; }
+.cardsTitle { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3rem); color: var(--brown); margin-bottom: 1rem; }
+.cardsDiv { width: 44px; height: 2px; background: var(--gold); margin-bottom: 3rem; }
+.cardsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 2.2rem; perspective: 1400px; }
+
+.expCard { height: 360px; cursor: pointer; position: relative; }
+.expCardInner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform .78s cubic-bezier(.4,.2,.2,1); }
+.expCardInner.flipped { transform: rotateY(180deg); }
+.expFront, .expBack { position: absolute; inset: 0; border-radius: 4px; backface-visibility: hidden; overflow: hidden; }
+.expFront { background: var(--cream); border: 1px solid rgba(226,125,151,.12); display: flex; flex-direction: column; transition: box-shadow .35s; }
+.expCard:hover .expFront { box-shadow: 0 22px 52px rgba(74,61,51,.12); }
+.expFrontImg { flex: 1; background: var(--sand); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.expFrontImgPh { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: .2em; color: var(--rose); opacity: .25; }
+.flipHint { position: absolute; bottom: .9rem; right: 1.1rem; font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rose); opacity: 0; transition: opacity .3s; }
+.expCard:hover .flipHint { opacity: 1; }
+.expFrontBody { padding: 1.3rem 1.5rem; flex-shrink: 0; }
+.expFrontBody h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--brown); margin-bottom: .3rem; }
+.expFrontBody p { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); }
+.expBack { background: var(--sand); transform: rotateY(180deg); padding: 2.2rem; display: flex; flex-direction: column; justify-content: space-between; }
+.expBack h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); margin-bottom: .9rem; }
+.expBack p { font-size: .9rem; line-height: 1.8; color: var(--brown); opacity: .85; flex: 1; }
+
+.collageSection { padding: 4rem 0; }
+.collageLabel { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: .5rem; }
+.collageTitle { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3.5vw,2.6rem); color: var(--brown); margin-bottom: 1rem; }
+.collageDiv { width: 44px; height: 2px; background: var(--gold); margin-bottom: 2rem; }
+.collageGrid { display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: 200px 200px; gap: .8rem; }
+.collageItem { background: var(--sand); border-radius: 4px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; transition: transform .35s, box-shadow .35s; cursor: pointer; }
+.collageItem:hover { transform: scale(1.02); box-shadow: 0 12px 30px rgba(74,61,51,.12); }
+.collageItemPh { font-family: 'Playfair Display', serif; font-size: .8rem; letter-spacing: .15em; color: var(--rose); opacity: .3; text-align: center; padding: 1rem; }
+.tall { grid-row: span 2; }
+.wide { grid-column: span 2; }
+
+.aprendizajesSection { padding: 6rem 0; background: var(--sand); }
+.apTitle { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3rem); color: var(--brown); margin-bottom: .6rem; }
+.apIntro { font-size: 1rem; line-height: 1.9; opacity: .82; margin-bottom: 4rem; max-width: 720px; }
+
+.apItem { margin-bottom: 3rem; opacity: 0; transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1); }
+.fromRight { transform: translateX(60px); }
+.fromLeft { transform: translateX(-60px); }
+.visible { opacity: 1; transform: translateX(0); }
+
+.fromRight .apDeco { margin-left: auto; width: 85%; }
+.fromLeft .apDeco { margin-right: auto; width: 85%; }
+
+.apDeco { background: var(--cream); border-radius: 4px; border: 1px solid rgba(226,125,151,.15); padding: 2.5rem; display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
+.apDecoNum { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 400; color: var(--rose); opacity: .18; line-height: 1; }
+.apDecoLine { width: 32px; height: 2px; background: var(--gold); }
+.apDecoTitle { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--rose); margin-bottom: .8rem; line-height: 1.3; }
+
+.crecimientoSection { padding: 6rem 0; }
+.apSub { font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; color: var(--rose); margin-bottom: 3rem; opacity: .8; }
+.skillsHeading { font-size: .7rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.5rem; }
+.skillsCols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+.skillsColTitle { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; }
+.skillsCol ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+.skillsCol li { font-size: .9rem; opacity: .78; padding-left: 1rem; position: relative; }
+.skillsCol li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+.ctaSection { background: var(--brown); padding: 5rem 0; text-align: center; }
+.ctaQuote { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 300; color: var(--cream); max-width: 700px; margin: 0 auto 2.5rem; line-height: 1.8; opacity: .85; }
+.ctaQuote em { color: var(--rose); font-style: normal; }
+.btnCta { display: inline-flex; align-items: center; gap: .7rem; padding: 1rem 2.5rem; background: transparent; color: var(--cream); border: 1.5px solid rgba(255,255,255,.35); border-radius: 2px; font-family: 'Outfit', sans-serif; font-size: .85rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; transition: background .3s, border-color .3s, transform .25s; }
+.btnCta:hover { background: var(--rose); border-color: var(--rose); transform: translateY(-3px); }
+
+@media (max-width: 900px) {
+  .introGrid { grid-template-columns: 1fr; }
+  .skillsCols { grid-template-columns: 1fr; }
+  .fromRight .apDeco, .fromLeft .apDeco { width: 100%; margin: 0; }
+  .collageGrid { grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(4,220px); }
+  .tall { grid-row: span 2; }
+  .wide { grid-column: span 2; grid-row: span 1; }
+}
+
+@media (max-width: 600px) {
+  .collageGrid { grid-template-columns: 1fr; grid-template-rows: none; }
+  .collageItem { height: 220px; }
+  .tall { grid-row: span 1; }
+  .wide { grid-column: span 1; }
+}

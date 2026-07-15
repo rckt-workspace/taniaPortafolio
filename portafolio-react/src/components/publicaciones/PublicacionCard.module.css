@@ -1,0 +1,72 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 4px;
+  background: var(--sand);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  position: relative;
+  transition: transform .3s, box-shadow .3s;
+  color: var(--rose);
+}
+
+.thumb:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(74,61,51,.12);
+}
+
+.thumbLabel {
+  font-family: 'Playfair Display', serif;
+  font-size: .78rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  opacity: .5;
+}
+
+.playIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(226,125,151,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.num {
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  opacity: .6;
+}
+
+.link {
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--rose);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

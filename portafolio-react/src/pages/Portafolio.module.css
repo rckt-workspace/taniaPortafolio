@@ -1,0 +1,72 @@
+.pageHero {
+  min-height: 45vh; background: var(--brown); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 9rem 2rem 5rem; position: relative; overflow: hidden;
+}
+.pageHero::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: rgba(226,125,151,.07); top: -140px; right: -80px; }
+.pageHero::after { content: ''; position: absolute; width: 280px; height: 280px; border-radius: 50%; background: rgba(216,179,106,.06); bottom: -60px; left: -40px; }
+.phEyebrow { font-size: .7rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; position: relative; z-index: 1; }
+.phTitle { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem,6vw,4.5rem); color: #fff; line-height: 1.05; margin-bottom: .8rem; position: relative; z-index: 1; }
+.phSub { font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.4); position: relative; z-index: 1; }
+
+.portNavWrap {
+  background: var(--cream); position: sticky; top: 57px; z-index: 50;
+  border-bottom: 1px solid rgba(58,46,40,.08);
+}
+.portNav { display: flex; gap: 0; border-bottom: 1px solid rgba(58,46,40,.1); overflow-x: auto; }
+.portNavItem {
+  flex-shrink: 0; font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--brown); opacity: .55; padding: .9rem 1.6rem; border-bottom: 2px solid transparent;
+  cursor: pointer; transition: opacity .2s, border-color .2s; text-decoration: none;
+}
+.portNavItem:hover { opacity: 1; }
+
+.portSection { padding: 5rem 0; border-bottom: 1px solid rgba(58,46,40,.07); }
+
+.secHead { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; gap: 2rem; flex-wrap: wrap; }
+.secHeadLeft { display: flex; align-items: flex-end; gap: .5rem; }
+.secNum { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 400; color: var(--rose); opacity: .15; line-height: 1; margin-right: .5rem; }
+.secLabel { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: .4rem; }
+.secTitle { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3.5vw,2.6rem); color: var(--brown); line-height: 1.1; }
+.secRule { width: 36px; height: 2px; background: var(--gold); margin-top: .8rem; }
+.secDesc { font-size: .97rem; line-height: 1.9; opacity: .78; max-width: 680px; }
+
+.textBlock p { font-size: .97rem; line-height: 1.95; opacity: .8; margin-bottom: 1.2rem; }
+.textBlock p:last-child { margin-bottom: 0; }
+
+.verMasBtn {
+  display: inline-flex; align-items: center; gap: .6rem; margin-top: 2rem;
+  font-size: .78rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--rose); background: transparent; border: 1px solid rgba(226,125,151,.3);
+  border-radius: 2px; padding: .65rem 1.4rem; cursor: pointer;
+  transition: background .3s, border-color .3s, gap .3s;
+}
+.verMasBtn:hover { background: rgba(226,125,151,.08); border-color: var(--rose); }
+.verMasBtn svg { transition: transform .35s; }
+.verMasBtn.open svg { transform: rotate(90deg); }
+
+.expandable { max-height: 0; overflow: hidden; transition: max-height .6s cubic-bezier(.4,0,.2,1); }
+.expandableOpen { max-height: 9999px; }
+.expandableInner { padding-top: 2.5rem; }
+
+.pubGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.4rem;
+}
+
+.backSection { padding: 3rem 0; text-align: center; background: var(--sand); }
+.btnBack {
+  display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 2rem;
+  border: 1.5px solid var(--rose); border-radius: 2px; font-size: .8rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--rose); text-decoration: none;
+  transition: background .3s, color .3s, transform .25s;
+}
+.btnBack:hover { background: var(--rose); color: var(--cream); transform: translateY(-3px); }
+
+@media (max-width: 900px) {
+  .pubGrid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+@media (max-width: 600px) {
+  .secHead { flex-direction: column; align-items: flex-start; }
+}
