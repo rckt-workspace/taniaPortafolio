@@ -12,6 +12,22 @@ const SECTIONS = [
   ...categorias.map((c) => ({ id: c.id, label: c.titulo })),
 ];
 
+const SECTION_IMAGES = {
+  estrategia: 'Estrategia global.png',
+  elecciones: 'Elecciones Cafeteras.png',
+  esdelc: 'ESDELC.png',
+  cobertura: 'Cubrimiento fotográfico y audiovisual.png',
+};
+
+function SectionImage({ file, alt, delay }) {
+  if (!file) return null;
+  return (
+    <Reveal delay={delay} className={styles.secIntroImage}>
+      <img src={`/portafolio/${encodeURIComponent(file)}`} alt={alt} />
+    </Reveal>
+  );
+}
+
 function AccordionSection({ id, alt, isOpen, children }) {
   return (
     <section
@@ -249,69 +265,79 @@ function CategoriaSection({ categoria, onOpen }) {
 
   return (
     <>
-        <Reveal className={styles.secHead}>
-          <div className={styles.secHeadLeft}>
-            <span className={styles.secNum}>
-              {categoria.numero}
-            </span>
+        <div className={styles.secIntro}>
+          <div className={styles.secIntroText}>
+            <Reveal className={styles.secHead}>
+              <div className={styles.secHeadLeft}>
+                <span className={styles.secNum}>
+                  {categoria.numero}
+                </span>
 
-            <div>
-              <p className={styles.secLabel}>
-                {categoria.label}
-              </p>
+                <div>
+                  <p className={styles.secLabel}>
+                    {categoria.label}
+                  </p>
 
-              <h2 className={styles.secTitle}>
-                {categoria.titulo}
-              </h2>
+                  <h2 className={styles.secTitle}>
+                    {categoria.titulo}
+                  </h2>
 
-              <div className={styles.secRule} />
-            </div>
-          </div>
-        </Reveal>
+                  <div className={styles.secRule} />
+                </div>
+              </div>
+            </Reveal>
 
-        {categoria.subtitulo && (
-          <Reveal
-            delay={0.05}
-            as="p"
-            className={styles.secSubtitulo}
-          >
-            {categoria.subtitulo}
-          </Reveal>
-        )}
+            {categoria.subtitulo && (
+              <Reveal
+                delay={0.05}
+                as="p"
+                className={styles.secSubtitulo}
+              >
+                {categoria.subtitulo}
+              </Reveal>
+            )}
 
-        <Reveal
-          delay={0.08}
-          as="p"
-          className={styles.secDesc}
-        >
-          {categoria.descripcion}
-        </Reveal>
-
-        <Reveal delay={0.12}>
-          <button
-            type="button"
-            className={`${styles.verMasBtn} ${
-              open ? styles.open : ''
-            }`}
-            onClick={() => setOpen((estadoActual) => !estadoActual)}
-          >
-            {open ? 'Ver menos' : 'Ver más'}
-
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+            <Reveal
+              delay={0.08}
+              as="p"
+              className={styles.secDesc}
             >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
-        </Reveal>
+              {categoria.descripcion}
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <button
+                type="button"
+                className={`${styles.verMasBtn} ${
+                  open ? styles.open : ''
+                }`}
+                onClick={() => setOpen((estadoActual) => !estadoActual)}
+              >
+                {open ? 'Ver menos' : 'Ver más'}
+
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </Reveal>
+          </div>
+
+          <SectionImage
+            file={SECTION_IMAGES[categoria.id]}
+            alt={categoria.titulo}
+            delay={0.1}
+          />
+        </div>
 
         <div
           className={`${styles.expandable} ${
@@ -625,42 +651,52 @@ export default function Portafolio() {
           alt
           isOpen={openSection === 'estrategia'}
         >
-            <Reveal className={styles.secHead}>
-              <div className={styles.secHeadLeft}>
-                <span className={styles.secNum}>
-                  02
-                </span>
+            <div className={styles.secIntro}>
+              <div className={styles.secIntroText}>
+                <Reveal className={styles.secHead}>
+                  <div className={styles.secHeadLeft}>
+                    <span className={styles.secNum}>
+                      02
+                    </span>
 
-                <div>
-                  <p className={styles.secLabel}>
-                    Comunicación institucional
-                  </p>
+                    <div>
+                      <p className={styles.secLabel}>
+                        Comunicación institucional
+                      </p>
 
-                  <h2 className={styles.secTitle}>
-                    Estrategia global
-                    <br />
-                    de redes sociales
-                  </h2>
+                      <h2 className={styles.secTitle}>
+                        Estrategia global
+                        <br />
+                        de redes sociales
+                      </h2>
 
-                  <div className={styles.secRule} />
-                </div>
+                      <div className={styles.secRule} />
+                    </div>
+                  </div>
+                </Reveal>
+
+                <Reveal
+                  delay={0.05}
+                  as="p"
+                  className={styles.secDesc}
+                >
+                  Diseño y estructuración de la estrategia de comunicación
+                  digital del Comité de Cafeteros del Valle del Cauca,
+                  orientada a fortalecer la presencia institucional en
+                  redes sociales y mejorar el alcance e impacto de los
+                  contenidos publicados.
+                </Reveal>
               </div>
-            </Reveal>
+
+              <SectionImage
+                file={SECTION_IMAGES.estrategia}
+                alt="Estrategia global de redes sociales"
+                delay={0.1}
+              />
+            </div>
 
             <Reveal
-              delay={0.05}
-              as="p"
-              className={styles.secDesc}
-            >
-              Diseño y estructuración de la estrategia de comunicación
-              digital del Comité de Cafeteros del Valle del Cauca,
-              orientada a fortalecer la presencia institucional en
-              redes sociales y mejorar el alcance e impacto de los
-              contenidos publicados.
-            </Reveal>
-
-            <Reveal
-              delay={0.1}
+              delay={0.15}
               className={styles.textBlock}
             >
               <p>

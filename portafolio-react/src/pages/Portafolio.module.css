@@ -138,6 +138,43 @@
   max-height: 9999px;
 }
 
+.secIntro {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.secIntroText {
+  display: flex;
+  flex-direction: column;
+}
+
+.secIntroImage {
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 260px;
+  background: var(--sand);
+}
+
+.secIntroImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 860px) {
+  .secIntro {
+    grid-template-columns: 1fr;
+  }
+
+  .secIntroImage {
+    order: -1;
+    min-height: 220px;
+  }
+}
+
 .secHead {
   display: flex;
   align-items: flex-end;
