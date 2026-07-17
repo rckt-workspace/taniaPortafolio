@@ -1,5 +1,7 @@
 // Cada publicación referencia uno o varios archivos locales (public/<categoria>/...).
 // Si `media` tiene más de un archivo, la tarjeta se abre como carrusel (swiper).
+// `likes` y `comentarios` son opcionales: si no se ponen, la tarjeta no muestra esa fila.
+// Edita estos dos números con los datos reales de cada publicación en Instagram/Facebook/YouTube.
 
 export const categorias = [
   {
@@ -9,7 +11,7 @@ export const categorias = [
     titulo: 'Elecciones Cafeteras',
     descripcion: 'Cobertura comunicacional del proceso de Elecciones Cafeteras del Valle del Cauca, incluyendo la producción de contenidos informativos, registro fotográfico y audiovisual, y la difusión institucional del proceso en redes sociales y canales del Comité.',
     publicaciones: [
-      { media: ['/elecciones/video1.mp4'] },
+      { media: ['/elecciones/video1.mp4'], likes: 0, comentarios: 0 },
       { media: ['/elecciones/video2.mp4'] },
       { media: ['/elecciones/video3.mp4'] },
       { media: ['/elecciones/video4.mp4'] },

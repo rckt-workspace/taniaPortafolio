@@ -83,3 +83,20 @@
   color: var(--brown);
   opacity: .6;
 }
+
+.interactions {
+  display: flex;
+  gap: 1rem;
+}
+
+.interaction {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--brown);
+  opacity: .75;
+}
+
+.interaction svg { color: var(--rose); flex-shrink: 0; }
