@@ -16,7 +16,17 @@
 .introGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 .introText p { font-size: 1rem; line-height: 1.9; opacity: .82; margin-bottom: 1.2rem; }
 .introText p:last-child { margin-bottom: 0; }
-.introImg { background: var(--sand); border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: .2em; color: var(--rose); opacity: .3; }
+.introImg { 
+  border-radius: 4px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden; 
+  opacity: 1; 
+  
+  /* CAMBIOS AQUÍ: Cambiamos la proporción a una vertical o la quitamos */
+  aspect-ratio: 3/4; /* Esto la hace más alta, ideal para retratos */
+}
 
 .cardsSection { padding: 4rem 0; }
 .cardsLabel { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rose); margin-bottom: .5rem; }

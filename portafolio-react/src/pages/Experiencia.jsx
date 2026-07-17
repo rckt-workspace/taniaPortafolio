@@ -97,7 +97,7 @@ const FUNCIONES = [
   {
     title: 'Creación de Contenidos',
     subtitle: 'Narrativas institucionales',
-    back: 'Concepción, producción y posproducción de contenidos digitales para redes sociales y canales institucionales del Comité. Construcción de narrativas para visibilizar proyectos, fortalecer la identidad cafetera y acercar la institución a las comunidades.',
+    back: 'Concepción, producción y posproducción de contenidos digitales para redes sociales y canales institucionales del Comité. Construcción de narrativas para visibilizar proyectos, fortalecer la identidad cafetera y acercar la institution a las comunidades.',
   },
 ];
 
@@ -117,7 +117,13 @@ export default function Experiencia() {
               <p>Actualmente realizo mi práctica profesional en el Comité de Cafeteros del Valle del Cauca, entidad adscrita a la Federación Nacional de Cafeteros de Colombia, donde apoyo procesos de comunicación institucional orientados a la difusión de proyectos, programas e iniciativas que impactan al sector cafetero del departamento.</p>
               <p>Mi experiencia dentro de la organización me ha permitido comprender la comunicación como una herramienta estratégica para fortalecer el vínculo entre la institucionalidad cafetera, los territorios y las comunidades productoras.</p>
             </div>
-            <div className={styles.introImg}>Foto de presentación</div>
+            <div className={styles.introImg}>
+              <img 
+                src="/experiencia/portada.png" 
+                alt="Foto de presentación" 
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+              />
+            </div>
           </Reveal>
         </div>
       </section>
