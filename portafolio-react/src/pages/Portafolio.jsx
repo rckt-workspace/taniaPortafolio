@@ -184,11 +184,7 @@ function CategoriaSection({ categoria, onOpen }) {
 
 export default function Portafolio() {
   const [active, setActive] = useState(null);
-  const [openSection, setOpenSection] = useState(null);
-
-  function toggleSection(id) {
-    setOpenSection((current) => (current === id ? null : id));
-  }
+  const [openSection, setOpenSection] = useState(SECTIONS[0].id);
 
   return (
     <>
@@ -254,7 +250,7 @@ export default function Portafolio() {
                 className={`${styles.portNavItem} ${
                   openSection === section.id ? styles.portNavItemActive : ''
                 }`}
-                onClick={() => toggleSection(section.id)}
+                onClick={() => setOpenSection(section.id)}
               >
                 <span className={styles.portNavNum}>
                   {String(i + 1).padStart(2, '0')}

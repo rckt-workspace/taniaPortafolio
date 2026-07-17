@@ -72,13 +72,12 @@
 
 .portNav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0;
   border-bottom: 1px solid rgba(58, 46, 40, 0.1);
-  overflow-x: auto;
 }
 
 .portNavItem {
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
