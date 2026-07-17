@@ -122,14 +122,14 @@
   gap: 1.4rem;
 }
 
-.backSection { padding: 3rem 0; text-align: center; background: var(--sand); }
+.backSection { padding: 3rem 0; text-align: center; background: var(--brown); }
 .btnBack {
   display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 2rem;
   border: 1.5px solid var(--rose); border-radius: 2px; font-size: .8rem; font-weight: 500;
   letter-spacing: .1em; text-transform: uppercase; color: var(--rose); text-decoration: none;
   transition: background .3s, color .3s, transform .25s;
 }
-.btnBack:hover { background: var(--rose); color: var(--cream); transform: translateY(-3px); }
+.btnBack:hover { background: var(--brown); border-color: var(--brown); color: var(--cream); transform: translateY(-3px); }
 
 @media (max-width: 900px) {
   .pubGrid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
