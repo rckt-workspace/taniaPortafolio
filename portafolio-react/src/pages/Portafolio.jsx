@@ -376,6 +376,13 @@ export default function Portafolio() {
 
       <section className={styles.introSection}>
         <div className="wrap">
+          <Reveal className={styles.portadaImage}>
+            <img
+              src={`/portafolio/${encodeURIComponent('portadaPortafolio.png')}`}
+              alt="Portafolio de Tania Peláez Valverde"
+            />
+          </Reveal>
+
           <Reveal className={styles.textBlock}>
             <p>
               Este portafolio reúne el trabajo que desarrollé durante

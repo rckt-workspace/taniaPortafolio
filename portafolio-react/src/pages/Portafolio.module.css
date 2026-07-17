@@ -244,6 +244,19 @@
   padding: 3.5rem 0 0;
 }
 
+.portadaImage {
+  max-width: 420px;
+  margin: 0 auto 2.5rem;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.portadaImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .secSubtitulo {
   font-family: 'Playfair Display', serif;
   font-style: italic;
