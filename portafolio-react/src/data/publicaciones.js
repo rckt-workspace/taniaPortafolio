@@ -6,7 +6,7 @@
 export const categorias = [
   {
     id: 'elecciones',
-    numero: '02',
+    numero: '03',
     label: 'Cobertura y contenido',
     titulo: 'Elecciones Cafeteras',
     descripcion: 'Cobertura comunicacional del proceso de Elecciones Cafeteras del Valle del Cauca, incluyendo la producción de contenidos informativos, registro fotográfico y audiovisual, y la difusión institucional del proceso en redes sociales y canales del Comité.',
@@ -22,7 +22,7 @@ export const categorias = [
   },
   {
     id: 'esdelc',
-    numero: '03',
+    numero: '04',
     label: 'Serie de contenido digital',
     titulo: '#ESDELC',
     descripcion: 'El Servicio de Extensión Rural es el puente vivo entre la institución y los caficultores del territorio. A través de #ESDELC — El Servicio de Extensión le Cuenta — decidimos mostrar esta labor más allá de las asesorías técnicas: visibilizamos las historias de los extensionistas, sus encuentros en el campo, los casos reales que transforman fincas y familias. Porque la extensión no es solo transferencia de conocimiento, es relación, es presencia, es gente que se levanta cada día para acompañar a otros. Ese fue el ángulo: humanizar la labor para que los caficultores vieran en los extensionistas aliados cercanos, no solo técnicos.',
@@ -39,7 +39,7 @@ export const categorias = [
   },
   {
     id: 'cobertura',
-    numero: '04',
+    numero: '05',
     label: 'Periodismo y audiovisual',
     titulo: 'Cubrimiento fotográfico y audiovisual',
     subtitulo: 'Más allá del lente',

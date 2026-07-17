@@ -6,25 +6,41 @@ import PublicacionCard from '../components/publicaciones/PublicacionCard';
 import { categorias } from '../data/publicaciones';
 import styles from './Portafolio.module.css';
 
-const NAV_ITEMS = [
-  { href: '#estrategia', label: 'Estrategia global' },
-  ...categorias.map((c) => ({
-    href: `#${c.id}`,
-    label: c.titulo,
-  })),
+const SECTIONS = [
+  { id: 'voto-tu-gremio', label: 'Tu voto, tu gremio' },
+  { id: 'estrategia', label: 'Estrategia global' },
+  ...categorias.map((c) => ({ id: c.id, label: c.titulo })),
 ];
 
-function CategoriaSection({ categoria, index, onOpen }) {
-  const [open, setOpen] = useState(false);
-  const alt = index % 2 === 1;
-
+function AccordionSection({ id, alt, isOpen, children }) {
   return (
     <section
       className={styles.portSection}
-      id={categoria.id}
-      style={alt ? { background: 'var(--sand)' } : undefined}
+      id={id}
+      style={{
+        background: alt ? 'var(--sand)' : undefined,
+        paddingTop: isOpen ? undefined : 0,
+        paddingBottom: isOpen ? undefined : 0,
+      }}
     >
       <div className="wrap">
+        <div
+          className={`${styles.sectionCollapse} ${
+            isOpen ? styles.sectionCollapseOpen : ''
+          }`}
+        >
+          <div className={styles.sectionCollapseInner}>{children}</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CategoriaSection({ categoria, onOpen }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
         <Reveal className={styles.secHead}>
           <div className={styles.secHeadLeft}>
             <span className={styles.secNum}>
@@ -162,13 +178,17 @@ function CategoriaSection({ categoria, index, onOpen }) {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </>
   );
 }
 
 export default function Portafolio() {
   const [active, setActive] = useState(null);
+  const [openSection, setOpenSection] = useState(null);
+
+  function toggleSection(id) {
+    setOpenSection((current) => (current === id ? null : id));
+  }
 
   return (
     <>
@@ -226,25 +246,31 @@ export default function Portafolio() {
       <div className={styles.portNavWrap}>
         <div className="wrap">
           <nav className={styles.portNav}>
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={styles.portNavItem}
+            {SECTIONS.map((section, i) => (
+              <button
+                key={section.id}
+                type="button"
+                aria-expanded={openSection === section.id}
+                className={`${styles.portNavItem} ${
+                  openSection === section.id ? styles.portNavItemActive : ''
+                }`}
+                onClick={() => toggleSection(section.id)}
               >
-                {item.label}
-              </a>
+                <span className={styles.portNavNum}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {section.label}
+              </button>
             ))}
           </nav>
         </div>
       </div>
 
       <main>
-        <section
-          className={styles.portSection}
-          id="estrategia"
+        <AccordionSection
+          id="voto-tu-gremio"
+          isOpen={openSection === 'voto-tu-gremio'}
         >
-          <div className="wrap">
             <Reveal className={styles.voteSection}>
               <p className={styles.voteEyebrow}>
                 Estrategia electoral 2026
@@ -450,14 +476,17 @@ export default function Portafolio() {
                 </ol>
               </div>
             </Reveal>
+        </AccordionSection>
 
-            <Reveal
-              delay={0.16}
-              className={styles.secHead}
-            >
+        <AccordionSection
+          id="estrategia"
+          alt
+          isOpen={openSection === 'estrategia'}
+        >
+            <Reveal className={styles.secHead}>
               <div className={styles.secHeadLeft}>
                 <span className={styles.secNum}>
-                  01
+                  02
                 </span>
 
                 <div>
@@ -477,7 +506,7 @@ export default function Portafolio() {
             </Reveal>
 
             <Reveal
-              delay={0.2}
+              delay={0.05}
               as="p"
               className={styles.secDesc}
             >
@@ -489,7 +518,7 @@ export default function Portafolio() {
             </Reveal>
 
             <Reveal
-              delay={0.24}
+              delay={0.1}
               className={styles.textBlock}
             >
               <p>
@@ -526,16 +555,17 @@ export default function Portafolio() {
                 sociales.
               </p>
             </Reveal>
-          </div>
-        </section>
+        </AccordionSection>
 
         {categorias.map((categoria, index) => (
-          <CategoriaSection
+          <AccordionSection
             key={categoria.id}
-            categoria={categoria}
-            index={index}
-            onOpen={setActive}
-          />
+            id={categoria.id}
+            alt={index % 2 === 1}
+            isOpen={openSection === categoria.id}
+          >
+            <CategoriaSection categoria={categoria} onOpen={setActive} />
+          </AccordionSection>
         ))}
       </main>
 
