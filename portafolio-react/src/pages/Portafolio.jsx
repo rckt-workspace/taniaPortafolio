@@ -39,6 +39,214 @@ function AccordionSection({ id, alt, isOpen, children }) {
 function CategoriaSection({ categoria, onOpen }) {
   const [open, setOpen] = useState(false);
 
+  // Renderizado manual e independiente por cada ID de sección
+  const renderPublicacionesPorSeccion = () => {
+    switch (categoria.id) {
+      
+      // ============================================================ 
+      // SECCIÓN: ELECCIONES CAFETERAS (7 Publicaciones Reales)
+      // ============================================================ 
+      case 'elecciones': // Asegúrate de que este ID sea el mismo de tu data/publicaciones.js
+        return (
+          <>
+            {/* PUBLICACIÓN 01 */}
+            {categoria.publicaciones[0] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[0].media} numero="01" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>66</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>38</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 02 */}
+            {categoria.publicaciones[1] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[1].media} numero="02" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>58</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>26</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 03 */}
+            {categoria.publicaciones[2] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[2].media} numero="03" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>363</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>19</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 04 */}
+            {categoria.publicaciones[3] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[3].media} numero="04" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>30</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>12</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 05 */}
+            {categoria.publicaciones[4] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[4].media} numero="05" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>28</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>6</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 06 */}
+            {categoria.publicaciones[5] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[5].media} numero="06" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>27</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>10</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* PUBLICACIÓN 07 */}
+            {categoria.publicaciones[6] && (
+              <div className={styles.publicacionItem}>
+                <PublicacionCard media={categoria.publicaciones[6].media} numero="07" onOpen={onOpen} />
+                <div className={styles.publicacionStats}>
+                  <span className={styles.publicacionStat} title="Me gusta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                    <span>113</span>
+                  </span>
+                  <span className={styles.publicacionStat} title="Comentarios">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                    <span>54</span>
+                  </span>
+                </div>
+              </div>
+            )}
+          </>
+        );
+
+      // ============================================================ 
+      // SECCIÓN: #ESDELC (8 Publicaciones Reales)
+      // ============================================================ 
+      case 'esdelc': // Asegúrate de que este ID sea el mismo de tu data/publicaciones.js
+        return (
+          <>
+            {/* Utiliza los índices correlativos de los elementos de este bloque de datos */}
+            {[...Array(8)].map((_, index) => {
+              // Valores específicos que registraste para las primeras de la lista general
+              let likes = 0;
+              let comentarios = 0;
+
+              if (index === 0) { likes = 242; comentarios = 35; }
+              else if (index === 1) { likes = 331; comentarios = 66; }
+              else if (index === 2) { likes = 493; comentarios = 125; }
+              else if (index === 3) { likes = 156; comentarios = 49; }
+              else if (index === 4) { likes = 400; comentarios = 23; }
+              else if (index === 5) { likes = 138; comentarios = 16; }
+              else if (index === 6) { likes = 60; comentarios = 6; }
+              else if (index === 7) { likes = 110; comentarios = 49; }
+
+              return categoria.publicaciones[index] && (
+                <div key={index} className={styles.publicacionItem}>
+                  <PublicacionCard media={categoria.publicaciones[index].media} numero={String(index + 1).padStart(2, '0')} onOpen={onOpen} />
+                  <div className={styles.publicacionStats}>
+                    <span className={styles.publicacionStat} title="Me gusta">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                      <span>{likes}</span>
+                    </span>
+                    <span className={styles.publicacionStat} title="Comentarios">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                      <span>{comentarios}</span>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        );
+
+      // ============================================================ 
+      // SECCIÓN: CUBRIMIENTO FOTOGRÁFICO Y AUDIOVISUAL (11 Publicaciones)
+      // ============================================================ 
+      default: 
+        return (
+          <>
+            {[...Array(11)].map((_, index) => {
+              let likes = 0;
+              let comentarios = 0;
+
+              if (index === 0) { likes = 95; comentarios = 48; }
+              else if (index === 1) { likes = 88; comentarios = 29; }
+              else if (index === 2) { likes = 148; comentarios = 31; }
+              else if (index === 3) { likes = 183; comentarios = 60; }
+              else if (index === 4) { likes = 177; comentarios = 79; }
+              else if (index === 5) { likes = 126; comentarios = 33; }
+              else if (index === 6) { likes = 138; comentarios = 10; }
+              else if (index === 7) { likes = 109; comentarios = 36; }
+              else if (index === 8) { likes = 126; comentarios = 45; }
+              else if (index === 9) { likes = 146; comentarios = 69; }
+              else if (index === 10) { likes = 77; comentarios = 29; }
+
+              return categoria.publicaciones[index] && (
+                <div key={index} className={styles.publicacionItem}>
+                  <PublicacionCard media={categoria.publicaciones[index].media} numero={String(index + 1).padStart(2, '0')} onOpen={onOpen} />
+                  <div className={styles.publicacionStats}>
+                    <span className={styles.publicacionStat} title="Me gusta">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+                      <span>{likes}</span>
+                    </span>
+                    <span className={styles.publicacionStat} title="Comentarios">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
+                      <span>{comentarios}</span>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        );
+    }
+  };
+
   return (
     <>
         <Reveal className={styles.secHead}>
@@ -112,69 +320,7 @@ function CategoriaSection({ categoria, onOpen }) {
         >
           <div className={styles.expandableInner}>
             <div className={styles.pubGrid}>
-              {categoria.publicaciones.map((pub, i) => (
-                <div
-                  key={`${categoria.id}-${pub.media[0]}-${i}`}
-                  className={styles.publicacionItem}
-                >
-                  <PublicacionCard
-                    media={pub.media}
-                    numero={String(i + 1).padStart(2, '0')}
-                    onOpen={onOpen}
-                  />
-
-                  <div
-                    className={styles.publicacionStats}
-                    aria-label={`La publicación tiene ${
-                      pub.likes ?? 0
-                    } me gusta y ${
-                      pub.comentarios ?? 0
-                    } comentarios`}
-                  >
-                    <span
-                      className={styles.publicacionStat}
-                      title="Me gusta"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" />
-                      </svg>
-
-                      <span>{pub.likes ?? 0}</span>
-                    </span>
-
-                    <span
-                      className={styles.publicacionStat}
-                      title="Comentarios"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" />
-                      </svg>
-
-                      <span>{pub.comentarios ?? 0}</span>
-                    </span>
-                  </div>
-                </div>
-              ))}
+              {renderPublicacionesPorSeccion()}
             </div>
           </div>
         </div>
@@ -583,76 +729,30 @@ export default function Portafolio() {
 
             <ul className={styles.contactList}>
               <li>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M4 4h16v16H4z" />
                   <path d="m22 6-10 7L2 6" />
                 </svg>
-
                 <a href="mailto:pelaezvalverdetania@gmail.com">
                   pelaezvalverdetania@gmail.com
                 </a>
               </li>
 
               <li>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-
                 <a href="tel:+573172273409">
                   +57 317 227 3409
                 </a>
               </li>
 
               <li>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                  />
-
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-
-                  <line
-                    x1="17.5"
-                    y1="6.5"
-                    x2="17.51"
-                    y2="6.5"
-                  />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                 </svg>
-
                 <a
                   href="https://instagram.com/tania_0224"
                   target="_blank"
@@ -663,21 +763,10 @@ export default function Portafolio() {
               </li>
 
               <li>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
-
                 <span>Cali, Colombia</span>
               </li>
             </ul>
@@ -701,16 +790,9 @@ export default function Portafolio() {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            <line
-              x1="19"
-              y1="12"
-              x2="5"
-              y2="12"
-            />
-
+            <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
           </svg>
-
           Volver a mi experiencia
         </Link>
       </div>
