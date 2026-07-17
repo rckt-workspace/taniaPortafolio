@@ -59,6 +59,17 @@
   text-transform: uppercase; color: var(--brown); margin-bottom: 2.5rem;
 }
 
+.heroPerfilTitle {
+  font-family: 'Playfair Display', serif; font-weight: 500; font-size: 1.5rem;
+  color: var(--brown); margin-bottom: .4rem;
+}
+
+.heroPerfilSubtitle {
+  font-family: 'Outfit', sans-serif; font-size: .9rem; color: var(--rose); margin-bottom: 1.3rem;
+}
+
+.heroBtnCv { margin-bottom: 2.2rem; }
+
 .heroCta {
   display: inline-flex; align-items: center; gap: .8rem;
   font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
@@ -99,11 +110,6 @@
 
 /* PERFIL */
 .perfil { background: var(--sand); overflow: hidden; position: relative; padding: 8rem 0; }
-
-.perfilHeader {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  margin-bottom: 4rem; gap: 2rem;
-}
 
 .btnCv {
   display: inline-flex; align-items: center; gap: .65rem; padding: .9rem 2rem;
@@ -222,7 +228,6 @@
   .heroPhoto { order: -1; height: 55vw; max-height: 420px; align-items: center; animation: none; opacity: 1; transform: none; }
   .heroFrame { height: 100%; width: 68%; max-width: 300px; }
   .heroText { padding: 2.5rem 2rem 4rem; animation: none; opacity: 1; transform: none; }
-  .perfilHeader { flex-direction: column; align-items: flex-start; }
   .empresaCard, .experienciaCard { grid-template-columns: 1fr !important; }
   .empresaImg { height: 220px; }
   .experienciaCard .empresaImg { order: -1; }

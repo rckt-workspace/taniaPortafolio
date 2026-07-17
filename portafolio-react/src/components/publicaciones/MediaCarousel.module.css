@@ -1,0 +1,74 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  display: block;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(58, 46, 40, .55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.arrow:hover {
+  background: var(--rose);
+}
+
+.arrowLeft { left: .7rem; }
+.arrowRight { right: .7rem; }
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(254, 252, 247, .3);
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s, transform .2s;
+}
+
+.dot:hover {
+  background: rgba(254, 252, 247, .6);
+}
+
+.dotActive {
+  background: var(--rose);
+  transform: scale(1.3);
+}

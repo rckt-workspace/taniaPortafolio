@@ -1,6 +1,5 @@
-// tipo se infiere del propio patrón de URL de Facebook:
-// /share/r/ y /share/v/ -> reproductor de video (plugins/video.php)
-// /share/p/ -> reproductor de post/foto (plugins/post.php)
+// Cada publicación referencia uno o varios archivos locales (public/<categoria>/...).
+// Si `media` tiene más de un archivo, la tarjeta se abre como carrusel (swiper).
 
 export const categorias = [
   {
@@ -10,12 +9,13 @@ export const categorias = [
     titulo: 'Elecciones Cafeteras',
     descripcion: 'Cobertura comunicacional del proceso de Elecciones Cafeteras del Valle del Cauca, incluyendo la producción de contenidos informativos, registro fotográfico y audiovisual, y la difusión institucional del proceso en redes sociales y canales del Comité.',
     publicaciones: [
-      { url: 'https://www.facebook.com/share/r/1FjDeU8yjV/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1BVWU8vXcK/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1H8Qej4PSo/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1DsAf2MFJJ/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1bWJh5kT1P/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1EnRK6TEV6/', tipo: 'video' },
+      { media: ['/elecciones/video1.mp4'] },
+      { media: ['/elecciones/video2.mp4'] },
+      { media: ['/elecciones/video3.mp4'] },
+      { media: ['/elecciones/video4.mp4'] },
+      { media: ['/elecciones/video5.mp4'] },
+      { media: ['/elecciones/video6.mp4'] },
+      { media: ['/elecciones/video7.mp4'] },
     ],
   },
   {
@@ -23,14 +23,16 @@ export const categorias = [
     numero: '03',
     label: 'Serie de contenido digital',
     titulo: '#ESDELC',
-    descripcion: 'El Servicio de Extensión le Cuenta — serie de contenidos digitales orientada a visibilizar los programas y servicios que el Comité ofrece a los caficultores del departamento, conectando la institucionalidad con las comunidades productoras desde un enfoque cercano y territorial.',
+    descripcion: 'El Servicio de Extensión Rural es el puente vivo entre la institución y los caficultores del territorio. A través de #ESDELC — El Servicio de Extensión le Cuenta — decidimos mostrar esta labor más allá de las asesorías técnicas: visibilizamos las historias de los extensionistas, sus encuentros en el campo, los casos reales que transforman fincas y familias. Porque la extensión no es solo transferencia de conocimiento, es relación, es presencia, es gente que se levanta cada día para acompañar a otros. Ese fue el ángulo: humanizar la labor para que los caficultores vieran en los extensionistas aliados cercanos, no solo técnicos.',
     publicaciones: [
-      { url: 'https://www.facebook.com/share/r/183pALPmVr/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/19D28mDxEY/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1Du8i2Gvqa/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/v/1DDbSS51FK/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1KZ5CytpEy/', tipo: 'video' },
-      { url: 'https://www.facebook.com/share/r/1EMfHfD7YS/', tipo: 'video' },
+      { media: ['/esdelc/video1.mp4'] },
+      { media: ['/esdelc/video2.mp4'] },
+      { media: ['/esdelc/video3.mp4'] },
+      { media: ['/esdelc/video4.mp4'] },
+      { media: ['/esdelc/video5.mp4'] },
+      { media: ['/esdelc/video6.mp4'] },
+      { media: ['/esdelc/video7.mp4'] },
+      { media: ['/esdelc/video8.mp4'] },
     ],
   },
   {
@@ -38,13 +40,20 @@ export const categorias = [
     numero: '04',
     label: 'Periodismo y audiovisual',
     titulo: 'Cubrimiento fotográfico y audiovisual',
-    descripcion: 'Registro fotográfico y audiovisual de actividades institucionales del Comité de Cafeteros del Valle del Cauca, incluyendo eventos gremiales, recorridos de campo y actividades de formación y acompañamiento a caficultores del departamento.',
+    subtitulo: 'Más allá del lente',
+    descripcion: 'El cubrimiento fotográfico y audiovisual de eventos institucionales va más allá de documentar momentos — se trata de capturar emociones y construir conexión. Cada fotografía, cada video que subimos tiene un propósito: sensibilizar. Cuando registramos encuentros con autoridades, celebraciones gremiales o reuniones decisivas, no solo inmortalizamos lo que pasó, sino que buscamos que nuestros públicos se sientan parte de eso. Para lograrlo, fuimos estratégicos: en coberturas fotográficas elegimos frases impactantes del protagonista — sus reflexiones sobre el gremio, su visión de la caficultura — y las convertimos en storytelling visual. En producción audiovisual, éramos rigurosos al revisar cada segundo para identificar esos ganchos conversacionales naturales — una frase que resonara, un inicio que atrapara — y los usamos como hooks emocionales y auditivos. Porque una foto o un video sin conexión emocional es solo registro; con ella, es testimonio.',
     publicaciones: [
-      { url: 'https://www.facebook.com/share/p/1ENSR361pb/', tipo: 'post' },
-      { url: 'https://www.facebook.com/share/p/1FQicjCNU5/', tipo: 'post' },
-      { url: 'https://www.facebook.com/share/p/1FY9FaFxQL/', tipo: 'post' },
-      { url: 'https://www.facebook.com/share/p/1BR5T4LvqN/', tipo: 'post' },
-      { url: 'https://www.facebook.com/share/r/1DsDEEcqsB/', tipo: 'video' },
+      { media: ['/cobertura/imagen1.1.jpg', '/cobertura/imagen1.2.jpg', '/cobertura/imagen1.3.jpg'] },
+      { media: ['/cobertura/imagen2.1.jpg', '/cobertura/imagen2.2.jpg', '/cobertura/imagen2.3.jpg'] },
+      { media: ['/cobertura/imagen3.jpg'] },
+      { media: ['/cobertura/imagen4.1.jpg', '/cobertura/imagen4.2.jpg', '/cobertura/imagen4.3.jpg'] },
+      { media: ['/cobertura/imagen5.jpg'] },
+      { media: ['/cobertura/video1.mp4'] },
+      { media: ['/cobertura/video2.mp4'] },
+      { media: ['/cobertura/video3.mp4'] },
+      { media: ['/cobertura/video4.mp4'] },
+      { media: ['/cobertura/video5.mp4'] },
+      { media: ['/cobertura/video6.mp4'] },
     ],
   },
 ];

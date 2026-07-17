@@ -22,6 +22,17 @@ export default function Home() {
           <div className={styles.heroBar} />
           <p className={styles.heroSubtitle}>Comunicación Social y Periodismo</p>
           <p className={styles.heroEyebrow}>Comunicación estratégica con propósito social. Conectar, visibilizar y transformar.</p>
+
+          <h2 className={styles.heroPerfilTitle}>Perfil Profesional</h2>
+          <p className={styles.heroPerfilSubtitle}>Comunicación estratégica con propósito social.</p>
+          <a href="hoja-de-vida-tania.pdf" download className={`${styles.btnCv} ${styles.heroBtnCv}`}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Descargar hoja de vida
+          </a>
+
           <a href="#perfil" className={styles.heroCta}>
             <span className={styles.heroCtaLine} />
             Descubrir
@@ -39,23 +50,6 @@ export default function Home() {
 
       <section id="perfil" className={styles.perfil}>
         <div className="wrap">
-          <Reveal className={styles.perfilHeader}>
-            <div>
-              <h2 className="sec-title">Perfil Profesional</h2>
-              <p className="sec-subtitle">Comunicación estratégica con propósito social.</p>
-              <div className="sec-div" style={{ marginBottom: 0 }} />
-            </div>
-            <div>
-              <a href="hoja-de-vida-tania.pdf" download className={styles.btnCv}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Descargar hoja de vida
-              </a>
-            </div>
-          </Reveal>
-
           <div className={styles.perfilGrid}>
             <Reveal delay={0.1} className={styles.perfilBio}>
               <p>Soy estudiante de Comunicación Social y Periodismo, con interés en la comunicación estratégica, la creación de contenido institucional y la narración de procesos sociales desde una perspectiva humana y territorial. Me interesa especialmente el papel de la comunicación como herramienta para visibilizar iniciativas que generan desarrollo, fortalecen comunidades y promueven transformaciones sociales.</p>
