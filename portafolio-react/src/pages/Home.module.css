@@ -42,15 +42,15 @@
 
 .hero {
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
   position: relative;
   overflow: hidden;
   display: grid;
   grid-template-columns:
     minmax(0, 1.05fr)
     minmax(400px, 0.95fr);
-  align-items: center;
-  padding: 8rem 0 6rem;
+  align-items: start;
+  padding: 5.7rem 0 4.5rem;
   box-sizing: border-box;
   background:
     radial-gradient(
@@ -116,7 +116,7 @@
   min-width: 0;
   position: relative;
   z-index: 3;
-  padding: 0 3rem 0 max(3rem, calc((100vw - 1180px) / 2));
+  padding: 1.5rem 3rem 0 max(3rem, calc((100vw - 1180px) / 2));
   box-sizing: border-box;
   opacity: 0;
   transform: translateX(-45px);
@@ -324,23 +324,24 @@
 .heroPhoto {
   width: 100%;
   min-width: 0;
-  min-height: 690px;
+  min-height: auto;
   position: relative;
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1.7rem;
-  padding-right: max(2rem, calc((100vw - 1180px) / 2));
+  justify-content: flex-start;
+  gap: 1.2rem;
+  padding: 1.2rem max(2rem, calc((100vw - 1180px) / 2)) 0 1rem;
+  box-sizing: border-box;
   opacity: 0;
   transform: translateX(45px);
   animation: showFromRight 1s 0.35s forwards;
 }
 
 .heroFrame {
-  width: min(76%, 430px);
-  height: clamp(500px, 72vh, 610px);
+  width: min(82%, 450px);
+  height: clamp(500px, 66vh, 585px);
   position: relative;
   padding: 12px;
   border-radius: 220px 220px 35px 35px;
@@ -377,7 +378,7 @@
   z-index: 1;
   display: block;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   border-radius: 210px 210px 28px 28px;
 }
 
@@ -416,24 +417,6 @@
   display: block;
   color: var(--rose-light);
   font-size: 0.8rem;
-}
-
-.heroPhotoDecoration {
-  position: absolute;
-  z-index: 4;
-  top: 9%;
-  left: 2%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.heroPhotoDecoration span {
-  color: rgba(74, 61, 51, 0.48);
-  font-size: 0.63rem;
-  font-weight: 800;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
 }
 
 .btnCv {
@@ -692,12 +675,25 @@
   max-height: 0;
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
   opacity: 0;
   transition:
     max-height 0.55s ease,
     opacity 0.4s ease,
     margin 0.45s ease;
+}
+
+.videoDetails::-webkit-scrollbar {
+  width: 5px;
+}
+
+.videoDetails::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .videoDetailsVisible {
@@ -782,7 +778,7 @@
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 35px 92px 1fr 35px;
+  grid-template-columns: 35px minmax(0, 1fr) 35px;
   align-items: center;
   gap: 0.7rem;
   padding: 1.1rem;
@@ -817,6 +813,7 @@
 }
 
 .metricIndex {
+  grid-row: span 2;
   color: var(--gold);
   font-size: 0.65rem;
   font-weight: 900;
@@ -824,6 +821,8 @@
 }
 
 .numValue {
+  grid-column: 2;
+  min-width: 0;
   color: var(--rose);
   font-family: 'Playfair Display', serif;
   font-size: 2.45rem;
@@ -832,18 +831,26 @@
 }
 
 .numLabel {
+  grid-column: 2;
+  min-width: 0;
+  margin-top: 0.35rem;
   color: var(--rose);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.1em;
   line-height: 1.5;
   text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 
 .metricDescription {
   max-height: 0;
   grid-column: 2 / -1;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.82rem;
   line-height: 1.6;
@@ -852,6 +859,15 @@
     max-height 0.4s ease,
     opacity 0.4s ease,
     margin-top 0.4s ease;
+}
+
+.metricDescription::-webkit-scrollbar {
+  width: 5px;
+}
+
+.metricDescription::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .metricDescriptionVisible {
@@ -863,6 +879,8 @@
 .metricAction {
   width: 34px;
   height: 34px;
+  grid-column: 3;
+  grid-row: 1 / span 2;
   display: grid;
   place-items: center;
   justify-self: end;
@@ -991,7 +1009,11 @@
 .skillDescription {
   max-height: 0;
   margin-top: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.78rem;
   line-height: 1.55;
@@ -1000,6 +1022,15 @@
     max-height 0.4s ease,
     margin-top 0.4s ease,
     opacity 0.35s ease;
+}
+
+.skillDescription::-webkit-scrollbar {
+  width: 5px;
+}
+
+.skillDescription::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .skillDescriptionVisible {
@@ -1449,14 +1480,20 @@ a.contactCard:hover .contactArrow {
     grid-template-columns:
       minmax(0, 1fr)
       minmax(360px, 0.8fr);
+    padding-top: 5.3rem;
   }
 
   .heroText {
-    padding-left: 3rem;
+    padding: 1rem 2rem 0 3rem;
   }
 
   .heroPhoto {
-    padding-right: 2rem;
+    padding: 1rem 2rem 0 0;
+  }
+
+  .heroFrame {
+    width: min(88%, 420px);
+    height: clamp(480px, 64vh, 560px);
   }
 
   .skillsList {
@@ -1486,10 +1523,6 @@ a.contactCard:hover .contactArrow {
   .heroFrame {
     width: min(70%, 370px);
     height: clamp(420px, 75vw, 530px);
-  }
-
-  .heroPhotoDecoration {
-    display: none;
   }
 
   .heroImageBadge {
@@ -1580,10 +1613,6 @@ a.contactCard:hover .contactArrow {
     border-radius: 23px;
   }
 
-  .metricCard {
-    grid-template-columns: 30px 75px 1fr 34px;
-  }
-
   .numValue {
     font-size: 2rem;
   }
@@ -1668,28 +1697,7 @@ a.contactCard:hover .contactArrow {
   }
 
   .metricCard {
-    grid-template-columns: 28px 1fr 35px;
-  }
-
-  .metricIndex {
-    grid-row: span 2;
-  }
-
-  .numValue {
-    grid-column: 2;
-  }
-
-  .numLabel {
-    grid-column: 2;
-  }
-
-  .metricAction {
-    grid-column: 3;
-    grid-row: 1 / span 2;
-  }
-
-  .metricDescription {
-    grid-column: 2 / -1;
+    grid-template-columns: 28px minmax(0, 1fr) 35px;
   }
 
   .empresaImg {

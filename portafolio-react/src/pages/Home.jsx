@@ -289,12 +289,6 @@ export default function Home() {
         </div>
 
         <div className={styles.heroPhoto}>
-          <div className={styles.heroPhotoDecoration}>
-            <span>Comunicar</span>
-            <span>Conectar</span>
-            <span>Transformar</span>
-          </div>
-
           <div className={styles.heroFrame}>
             <img
               src={encodeURI('/SecciónPortada.png')}

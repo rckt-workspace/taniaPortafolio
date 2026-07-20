@@ -1159,14 +1159,17 @@ export default function Portafolio() {
     setOpenSection(shouldOpen ? sectionId : null);
 
     if (shouldOpen) {
-      window.requestAnimationFrame(() => {
+      // Espera a que termine la transición de colapso/expansión
+      // (0.55s en .sectionCollapse) antes de desplazar, para que
+      // el cambio de altura no compita con el scroll y lo desvíe.
+      window.setTimeout(() => {
         document
           .getElementById(sectionId)
           ?.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
           });
-      });
+      }, 600);
     }
   };
 

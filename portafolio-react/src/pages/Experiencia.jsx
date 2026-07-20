@@ -218,10 +218,7 @@ function ApItem({ direction, numero, titulo, children }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.visible);
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle(styles.visible, entry.isIntersecting);
       },
       {
         threshold: 0.15,

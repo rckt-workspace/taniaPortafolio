@@ -8,10 +8,7 @@ export default function Reveal({ as: Tag = 'div', delay = 0, className = '', chi
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('on');
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('on', entry.isIntersecting);
       },
       { threshold: 0.12 }
     );

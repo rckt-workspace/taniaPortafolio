@@ -615,7 +615,22 @@
 .expFrontContent {
   position: relative;
   z-index: 2;
+  min-height: 0;
   margin-top: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(226, 125, 151, 0.4) transparent;
+}
+
+.expFrontContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.expFrontContent::-webkit-scrollbar-thumb {
+  background: rgba(226, 125, 151, 0.4);
+  border-radius: 999px;
 }
 
 .expCategory {
@@ -708,7 +723,22 @@
 .expBackContent {
   position: relative;
   z-index: 2;
+  min-height: 0;
   margin-top: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
+}
+
+.expBackContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.expBackContent::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .expBackContent h3 {
@@ -1039,12 +1069,25 @@
   max-height: 0;
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
   opacity: 0;
   transition:
     max-height 0.5s ease,
     margin-top 0.4s ease,
     opacity 0.4s ease;
+}
+
+.skillContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.skillContent::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .skillContentVisible {

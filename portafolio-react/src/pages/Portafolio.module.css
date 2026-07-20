@@ -804,12 +804,25 @@
 
 .audienceDetails {
   max-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(216, 179, 106, 0.5) transparent;
   opacity: 0;
   transition:
     max-height 0.4s ease,
     opacity 0.35s ease,
     margin 0.35s ease;
+}
+
+.audienceDetails::-webkit-scrollbar {
+  width: 5px;
+}
+
+.audienceDetails::-webkit-scrollbar-thumb {
+  background: rgba(216, 179, 106, 0.5);
+  border-radius: 999px;
 }
 
 .audienceDetailsVisible {
