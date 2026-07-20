@@ -6,813 +6,1422 @@ import PublicacionCard from '../components/publicaciones/PublicacionCard';
 import { categorias } from '../data/publicaciones';
 import styles from './Portafolio.module.css';
 
-const SECTIONS = [
-  { id: 'voto-tu-gremio', label: 'Tu voto, tu gremio' },
-  { id: 'estrategia', label: 'Estrategia global' },
-  ...categorias.map((c) => ({ id: c.id, label: c.titulo })),
-];
+/* =========================================================
+   ESTADÍSTICAS DE LAS PUBLICACIONES
+========================================================= */
+
+const PUBLICATION_STATS = {
+  elecciones: [
+    { likes: 66, comments: 38 },
+    { likes: 58, comments: 26 },
+    { likes: 363, comments: 19 },
+    { likes: 30, comments: 12 },
+    { likes: 28, comments: 6 },
+    { likes: 27, comments: 10 },
+    { likes: 113, comments: 54 },
+  ],
+
+  esdelc: [
+    { likes: 242, comments: 35 },
+    { likes: 331, comments: 66 },
+    { likes: 493, comments: 125 },
+    { likes: 156, comments: 49 },
+    { likes: 400, comments: 23 },
+    { likes: 138, comments: 16 },
+    { likes: 60, comments: 6 },
+    { likes: 110, comments: 49 },
+  ],
+
+  cobertura: [
+    { likes: 95, comments: 48 },
+    { likes: 88, comments: 29 },
+    { likes: 148, comments: 31 },
+    { likes: 183, comments: 60 },
+    { likes: 177, comments: 79 },
+    { likes: 126, comments: 33 },
+    { likes: 138, comments: 10 },
+    { likes: 109, comments: 36 },
+    { likes: 126, comments: 45 },
+    { likes: 146, comments: 69 },
+    { likes: 77, comments: 29 },
+  ],
+};
+
+/* =========================================================
+   IMÁGENES DE LAS SECCIONES
+========================================================= */
 
 const SECTION_IMAGES = {
-  estrategia: 'Estrategia global.png',
-  elecciones: 'Elecciones Cafeteras.png',
   esdelc: 'ESDELC.png',
   cobertura: 'Cubrimiento fotográfico y audiovisual.png',
 };
 
-function SectionImage({ file, alt, delay }) {
+/* =========================================================
+   INFORMACIÓN DEL ANÁLISIS
+========================================================= */
+
+const ANALYSIS_PLATFORMS = [
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    followers: '9.900',
+    role: 'Informar y mantener la confianza',
+    audience: 'Caficultores 40+ · votantes',
+    consumption: 'Lento · denso · informativo',
+    formats: 'Carruseles · historias · imágenes',
+    topic: 'Elecciones · Federación · datos técnicos',
+    metric:
+      'Alcance y retención · interacción principalmente pasiva',
+  },
+
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    followers: '7.555',
+    role: 'Informar y activar a los jóvenes',
+    audience: 'Caficultores 40+ y jóvenes del sector',
+    consumption: 'Rápido · scroll · visual',
+    formats: 'Reels · tendencias · formatos híbridos',
+    topic: 'Testimonios · campo · contenido de interacción',
+    metric:
+      'Alcance y retención · objetivo: activar a los jóvenes',
+  },
+];
+
+const ANALYSIS_PUBLICS = [
+  {
+    number: '01',
+    name: 'Caficultores 40+',
+    channel: 'Votantes principales · Facebook',
+    preference:
+      'Prefieren información clara, técnica, útil y contextualizada.',
+    function: 'Votar',
+  },
+
+  {
+    number: '02',
+    name: 'Jóvenes del sector',
+    channel: 'Extensionistas y empleados · Instagram',
+    preference:
+      'Prefieren reels, tendencias, dinamismo y contenidos visuales.',
+    function: 'Movilizar',
+  },
+
+  {
+    number: '03',
+    name: 'Amantes del café',
+    channel: 'Público urbano secundario · ambas plataformas',
+    preference:
+      'Prefieren historias reales, información sencilla y contenidos humanos.',
+    function: 'Interesar',
+  },
+];
+
+const EXECUTION_KEYS = [
+  'Medir alcance y retención',
+  'Priorizar personas reales',
+  'Trabajar dos mensajes en paralelo',
+  'Convertir una salida en hasta cinco piezas',
+  'Los mayores votan y los jóvenes movilizan',
+];
+
+/* =========================================================
+   OBJETIVOS DE TU VOTO, TU GREMIO
+========================================================= */
+
+const OBJECTIVES = [
+  {
+    number: '01',
+    title: 'Conectar emocionalmente',
+    text: 'Conectar emocionalmente con el caficultor, reforzando su sentido de pertenencia y orgullo de ser parte del gremio.',
+  },
+
+  {
+    number: '02',
+    title: 'Comunicar con claridad',
+    text: 'Comunicar los derechos y beneficios que defiende la Federación, el rol de los representantes y los casos reales de respaldo al caficultor.',
+  },
+
+  {
+    number: '03',
+    title: 'Proyectar el futuro',
+    text: 'Proyectar una visión de futuro y generar urgencia en la participación electoral, entendiendo que elegir bien es defender la institución que protege al gremio.',
+  },
+];
+
+/* =========================================================
+   PILARES DE TU VOTO, TU GREMIO
+========================================================= */
+
+const PILLARS = [
+  {
+    id: 'identidad',
+    number: '01',
+    shortTitle: 'Identidad y orgullo',
+    title: 'Pilar 1: Identidad y orgullo',
+    concept: 'El corazón',
+    focus: 'Emoción, pertenencia y democracia',
+    icon: '♥',
+
+    description:
+      'Este pilar busca conectar emocionalmente con el caficultor federado, recordándole que ser parte de la Federación Nacional de Cafeteros no es solamente un trámite administrativo, sino una identidad compartida, un sentido de comunidad y pertenencia. Se trata de fortalecer el orgullo de ser cafetero y reconocer que, a través de la cédula cafetera, los productores tienen poder real para elegir quién los representa.',
+
+    themes: [
+      {
+        title: 'Testimonios de caficultores',
+        text: 'Historias reales de caficultores beneficiados por programas, políticas o gestiones de la Federación. Estos testimonios humanizan la organización y permiten que otros productores vean su propia historia reflejada.',
+      },
+
+      {
+        title: 'Historias de éxito gremial',
+        text: 'Narrativas que muestran cómo la acción colectiva ha generado cambios concretos: mejores condiciones, acceso a tecnología, resolución de conflictos y defensa durante momentos de crisis.',
+      },
+
+      {
+        title: 'Humanización de representantes',
+        text: 'Mostrar quiénes son los candidatos y representantes, sus historias, territorios, motivaciones y trabajo, para que el caficultor los perciba como personas cercanas y comprometidas.',
+      },
+    ],
+
+    proposal: {
+      format: 'Reel testimonial de 60 a 90 segundos',
+      network: 'Instagram',
+      title: 'Mi cédula cafetera, mi historia',
+      idea:
+        'Un extensionista visita diferentes municipios y pregunta a tres o cuatro caficultores qué significa para ellos su cédula cafetera. Las respuestas se presentan como un mosaico ágil y emotivo, con frases clave en pantalla y un llamado final a participar en las elecciones.',
+    },
+  },
+
+  {
+    id: 'confianza',
+    number: '02',
+    shortTitle: 'Solidez y confianza',
+    title: 'Pilar 2: Solidez y confianza',
+    concept: 'La razón',
+    focus: 'Recursos, resultados e importancia de la Federación',
+    icon: '◆',
+
+    description:
+      'Este pilar apela a la lógica y a la razón. Busca comunicar que la Federación Nacional de Cafeteros es una institución sólida, que maneja recursos responsablemente y que su gestión genera beneficios concretos y medibles para los caficultores federados. El productor necesita comprender qué derechos defiende la Federación y cómo los representantes elegidos protegen esas decisiones.',
+
+    themes: [
+      {
+        title: 'Derechos y beneficios',
+        text: 'Explicar de forma clara la defensa del precio del café, el acceso a crédito, la asistencia técnica, la seguridad social y la protección frente a las fluctuaciones del mercado.',
+      },
+
+      {
+        title: 'Rol de los representantes',
+        text: 'Mostrar qué hace un representante electo, cómo participa en las decisiones del gremio y por qué el voto incide directamente en políticas, recursos y derechos.',
+      },
+
+      {
+        title: 'Respaldo al caficultor',
+        text: 'Presentar casos concretos de negociación, crédito, asistencia técnica, productividad y defensa institucional que demuestren que la organización respalda al productor.',
+      },
+    ],
+
+    proposal: {
+      format: 'Carrusel informativo de 5 a 6 láminas',
+      network: 'Facebook',
+      title: 'Esto hace tu Federación por ti',
+      idea:
+        'Una serie visual con cifras, íconos y beneficios tangibles gestionados por la Federación Nacional de Cafeteros. La última lámina conecta esos resultados con la responsabilidad de elegir bien a quienes representan al caficultor.',
+    },
+  },
+
+  {
+    id: 'futuro',
+    number: '03',
+    shortTitle: 'Futuro y defensa',
+    title: 'Pilar 3: Futuro y defensa',
+    concept: 'La acción',
+    focus: 'Rumbo y defensa de la institución',
+    icon: '↗',
+
+    description:
+      'Este pilar proyecta una visión de futuro para el café colombiano y el gremio cafetero. Recuerda que elegir bien es invertir en el futuro de las familias productoras y de las nuevas generaciones. Ante amenazas como el mercado global, el cambio climático y la competencia, la Federación funciona como un escudo colectivo.',
+
+    themes: [
+      {
+        title: 'El futuro del café',
+        text: 'Comunicar los desafíos relacionados con el clima, la volatilidad de precios, la competencia internacional y el relevo generacional, junto con las propuestas para proteger el sector.',
+      },
+
+      {
+        title: 'La importancia de elegir bien',
+        text: 'Reforzar que la elección tiene consecuencias directas: representantes comprometidos fortalecen la Federación y protegen mejor los derechos y beneficios del productor.',
+      },
+
+      {
+        title: 'Legitimidad del proceso',
+        text: 'Demostrar que el proceso es transparente, democrático y representativo, y que el poder de la Federación proviene de caficultores que deciden juntos.',
+      },
+    ],
+
+    proposal: {
+      format: 'Video híbrido de 45 a 60 segundos',
+      network: 'Instagram y Facebook',
+      title: 'El café que viene',
+      idea:
+        'Un candidato o representante habla sobre un reto concreto del café mientras una animación sencilla ayuda a explicar el problema. El video cierra con la frase: “Tu voto decide quién defiende este futuro”.',
+    },
+  },
+];
+
+/* =========================================================
+   CATEGORÍAS DISPONIBLES
+========================================================= */
+
+const ELECTION_CATEGORY = categorias.find(
+  (categoria) => categoria.id === 'elecciones'
+);
+
+const ESDELC_CATEGORY = categorias.find(
+  (categoria) => categoria.id === 'esdelc'
+);
+
+const COBERTURA_CATEGORY = categorias.find(
+  (categoria) => categoria.id === 'cobertura'
+);
+
+const VISIBLE_CATEGORIES = [
+  ESDELC_CATEGORY
+    ? {
+        ...ESDELC_CATEGORY,
+        numero: '02',
+      }
+    : null,
+
+  COBERTURA_CATEGORY
+    ? {
+        ...COBERTURA_CATEGORY,
+        numero: '03',
+        titulo: 'Más allá del lente',
+        subtitulo: 'Cubrimiento fotográfico y audiovisual',
+      }
+    : null,
+].filter(Boolean);
+
+const SECTIONS = [
+  {
+    id: 'voto-tu-gremio',
+    numero: '01',
+    label: 'Tu voto, tu gremio',
+  },
+
+  ...VISIBLE_CATEGORIES.map((categoria) => ({
+    id: categoria.id,
+    numero: categoria.numero,
+    label:
+      categoria.id === 'cobertura'
+        ? 'Más allá del lente'
+        : categoria.titulo,
+  })),
+];
+
+/* =========================================================
+   COMPONENTES AUXILIARES
+========================================================= */
+
+function SectionImage({ file, alt, delay = 0.1 }) {
   if (!file) return null;
+
   return (
     <Reveal delay={delay} className={styles.secIntroImage}>
-      <img src={`/portafolio/${encodeURIComponent(file)}`} alt={alt} />
+      <img
+        src={`/portafolio/${encodeURIComponent(file)}`}
+        alt={alt}
+      />
     </Reveal>
   );
 }
 
-function AccordionSection({ id, alt, isOpen, children }) {
+function StatIcon({ type }) {
+  if (type === 'comments') {
+    return (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        aria-hidden="true"
+      >
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" />
+    </svg>
+  );
+}
+
+function PublicationGrid({ categoria, onOpen }) {
+  if (!categoria?.publicaciones?.length) {
+    return (
+      <p className={styles.emptyPublications}>
+        No hay publicaciones disponibles en esta sección.
+      </p>
+    );
+  }
+
+  const stats = PUBLICATION_STATS[categoria.id] ?? [];
+
+  return (
+    <div className={styles.pubGrid}>
+      {categoria.publicaciones.map((publicacion, index) => {
+        const itemStats = stats[index];
+
+        return (
+          <article
+            key={`${categoria.id}-${index}`}
+            className={styles.publicacionItem}
+          >
+            <PublicacionCard
+              media={publicacion.media}
+              numero={String(index + 1).padStart(2, '0')}
+              onOpen={onOpen}
+            />
+
+            {itemStats && (
+              <div className={styles.publicacionStats}>
+                <span
+                  className={styles.publicacionStat}
+                  title="Me gusta"
+                >
+                  <StatIcon type="likes" />
+
+                  <span>{itemStats.likes}</span>
+                </span>
+
+                <span
+                  className={styles.publicacionStat}
+                  title="Comentarios"
+                >
+                  <StatIcon type="comments" />
+
+                  <span>{itemStats.comments}</span>
+                </span>
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+function AccordionSection({
+  id,
+  alternate = false,
+  isOpen,
+  children,
+}) {
   return (
     <section
-      className={styles.portSection}
       id={id}
-      style={{
-        background: alt ? 'var(--sand)' : undefined,
-        paddingTop: isOpen ? undefined : 0,
-        paddingBottom: isOpen ? undefined : 0,
-      }}
+      className={`${styles.portSection} ${
+        alternate ? styles.portSectionAlt : ''
+      } ${isOpen ? styles.portSectionOpen : ''}`}
     >
-      <div className="wrap">
+      <div className={styles.wrap}>
         <div
           className={`${styles.sectionCollapse} ${
             isOpen ? styles.sectionCollapseOpen : ''
           }`}
         >
-          <div className={styles.sectionCollapseInner}>{children}</div>
+          <div className={styles.sectionCollapseInner}>
+            {children}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+/* =========================================================
+   SECCIÓN DE ANÁLISIS
+   ESTA SECCIÓN SIEMPRE ESTÁ ENCIMA DE LOS BOTONES
+========================================================= */
+
+function AnalysisSection() {
+  const [activePlatform, setActivePlatform] =
+    useState('facebook');
+
+  const [activePublic, setActivePublic] = useState(0);
+
+  return (
+    <section
+      id="analisis"
+      className={styles.analysisSection}
+    >
+      <div className={styles.wrap}>
+        <Reveal className={styles.analysisHeader}>
+          <div>
+            <p className={styles.analysisEyebrow}>
+              Diagnóstico digital
+            </p>
+
+            <h2 className={styles.analysisMainTitle}>
+              Análisis
+            </h2>
+
+            <p className={styles.analysisIntro}>
+              Lectura estratégica de las plataformas,
+              audiencias, formatos y comportamientos que
+              orientaron la propuesta de comunicación
+              electoral.
+            </p>
+
+            <div className={styles.analysisRule} />
+          </div>
+
+          <div className={styles.analysisSummary}>
+            <span>Objetivo central</span>
+
+            <strong>
+              Convertir alcance en participación
+            </strong>
+
+            <p>
+              Los caficultores deciden y los jóvenes
+              movilizan.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* FACEBOOK E INSTAGRAM */}
+
+        <Reveal
+          delay={0.08}
+          className={styles.analysisPlatformsGrid}
+        >
+          {ANALYSIS_PLATFORMS.map((platform) => {
+            const isActive =
+              activePlatform === platform.id;
+
+            return (
+              <button
+                key={platform.id}
+                type="button"
+                className={`${styles.analysisPlatformCard} ${
+                  isActive
+                    ? styles.analysisPlatformCardActive
+                    : ''
+                }`}
+                onClick={() =>
+                  setActivePlatform(platform.id)
+                }
+                aria-pressed={isActive}
+              >
+                <div
+                  className={styles.analysisPlatformHeader}
+                >
+                  <div>
+                    <span>Plataforma</span>
+                    <h3>{platform.name}</h3>
+                  </div>
+
+                  <div
+                    className={
+                      styles.analysisPlatformFollowers
+                    }
+                  >
+                    <strong>{platform.followers}</strong>
+                    <small>Seguidores</small>
+                  </div>
+                </div>
+
+                <dl className={styles.analysisPlatformList}>
+                  <div>
+                    <dt>Rol estratégico</dt>
+                    <dd>{platform.role}</dd>
+                  </div>
+
+                  <div>
+                    <dt>Audiencia central</dt>
+                    <dd>{platform.audience}</dd>
+                  </div>
+
+                  <div>
+                    <dt>Tipo de consumo</dt>
+                    <dd>{platform.consumption}</dd>
+                  </div>
+
+                  <div>
+                    <dt>Formatos principales</dt>
+                    <dd>{platform.formats}</dd>
+                  </div>
+
+                  <div>
+                    <dt>Temas con mejor respuesta</dt>
+                    <dd>{platform.topic}</dd>
+                  </div>
+                </dl>
+
+                <div
+                  className={styles.analysisPlatformMetric}
+                >
+                  <span>Métrica prioritaria</span>
+                  <p>{platform.metric}</p>
+                </div>
+
+                <span
+                  className={styles.analysisPlatformAction}
+                >
+                  {isActive ? '✓' : '↗'}
+                </span>
+              </button>
+            );
+          })}
+        </Reveal>
+
+        <Reveal
+          delay={0.1}
+          className={styles.platformInsight}
+        >
+          <span>Lectura estratégica</span>
+
+          <p>
+            {activePlatform === 'facebook'
+              ? 'Facebook funciona como el canal principal para informar, explicar y fortalecer la confianza de los caficultores con mayor intención de voto.'
+              : 'Instagram funciona como el canal para activar audiencias jóvenes, ampliar el alcance y presentar el proceso gremial mediante contenidos dinámicos y visuales.'}
+          </p>
+        </Reveal>
+
+        {/* TRES PÚBLICOS, TRES FUNCIONES */}
+
+        <Reveal
+          delay={0.14}
+          className={styles.audiencesSection}
+        >
+          <div className={styles.audiencesHeading}>
+            <div>
+              <p className={styles.analysisEyebrow}>
+                Segmentación
+              </p>
+
+              <h3>Tres públicos</h3>
+            </div>
+
+            <strong>Tres funciones</strong>
+          </div>
+
+          <div className={styles.audiencesGrid}>
+            {ANALYSIS_PUBLICS.map((item, index) => {
+              const isActive = activePublic === index;
+
+              return (
+                <button
+                  key={item.name}
+                  type="button"
+                  className={`${styles.audienceCard} ${
+                    isActive
+                      ? styles.audienceCardActive
+                      : ''
+                  }`}
+                  onClick={() => setActivePublic(index)}
+                  aria-pressed={isActive}
+                >
+                  <div className={styles.audienceTop}>
+                    <span>{item.number}</span>
+
+                    <span>{isActive ? '−' : '+'}</span>
+                  </div>
+
+                  <h4>{item.name}</h4>
+
+                  <p className={styles.audienceChannel}>
+                    {item.channel}
+                  </p>
+
+                  <div
+                    className={`${styles.audienceDetails} ${
+                      isActive
+                        ? styles.audienceDetailsVisible
+                        : ''
+                    }`}
+                  >
+                    <p>{item.preference}</p>
+                  </div>
+
+                  <strong>
+                    Función: {item.function}
+                  </strong>
+                </button>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        {/* CLAVES DE EJECUCIÓN */}
+
+        <Reveal
+          delay={0.18}
+          className={styles.executionWidget}
+        >
+          <div className={styles.executionHeading}>
+            <span>Claves de ejecución</span>
+
+            <strong>05 decisiones estratégicas</strong>
+          </div>
+
+          <ol className={styles.executionList}>
+            {EXECUTION_KEYS.map((key, index) => (
+              <li key={key}>
+                <span>
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <p>{key}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================
+   CONTENIDO DEL BOTÓN TU VOTO, TU GREMIO
+========================================================= */
+
+function VoteCampaignSection({ onOpen }) {
+  const [activePillar, setActivePillar] = useState(0);
+
+  const [showCampaignPieces, setShowCampaignPieces] =
+    useState(false);
+
+  const pillar = PILLARS[activePillar];
+
+  return (
+    <div className={styles.voteCampaignContent}>
+      <Reveal className={styles.voteCampaignHeader}>
+        <div>
+          <p className={styles.campaignEyebrow}>
+            Estrategia electoral 2026
+          </p>
+
+          <h2 className={styles.campaignTitle}>
+            Tu voto, <em>tu gremio</em>
+          </h2>
+
+          <p className={styles.campaignLead}>
+            Estrategia para fortalecer la identidad, la
+            confianza y la participación de los
+            caficultores federados durante las elecciones
+            cafeteras de 2026.
+          </p>
+        </div>
+
+        <div className={styles.campaignDates}>
+          <div>
+            <span>Inscripciones</span>
+            <strong>Hasta el 24 de julio</strong>
+          </div>
+
+          <div>
+            <span>Votación</span>
+            <strong>1 al 6 de septiembre</strong>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* OBJETIVO GENERAL */}
+
+      <Reveal
+        delay={0.08}
+        className={styles.voteGoalWidget}
+      >
+        <div className={styles.voteGoalTop}>
+          <span className={styles.voteGoalLabel}>
+            Objetivo general
+          </span>
+
+          <span className={styles.voteGoalIcon}>
+            ✦
+          </span>
+        </div>
+
+        <p className={styles.voteGoalText}>
+          Movilizar a los caficultores federados con cédula
+          cafetera a participar activamente en las
+          elecciones cafeteras 2026, fortaleciendo su
+          confianza en la Federación Nacional de
+          Cafeteros, reconociendo el impacto real de la
+          organización en sus derechos y beneficios, y
+          comprendiendo que elegir bien a sus
+          representantes es elegir proteger su futuro
+          económico y el del gremio.
+        </p>
+      </Reveal>
+
+      {/* OBJETIVOS ESPECÍFICOS */}
+
+      <div className={styles.objectivesHeading}>
+        <span>Objetivos específicos</span>
+        <div />
+      </div>
+
+      <div className={styles.objectivesGrid}>
+        {OBJECTIVES.map((objective) => (
+          <article
+            key={objective.number}
+            className={styles.objectiveCard}
+          >
+            <span className={styles.objectiveNumber}>
+              {objective.number}
+            </span>
+
+            <h3>{objective.title}</h3>
+
+            <p>{objective.text}</p>
+          </article>
+        ))}
+      </div>
+
+      {/* PILARES */}
+
+      <div className={styles.pillarsHeader}>
+        <div>
+          <p className={styles.campaignEyebrow}>
+            Arquitectura de campaña
+          </p>
+
+          <h3>Tres pilares estratégicos</h3>
+        </div>
+
+        <p>
+          Selecciona cada pilar para explorar su enfoque,
+          las temáticas y la propuesta de contenido.
+        </p>
+      </div>
+
+      <div
+        className={styles.pillarTabs}
+        role="tablist"
+        aria-label="Pilares estratégicos"
+      >
+        {PILLARS.map((item, index) => (
+          <button
+            key={item.id}
+            type="button"
+            role="tab"
+            aria-selected={activePillar === index}
+            className={`${styles.pillarTab} ${
+              activePillar === index
+                ? styles.pillarTabActive
+                : ''
+            }`}
+            onClick={() => setActivePillar(index)}
+          >
+            <span className={styles.pillarTabNumber}>
+              {item.number}
+            </span>
+
+            <span className={styles.pillarTabIcon}>
+              {item.icon}
+            </span>
+
+            <strong>{item.shortTitle}</strong>
+
+            <small>{item.concept}</small>
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.pillarPanel}>
+        <div className={styles.pillarPanelHeader}>
+          <div>
+            <p className={styles.pillarConcept}>
+              {pillar.concept} · {pillar.focus}
+            </p>
+
+            <h3>{pillar.title}</h3>
+          </div>
+
+          <span className={styles.pillarLargeNumber}>
+            {pillar.number}
+          </span>
+        </div>
+
+        <p className={styles.pillarDescription}>
+          {pillar.description}
+        </p>
+
+        <div className={styles.themesGrid}>
+          {pillar.themes.map((theme, index) => (
+            <article
+              key={theme.title}
+              className={styles.themeCard}
+            >
+              <span>
+                {pillar.number}.{index + 1}
+              </span>
+
+              <h4>{theme.title}</h4>
+
+              <p>{theme.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.proposalWidget}>
+          <div className={styles.proposalHeading}>
+            <span>Propuesta creativa</span>
+
+            <strong>{pillar.proposal.network}</strong>
+          </div>
+
+          <div className={styles.proposalContent}>
+            <div>
+              <small>Formato</small>
+              <p>{pillar.proposal.format}</p>
+            </div>
+
+            <div>
+              <small>Propuesta</small>
+              <h4>{pillar.proposal.title}</h4>
+              <p>{pillar.proposal.idea}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* PUBLICACIONES ELECTORALES */}
+
+      {ELECTION_CATEGORY && (
+        <div className={styles.campaignPieces}>
+          <button
+            type="button"
+            className={`${styles.campaignPiecesButton} ${
+              showCampaignPieces
+                ? styles.campaignPiecesButtonOpen
+                : ''
+            }`}
+            onClick={() =>
+              setShowCampaignPieces((current) => !current)
+            }
+            aria-expanded={showCampaignPieces}
+          >
+            <span>
+              <small>Producción de campaña</small>
+
+              <strong>
+                Ver piezas de “Tu voto, tu gremio”
+              </strong>
+            </span>
+
+            <span className={styles.campaignPiecesIcon}>
+              {showCampaignPieces ? '−' : '+'}
+            </span>
+          </button>
+
+          <div
+            className={`${styles.campaignPiecesCollapse} ${
+              showCampaignPieces
+                ? styles.campaignPiecesCollapseOpen
+                : ''
+            }`}
+          >
+            <div
+              className={
+                styles.campaignPiecesCollapseInner
+              }
+            >
+              <PublicationGrid
+                categoria={ELECTION_CATEGORY}
+                onOpen={onOpen}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* =========================================================
+   BOTONES DE NAVEGACIÓN
+========================================================= */
+
+function PortfolioNavigation({
+  openSection,
+  onSelect,
+}) {
+  return (
+    <section
+      className={styles.portNavWrap}
+      aria-labelledby="portfolio-nav-title"
+    >
+      <div className={styles.wrap}>
+        <Reveal className={styles.portNavHeading}>
+          <div>
+            <p className={styles.navEyebrow}>
+              Explora el portafolio
+            </p>
+
+            <h2 id="portfolio-nav-title">
+              Proyectos y contenidos
+            </h2>
+          </div>
+
+          <p>
+            Selecciona uno de los tres proyectos para abrir
+            su contenido.
+          </p>
+        </Reveal>
+
+        <nav
+          className={styles.portNav}
+          aria-label="Secciones del portafolio"
+        >
+          {SECTIONS.map((section) => {
+            const isActive =
+              openSection === section.id;
+
+            return (
+              <button
+                key={section.id}
+                type="button"
+                aria-pressed={isActive}
+                className={`${styles.portNavItem} ${
+                  isActive
+                    ? styles.portNavItemActive
+                    : ''
+                }`}
+                onClick={() => onSelect(section.id)}
+              >
+                <span className={styles.portNavNum}>
+                  {section.numero}
+                </span>
+
+                <span className={styles.portNavText}>
+                  <small>Proyecto</small>
+                  <strong>{section.label}</strong>
+                </span>
+
+                <span className={styles.portNavArrow}>
+                  {isActive ? '−' : '↗'}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================
+   SECCIONES #ESDELC Y MÁS ALLÁ DEL LENTE
+========================================================= */
+
 function CategoriaSection({ categoria, onOpen }) {
-  const [open, setOpen] = useState(false);
+  const [showPublications, setShowPublications] =
+    useState(false);
 
-  // Renderizado manual e independiente por cada ID de sección
-  const renderPublicacionesPorSeccion = () => {
-    switch (categoria.id) {
-      
-      // ============================================================ 
-      // SECCIÓN: ELECCIONES CAFETERAS (7 Publicaciones Reales)
-      // ============================================================ 
-      case 'elecciones': // Asegúrate de que este ID sea el mismo de tu data/publicaciones.js
-        return (
-          <>
-            {/* PUBLICACIÓN 01 */}
-            {categoria.publicaciones[0] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[0].media} numero="01" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>66</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>38</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 02 */}
-            {categoria.publicaciones[1] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[1].media} numero="02" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>58</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>26</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 03 */}
-            {categoria.publicaciones[2] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[2].media} numero="03" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>363</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>19</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 04 */}
-            {categoria.publicaciones[3] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[3].media} numero="04" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>30</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>12</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 05 */}
-            {categoria.publicaciones[4] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[4].media} numero="05" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>28</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>6</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 06 */}
-            {categoria.publicaciones[5] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[5].media} numero="06" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>27</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>10</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            {/* PUBLICACIÓN 07 */}
-            {categoria.publicaciones[6] && (
-              <div className={styles.publicacionItem}>
-                <PublicacionCard media={categoria.publicaciones[6].media} numero="07" onOpen={onOpen} />
-                <div className={styles.publicacionStats}>
-                  <span className={styles.publicacionStat} title="Me gusta">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                    <span>113</span>
-                  </span>
-                  <span className={styles.publicacionStat} title="Comentarios">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                    <span>54</span>
-                  </span>
-                </div>
-              </div>
-            )}
-          </>
-        );
+  const title =
+    categoria.id === 'cobertura'
+      ? 'Más allá del lente'
+      : categoria.titulo;
 
-      // ============================================================ 
-      // SECCIÓN: #ESDELC (8 Publicaciones Reales)
-      // ============================================================ 
-      case 'esdelc': // Asegúrate de que este ID sea el mismo de tu data/publicaciones.js
-        return (
-          <>
-            {/* Utiliza los índices correlativos de los elementos de este bloque de datos */}
-            {[...Array(8)].map((_, index) => {
-              // Valores específicos que registraste para las primeras de la lista general
-              let likes = 0;
-              let comentarios = 0;
+  const subtitle =
+    categoria.id === 'cobertura'
+      ? 'Cubrimiento fotográfico y audiovisual'
+      : categoria.subtitulo;
 
-              if (index === 0) { likes = 242; comentarios = 35; }
-              else if (index === 1) { likes = 331; comentarios = 66; }
-              else if (index === 2) { likes = 493; comentarios = 125; }
-              else if (index === 3) { likes = 156; comentarios = 49; }
-              else if (index === 4) { likes = 400; comentarios = 23; }
-              else if (index === 5) { likes = 138; comentarios = 16; }
-              else if (index === 6) { likes = 60; comentarios = 6; }
-              else if (index === 7) { likes = 110; comentarios = 49; }
+  return (
+    <div className={styles.categoryShell}>
+      <div className={styles.secIntro}>
+        <div className={styles.secIntroText}>
+          <Reveal className={styles.secHead}>
+            <div className={styles.secHeadLeft}>
+              <span className={styles.secNum}>
+                {categoria.numero}
+              </span>
 
-              return categoria.publicaciones[index] && (
-                <div key={index} className={styles.publicacionItem}>
-                  <PublicacionCard media={categoria.publicaciones[index].media} numero={String(index + 1).padStart(2, '0')} onOpen={onOpen} />
-                  <div className={styles.publicacionStats}>
-                    <span className={styles.publicacionStat} title="Me gusta">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                      <span>{likes}</span>
-                    </span>
-                    <span className={styles.publicacionStat} title="Comentarios">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                      <span>{comentarios}</span>
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        );
+              <div>
+                <p className={styles.secLabel}>
+                  {categoria.label ??
+                    'Producción de contenidos'}
+                </p>
 
-      // ============================================================ 
-      // SECCIÓN: CUBRIMIENTO FOTOGRÁFICO Y AUDIOVISUAL (11 Publicaciones)
-      // ============================================================ 
-      default: 
-        return (
-          <>
-            {[...Array(11)].map((_, index) => {
-              let likes = 0;
-              let comentarios = 0;
+                <h2 className={styles.secTitle}>
+                  {title}
+                </h2>
 
-              if (index === 0) { likes = 95; comentarios = 48; }
-              else if (index === 1) { likes = 88; comentarios = 29; }
-              else if (index === 2) { likes = 148; comentarios = 31; }
-              else if (index === 3) { likes = 183; comentarios = 60; }
-              else if (index === 4) { likes = 177; comentarios = 79; }
-              else if (index === 5) { likes = 126; comentarios = 33; }
-              else if (index === 6) { likes = 138; comentarios = 10; }
-              else if (index === 7) { likes = 109; comentarios = 36; }
-              else if (index === 8) { likes = 126; comentarios = 45; }
-              else if (index === 9) { likes = 146; comentarios = 69; }
-              else if (index === 10) { likes = 77; comentarios = 29; }
+                <div className={styles.secRule} />
+              </div>
+            </div>
+          </Reveal>
 
-              return categoria.publicaciones[index] && (
-                <div key={index} className={styles.publicacionItem}>
-                  <PublicacionCard media={categoria.publicaciones[index].media} numero={String(index + 1).padStart(2, '0')} onOpen={onOpen} />
-                  <div className={styles.publicacionStats}>
-                    <span className={styles.publicacionStat} title="Me gusta">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" /></svg>
-                      <span>{likes}</span>
-                    </span>
-                    <span className={styles.publicacionStat} title="Comentarios">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" /></svg>
-                      <span>{comentarios}</span>
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        );
+          {subtitle && (
+            <Reveal
+              delay={0.05}
+              as="p"
+              className={styles.secSubtitulo}
+            >
+              {subtitle}
+            </Reveal>
+          )}
+
+          <Reveal
+            delay={0.08}
+            as="p"
+            className={styles.secDesc}
+          >
+            {categoria.descripcion}
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <button
+              type="button"
+              className={`${styles.verMasBtn} ${
+                showPublications ? styles.open : ''
+              }`}
+              onClick={() =>
+                setShowPublications(
+                  (current) => !current
+                )
+              }
+              aria-expanded={showPublications}
+            >
+              <span>
+                {showPublications
+                  ? 'Ocultar publicaciones'
+                  : 'Ver publicaciones'}
+              </span>
+
+              <span className={styles.verMasIcon}>
+                {showPublications ? '−' : '+'}
+              </span>
+            </button>
+          </Reveal>
+        </div>
+
+        <SectionImage
+          file={SECTION_IMAGES[categoria.id]}
+          alt={
+            categoria.id === 'cobertura'
+              ? 'Cubrimiento fotográfico y audiovisual'
+              : title
+          }
+        />
+      </div>
+
+      <div
+        className={`${styles.expandable} ${
+          showPublications
+            ? styles.expandableOpen
+            : ''
+        }`}
+      >
+        <div className={styles.expandableInner}>
+          <PublicationGrid
+            categoria={categoria}
+            onOpen={onOpen}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   COMPONENTE PRINCIPAL
+========================================================= */
+
+export default function Portafolio() {
+  const [active, setActive] = useState(null);
+
+  const [openSection, setOpenSection] = useState(
+    'voto-tu-gremio'
+  );
+
+  const handleSectionSelect = (sectionId) => {
+    const shouldOpen = openSection !== sectionId;
+
+    setOpenSection(shouldOpen ? sectionId : null);
+
+    if (shouldOpen) {
+      window.requestAnimationFrame(() => {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+      });
     }
   };
 
   return (
-    <>
-        <div className={styles.secIntro}>
-          <div className={styles.secIntroText}>
-            <Reveal className={styles.secHead}>
-              <div className={styles.secHeadLeft}>
-                <span className={styles.secNum}>
-                  {categoria.numero}
-                </span>
+    <div className={styles.page}>
+      {/* PORTADA */}
 
-                <div>
-                  <p className={styles.secLabel}>
-                    {categoria.label}
-                  </p>
+      <header className={styles.pageHero}>
+        <div className={styles.heroGrid} />
+        <div className={styles.heroCircleOne} />
+        <div className={styles.heroCircleTwo} />
 
-                  <h2 className={styles.secTitle}>
-                    {categoria.titulo}
-                  </h2>
+        <Reveal>
+          <p className={styles.phEyebrow}>
+            Comité de Cafeteros del Valle del Cauca
+          </p>
+        </Reveal>
 
-                  <div className={styles.secRule} />
-                </div>
-              </div>
-            </Reveal>
+        <Reveal delay={0.06}>
+          <h1 className={styles.phTitle}>
+            Mi <em>portafolio</em>
+          </h1>
+        </Reveal>
 
-            {categoria.subtitulo && (
-              <Reveal
-                delay={0.05}
-                as="p"
-                className={styles.secSubtitulo}
-              >
-                {categoria.subtitulo}
-              </Reveal>
-            )}
+        <Reveal delay={0.12}>
+          <p className={styles.phSub}>
+            Trabajo realizado durante la práctica
+            profesional · 2026
+          </p>
+        </Reveal>
 
-            <Reveal
-              delay={0.08}
-              as="p"
-              className={styles.secDesc}
-            >
-              {categoria.descripcion}
-            </Reveal>
-
-            <Reveal delay={0.12}>
-              <button
-                type="button"
-                className={`${styles.verMasBtn} ${
-                  open ? styles.open : ''
-                }`}
-                onClick={() => setOpen((estadoActual) => !estadoActual)}
-              >
-                {open ? 'Ver menos' : 'Ver más'}
-
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
-            </Reveal>
-          </div>
-
-          <SectionImage
-            file={SECTION_IMAGES[categoria.id]}
-            alt={categoria.titulo}
-            delay={0.1}
-          />
-        </div>
-
-        <div
-          className={`${styles.expandable} ${
-            open ? styles.expandableOpen : ''
-          }`}
-        >
-          <div className={styles.expandableInner}>
-            <div className={styles.pubGrid}>
-              {renderPublicacionesPorSeccion()}
-            </div>
-          </div>
-        </div>
-    </>
-  );
-}
-
-export default function Portafolio() {
-  const [active, setActive] = useState(null);
-  const [openSection, setOpenSection] = useState(SECTIONS[0].id);
-
-  return (
-    <>
-      <div className={styles.pageHero}>
-        <p className={styles.phEyebrow}>
-          Comité de Cafeteros del Valle del Cauca
-        </p>
-
-        <h1 className={styles.phTitle}>
-          Mi Portafolio
-        </h1>
-
-        <p className={styles.phSub}>
-          Trabajo realizado durante la práctica profesional · 2026
-        </p>
-      </div>
-
-      <section className={styles.introSection}>
-        <div className="wrap">
-          <Reveal className={styles.portadaImage}>
-            <img
-              src={`/portafolio/${encodeURIComponent('portadaPortafolio.png')}`}
-              alt="Portafolio de Tania Peláez Valverde"
-            />
-          </Reveal>
-
-          <Reveal className={styles.textBlock}>
-            <p>
-              Este portafolio reúne el trabajo que desarrollé durante
-              mis prácticas profesionales en el Comité de Cafeteros
-              del Valle del Cauca, específicamente en el área de
-              Comunicaciones. Llegué a una institución con más de 95
-              años de historia, con un territorio extenso, públicos
-              muy diversos y un reto comunicacional concreto: acercar
-              una organización gremial sólida, pero compleja, a las
-              personas que la sostienen todos los días desde sus
-              fincas.
-            </p>
-
-            <p>
-              Lo que encontré no fue solo una entidad con redes
-              sociales, sino una historia que merecía contarse mejor.
-              Así que desde el primer día empecé a construir, probar y
-              ajustar: guiones para reels, flyers de campaña
-              electoral, coberturas institucionales, piezas emotivas
-              para fechas especiales y contenidos que, sin perder el
-              rigor institucional, hablaran de verdad con los
-              caficultores del Valle del Cauca.
-            </p>
-
-            <p>
-              Lo que aquí se presenta no es el plan con el que llegué,
-              sino lo que aprendí al caminar. Cada pieza tiene detrás
-              una decisión estratégica, una lectura del contexto y
-              una intención clara: que comunicar también es construir
-              gremio.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <div className={styles.portNavWrap}>
-        <div className="wrap">
-          <nav className={styles.portNav}>
-            {SECTIONS.map((section, i) => (
-              <button
-                key={section.id}
-                type="button"
-                aria-expanded={openSection === section.id}
-                className={`${styles.portNavItem} ${
-                  openSection === section.id ? styles.portNavItemActive : ''
-                }`}
-                onClick={() => setOpenSection(section.id)}
-              >
-                <span className={styles.portNavNum}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {section.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </div>
+        <Reveal delay={0.18}>
+          <a
+            href="#presentacion-portafolio"
+            className={styles.heroButton}
+          >
+            <span>Explorar proyectos</span>
+            <span>↓</span>
+          </a>
+        </Reveal>
+      </header>
 
       <main>
-        <AccordionSection
-          id="voto-tu-gremio"
-          isOpen={openSection === 'voto-tu-gremio'}
+        {/* PRESENTACIÓN */}
+
+        <section
+          id="presentacion-portafolio"
+          className={styles.introSection}
         >
-            <Reveal className={styles.voteSection}>
-              <p className={styles.voteEyebrow}>
-                Estrategia electoral 2026
-              </p>
+          <div className={styles.wrap}>
+            <div className={styles.introGrid}>
+              <Reveal className={styles.portadaImage}>
+                <img
+                  src={`/portafolio/${encodeURIComponent(
+                    'portadaPortafolio.png'
+                  )}`}
+                  alt="Portafolio de Tania Peláez Valverde"
+                />
 
-              <h3 className={styles.voteTitle}>
-                Tu voto, tu gremio
-              </h3>
+                <div className={styles.portadaBadge}>
+                  <span>✦</span>
 
-              <p className={styles.voteTagline}>
-                Facebook informa. Instagram activa.
-              </p>
-
-              <div className={styles.voteGoal}>
-                <span className={styles.voteGoalLabel}>
-                  Objetivo central
-                </span>
-
-                <span className={styles.voteGoalText}>
-                  Convertir alcance en voto — 40+ deciden, jóvenes
-                  movilizan
-                </span>
-              </div>
-
-              <div className={styles.platformGrid}>
-                <div
-                  className={`${styles.platformCard} ${styles.platformFb}`}
-                >
-                  <div className={styles.platformHead}>
-                    <span className={styles.platformName}>
-                      Facebook
-                    </span>
-
-                    <span className={styles.platformFollowers}>
-                      9.900
-                      <small>seguidores</small>
-                    </span>
-                  </div>
-
-                  <dl className={styles.platformList}>
-                    <div>
-                      <dt>Rol estratégico</dt>
-                      <dd>Informar y mantener la confianza</dd>
-                    </div>
-
-                    <div>
-                      <dt>Audiencia core</dt>
-                      <dd>Caficultores 40+ · votantes</dd>
-                    </div>
-
-                    <div>
-                      <dt>Consumo</dt>
-                      <dd>Lento · denso · informativo</dd>
-                    </div>
-
-                    <div>
-                      <dt>Formatos top</dt>
-                      <dd>Carruseles · historias · imágenes</dd>
-                    </div>
-
-                    <div>
-                      <dt>Mejor tema</dt>
-                      <dd>
-                        Elecciones · Federación · datos técnicos
-                      </dd>
-                    </div>
-                  </dl>
-
-                  <p className={styles.platformMetric}>
-                    Métrica: alcance + retención · Interacción actual:
-                    pasiva
+                  <p>
+                    Comunicación
+                    <strong>con propósito</strong>
                   </p>
                 </div>
+              </Reveal>
 
-                <div
-                  className={`${styles.platformCard} ${styles.platformIg}`}
-                >
-                  <div className={styles.platformHead}>
-                    <span className={styles.platformName}>
-                      Instagram
-                    </span>
+              <Reveal
+                delay={0.08}
+                className={styles.textBlock}
+              >
+                <p className={styles.introEyebrow}>
+                  Una experiencia en construcción
+                </p>
 
-                    <span className={styles.platformFollowers}>
-                      7.555
-                      <small>seguidores</small>
-                    </span>
-                  </div>
+                <h2 className={styles.introTitle}>
+                  Comunicar también es
+                  <em> construir gremio</em>
+                </h2>
 
-                  <dl className={styles.platformList}>
-                    <div>
-                      <dt>Rol estratégico</dt>
-                      <dd>Informar y activar a los jóvenes</dd>
-                    </div>
+                <div className={styles.introRule} />
 
-                    <div>
-                      <dt>Audiencia core</dt>
-                      <dd>40+ y jóvenes del sector</dd>
-                    </div>
+                <p>
+                  Este portafolio reúne el trabajo que
+                  desarrollé durante mis prácticas
+                  profesionales en el Comité de Cafeteros
+                  del Valle del Cauca, específicamente en
+                  el{' '}
+                  <strong>
+                    área de Comunicaciones
+                  </strong>
+                  .
+                </p>
 
-                    <div>
-                      <dt>Consumo</dt>
-                      <dd>Rápido · scroll · visual</dd>
-                    </div>
+                <p>
+                  Llegué a una institución con más de 98
+                  años de historia, un territorio extenso,
+                  públicos diversos y un reto concreto:
+                  acercar una organización gremial sólida a
+                  las personas que la sostienen todos los
+                  días desde sus fincas.
+                </p>
 
-                    <div>
-                      <dt>Formatos top</dt>
-                      <dd>
-                        Reels · tendencias · híbridos visuales
-                      </dd>
-                    </div>
-
-                    <div>
-                      <dt>Mejor tema</dt>
-                      <dd>
-                        Testimonios · campo · animaciones IA
-                      </dd>
-                    </div>
-                  </dl>
-
-                  <p className={styles.platformMetric}>
-                    Métrica: alcance + retención · Meta: activar jóvenes
-                  </p>
-                </div>
-              </div>
-
-              <h4 className={styles.voteSubhead}>
-                Tres públicos, tres funciones
-              </h4>
-
-              <div className={styles.publicosGrid}>
-                <div className={styles.publicoCard}>
-                  <p className={styles.publicoNombre}>
-                    Caficultores 40+
-                  </p>
-
-                  <p className={styles.publicoDesc}>
-                    Votantes core · Facebook
-                  </p>
-
-                  <p className={styles.publicoPref}>
-                    Prefieren: información clara y técnica
-                  </p>
-
-                  <span
-                    className={`${styles.publicoTag} ${styles.tagVotar}`}
-                  >
-                    Función: votar
-                  </span>
-                </div>
-
-                <div className={styles.publicoCard}>
-                  <p className={styles.publicoNombre}>
-                    Jóvenes del sector
-                  </p>
-
-                  <p className={styles.publicoDesc}>
-                    Extensionistas y empleados · Instagram
-                  </p>
-
-                  <p className={styles.publicoPref}>
-                    Prefieren: reels, tendencias y dinamismo
-                  </p>
-
-                  <span
-                    className={`${styles.publicoTag} ${styles.tagMovilizar}`}
-                  >
-                    Función: movilizar
-                  </span>
-                </div>
-
-                <div className={styles.publicoCard}>
-                  <p className={styles.publicoNombre}>
-                    Amantes del café
-                  </p>
-
-                  <p className={styles.publicoDesc}>
-                    Público urbano secundario · ambas
-                  </p>
-
-                  <p className={styles.publicoPref}>
-                    Prefieren: historias reales e información clara
-                  </p>
-
-                  <span
-                    className={`${styles.publicoTag} ${styles.tagInteresar}`}
-                  >
-                    Función: interesar
-                  </span>
-                </div>
-              </div>
-
-              <div className={styles.clavesBar}>
-                <span className={styles.clavesLabel}>
-                  Claves de ejecución
-                </span>
-
-                <ol className={styles.clavesList}>
-                  <li>Medir alcance y retención</li>
-                  <li>Priorizar personas reales</li>
-                  <li>Dos mensajes en paralelo</li>
-                  <li>1 salida = hasta 5 piezas</li>
-                  <li>40+ votan · jóvenes movilizan</li>
-                </ol>
-              </div>
-            </Reveal>
-        </AccordionSection>
-
-        <AccordionSection
-          id="estrategia"
-          alt
-          isOpen={openSection === 'estrategia'}
-        >
-            <div className={styles.secIntro}>
-              <div className={styles.secIntroText}>
-                <Reveal className={styles.secHead}>
-                  <div className={styles.secHeadLeft}>
-                    <span className={styles.secNum}>
-                      02
-                    </span>
-
-                    <div>
-                      <p className={styles.secLabel}>
-                        Comunicación institucional
-                      </p>
-
-                      <h2 className={styles.secTitle}>
-                        Estrategia global
-                        <br />
-                        de redes sociales
-                      </h2>
-
-                      <div className={styles.secRule} />
-                    </div>
-                  </div>
-                </Reveal>
-
-                <Reveal
-                  delay={0.05}
-                  as="p"
-                  className={styles.secDesc}
-                >
-                  Diseño y estructuración de la estrategia de comunicación
-                  digital del Comité de Cafeteros del Valle del Cauca,
-                  orientada a fortalecer la presencia institucional en
-                  redes sociales y mejorar el alcance e impacto de los
-                  contenidos publicados.
-                </Reveal>
-              </div>
-
-              <SectionImage
-                file={SECTION_IMAGES.estrategia}
-                alt="Estrategia global de redes sociales"
-                delay={0.1}
-              />
+                <p>
+                  Cada pieza tiene detrás una decisión
+                  estratégica, una lectura del contexto y
+                  una intención clara:{' '}
+                  <strong>
+                    comunicar también es construir gremio.
+                  </strong>
+                </p>
+              </Reveal>
             </div>
+          </div>
+        </section>
 
-            <Reveal
-              delay={0.15}
-              className={styles.textBlock}
-            >
-              <p>
-                La estrategia global de redes sociales fue desarrollada
-                con el objetivo de unificar la comunicación digital del
-                Comité, estableciendo lineamientos claros para la
-                producción y publicación de contenidos en las distintas
-                plataformas institucionales.
-              </p>
+        {/* EL ANÁLISIS VA ENCIMA DE LOS BOTONES */}
 
-              <p>
-                El proceso incluyó el análisis del estado actual de las
-                redes, la identificación de públicos objetivo, la
-                definición de pilares de contenido, la propuesta de
-                formatos y frecuencias de publicación, y el
-                establecimiento de métricas de seguimiento para evaluar
-                el impacto de la estrategia.
-              </p>
+        <AnalysisSection />
 
-              <p>
-                Este trabajo permitió articular los objetivos
-                comunicacionales de las diferentes áreas del Comité con
-                una propuesta coherente, visualmente consistente y
-                orientada a fortalecer el vínculo entre la institución y
-                las comunidades cafeteras del departamento.
-              </p>
+        {/* LOS TRES BOTONES */}
 
-              <p>
-                Entre los resultados destacados se encuentran la
-                consolidación de una línea gráfica institucional, la
-                propuesta de un calendario editorial mensual, y el
-                diseño de indicadores de gestión para medir el alcance,
-                la interacción y la percepción de la marca en redes
-                sociales.
-              </p>
-            </Reveal>
-        </AccordionSection>
+        <PortfolioNavigation
+          openSection={openSection}
+          onSelect={handleSectionSelect}
+        />
 
-        {categorias.map((categoria, index) => (
+        {/* CONTENIDO DE LOS BOTONES */}
+
+        <div className={styles.categorySections}>
           <AccordionSection
-            key={categoria.id}
-            id={categoria.id}
-            alt={index % 2 === 1}
-            isOpen={openSection === categoria.id}
+            id="voto-tu-gremio"
+            isOpen={
+              openSection === 'voto-tu-gremio'
+            }
           >
-            <CategoriaSection categoria={categoria} onOpen={setActive} />
+            <VoteCampaignSection
+              onOpen={setActive}
+            />
           </AccordionSection>
-        ))}
+
+          {VISIBLE_CATEGORIES.map(
+            (categoria, index) => (
+              <AccordionSection
+                key={categoria.id}
+                id={categoria.id}
+                alternate={index % 2 === 0}
+                isOpen={
+                  openSection === categoria.id
+                }
+              >
+                <CategoriaSection
+                  categoria={categoria}
+                  onOpen={setActive}
+                />
+              </AccordionSection>
+            )
+          )}
+        </div>
       </main>
+
+      {/* CONTACTO */}
 
       <section
         className={styles.contactSection}
         id="contacto"
       >
-        <div className="wrap">
+        <div className={styles.contactCircleOne} />
+        <div className={styles.contactCircleTwo} />
+
+        <div className={styles.wrap}>
           <Reveal className={styles.contactInner}>
             <p className={styles.secLabel}>
               Hablemos
             </p>
 
-            <h2 className={styles.secTitle}>
+            <h2 className={styles.contactTitle}>
               Contacto
             </h2>
 
+            <p className={styles.contactIntro}>
+              Conoce más sobre mi trabajo, mis procesos de
+              comunicación y los proyectos desarrollados
+              durante la práctica profesional.
+            </p>
+
             <div className={styles.secRule} />
 
-            <ul className={styles.contactList}>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M4 4h16v16H4z" />
-                  <path d="m22 6-10 7L2 6" />
-                </svg>
-                <a href="mailto:pelaezvalverdetania@gmail.com">
-                  pelaezvalverdetania@gmail.com
-                </a>
-              </li>
+            <div className={styles.contactList}>
+              <a
+                href="mailto:pelaezvalverdetania@gmail.com"
+                className={styles.contactCard}
+              >
+                <span className={styles.contactIcon}>
+                  @
+                </span>
 
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-                <a href="tel:+573172273409">
-                  +57 317 227 3409
-                </a>
-              </li>
+                <span>
+                  <small>Correo electrónico</small>
 
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-                <a
-                  href="https://instagram.com/tania_0224"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @tania_0224
-                </a>
-              </li>
+                  <strong>
+                    pelaezvalverdetania@gmail.com
+                  </strong>
+                </span>
 
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>Cali, Colombia</span>
-              </li>
-            </ul>
+                <i>↗</i>
+              </a>
+
+              <a
+                href="tel:+573172273409"
+                className={styles.contactCard}
+              >
+                <span className={styles.contactIcon}>
+                  ◉
+                </span>
+
+                <span>
+                  <small>Teléfono</small>
+                  <strong>+57 317 227 3409</strong>
+                </span>
+
+                <i>↗</i>
+              </a>
+
+              <a
+                href="https://instagram.com/tania_0224"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.contactCard}
+              >
+                <span className={styles.contactIcon}>
+                  ◎
+                </span>
+
+                <span>
+                  <small>Instagram</small>
+                  <strong>@tania_0224</strong>
+                </span>
+
+                <i>↗</i>
+              </a>
+
+              <div className={styles.contactCard}>
+                <span className={styles.contactIcon}>
+                  ◇
+                </span>
+
+                <span>
+                  <small>Ciudad</small>
+                  <strong>Cali, Colombia</strong>
+                </span>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -833,10 +1442,17 @@ export default function Portafolio() {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            <line x1="19" y1="12" x2="5" y2="12" />
+            <line
+              x1="19"
+              y1="12"
+              x2="5"
+              y2="12"
+            />
+
             <polyline points="12 19 5 12 12 5" />
           </svg>
-          Volver a mi experiencia
+
+          <span>Volver a mi experiencia</span>
         </Link>
       </div>
 
@@ -844,6 +1460,6 @@ export default function Portafolio() {
         item={active}
         onClose={() => setActive(null)}
       />
-    </>
+    </div>
   );
 }
