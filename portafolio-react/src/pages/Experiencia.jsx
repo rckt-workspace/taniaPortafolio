@@ -311,34 +311,55 @@ export default function Experiencia() {
         <div className={styles.heroCircleTwo} />
         <div className={styles.heroPattern} />
 
-        <div className={styles.heroContent}>
-          <Reveal>
-            <div className={styles.heroSymbol}>✦</div>
-          </Reveal>
+        <div className={styles.heroGrid}>
+          <div className={styles.heroContent}>
+            <Reveal>
+              <div className={styles.heroSymbol}>✦</div>
+            </Reveal>
 
-          <Reveal delay={0.05}>
-            <p className={styles.phEyebrow}>
-              Comité de Cafeteros del Valle del Cauca
-            </p>
-          </Reveal>
+            <Reveal delay={0.05}>
+              <p className={styles.phEyebrow}>
+                Comité de Cafeteros del Valle del Cauca
+              </p>
+            </Reveal>
 
-          <Reveal delay={0.1}>
-            <h1 className={styles.phTitle}>
-              Mi <em>experiencia</em>
-            </h1>
-          </Reveal>
+            <Reveal delay={0.1}>
+              <h1 className={styles.phTitle}>
+                Mi <em>experiencia</em>
+              </h1>
+            </Reveal>
 
-          <Reveal delay={0.15}>
-            <p className={styles.phSub}>
-              Práctica profesional · 2026
-            </p>
-          </Reveal>
+            <Reveal delay={0.15}>
+              <p className={styles.phSub}>
+                Práctica profesional · 2026
+              </p>
+            </Reveal>
 
-          <Reveal delay={0.2}>
-            <a href="#introduccion" className={styles.heroButton}>
-              <span>Conocer mi experiencia</span>
-              <span className={styles.heroButtonIcon}>↓</span>
-            </a>
+            <Reveal delay={0.2}>
+              <a href="#introduccion" className={styles.heroButton}>
+                <span>Conocer mi experiencia</span>
+                <span className={styles.heroButtonIcon}>↓</span>
+              </a>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.15} className={styles.heroPhoto}>
+            <div className={styles.heroFrame}>
+              <img
+                src={encodeURI('/experiencia/portada.png')}
+                alt="Tania Peláez Valverde durante su práctica profesional"
+                className={styles.heroFrameImg}
+              />
+
+              <div className={styles.heroPhotoBadge}>
+                <span>✦</span>
+
+                <p>
+                  Práctica
+                  <strong>profesional</strong>
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -607,7 +628,7 @@ export default function Experiencia() {
 
         <section className={styles.crecimientoSection}>
           <div className={styles.wrapNarrow}>
-            <Reveal>
+            <Reveal className={styles.crecimientoIntro}>
               <p className={styles.sectionEyebrow}>
                 Construcción profesional
               </p>
@@ -642,6 +663,14 @@ export default function Experiencia() {
                 </strong>
                 .
               </p>
+            </Reveal>
+
+            <Reveal delay={0.08} className={styles.crecimientoImageWrap}>
+              <img
+                src={encodeURI('/experiencia/experiencia2.png')}
+                alt="Tania Peláez Valverde realizando registro fotográfico durante la práctica profesional"
+                className={styles.crecimientoImage}
+              />
             </Reveal>
 
             {/* Esta sección aparece al entrar en el área visible. */}
