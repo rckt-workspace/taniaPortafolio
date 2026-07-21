@@ -12,13 +12,13 @@ import styles from './Portafolio.module.css';
 
 const PUBLICATION_STATS = {
   elecciones: [
-    { likes: 66, comments: 38 },
-    { likes: 58, comments: 26 },
-    { likes: 363, comments: 19 },
-    { likes: 30, comments: 12 },
-    { likes: 28, comments: 6 },
-    { likes: 27, comments: 10 },
-    { likes: 113, comments: 54 },
+    { likes: 338, comments: 80 },
+    { likes: 418, comments: 58 },
+    { likes: 367, comments: 19 },
+    { likes: 535, comments: 31 },
+    { likes: 134, comments: 16 },
+    { likes: 173, comments: 27 },
+    { likes: 170, comments: 65 },
   ],
 
   esdelc: [
@@ -28,15 +28,15 @@ const PUBLICATION_STATS = {
     { likes: 156, comments: 49 },
     { likes: 400, comments: 23 },
     { likes: 138, comments: 16 },
-    { likes: 60, comments: 6 },
+    { likes: 499, comments: 54 },
     { likes: 110, comments: 49 },
   ],
 
   cobertura: [
-    { likes: 95, comments: 48 },
-    { likes: 88, comments: 29 },
-    { likes: 148, comments: 31 },
+    { likes: 148, comments:31 },
     { likes: 183, comments: 60 },
+    { likes: 177, comments: 79 },
+    { likes: 126, comments: 33 },
     { likes: 177, comments: 79 },
     { likes: 126, comments: 33 },
     { likes: 138, comments: 10 },
