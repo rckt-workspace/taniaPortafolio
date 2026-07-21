@@ -44,6 +44,7 @@ const PUBLICATION_STATS = {
     { likes: 126, comments: 45 },
     { likes: 146, comments: 69 },
     { likes: 77, comments: 29 },
+
   ],
 };
 
@@ -1047,7 +1048,13 @@ function CategoriaSection({ categoria, onOpen }) {
 
   return (
     <div className={styles.categoryShell}>
-      <div className={styles.secIntro}>
+      <div
+        className={`${styles.secIntro} ${
+          categoria.id === 'cobertura'
+            ? styles.secIntroCobertura
+            : ''
+        }`}
+      >
         <div className={styles.secIntroText}>
           <Reveal className={styles.secHead}>
             <div className={styles.secHeadLeft}>

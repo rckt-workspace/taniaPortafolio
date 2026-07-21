@@ -1720,6 +1720,24 @@
   align-items: stretch;
 }
 
+.secIntroCobertura {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 2.2rem;
+}
+
+.secIntroCobertura .secTitle {
+  font-size: clamp(1.9rem, 3vw, 2.9rem);
+}
+
+.secIntroCobertura .secSubtitulo {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.secIntroCobertura .secDesc {
+  max-width: 480px;
+  font-size: 0.9rem;
+}
+
 .secIntroText {
   display: flex;
   flex-direction: column;
@@ -2166,6 +2184,10 @@ a.contactCard:hover {
 
   .secIntro {
     grid-template-columns: 1fr 330px;
+  }
+
+  .secIntroCobertura {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   }
 
   .contactList {
