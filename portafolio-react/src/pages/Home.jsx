@@ -12,7 +12,7 @@ const METRICAS = [
       'Municipios productores acompañados por la institucionalidad cafetera del Valle del Cauca.',
   },
   {
-    value: '23K+',
+    value: '+23K',
     label: 'Familias representadas',
     description:
       'Familias caficultoras vinculadas con los procesos institucionales del departamento.',

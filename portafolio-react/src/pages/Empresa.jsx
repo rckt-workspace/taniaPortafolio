@@ -302,7 +302,7 @@ export default function Empresa() {
           <div className={styles.aboutLayout}>
             <div className={styles.aboutSidebar}>
               <span className={styles.aboutNumber}>
-                95+
+                +98
               </span>
 
               <p>
