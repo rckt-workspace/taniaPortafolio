@@ -58,6 +58,8 @@ const AREAS_INTERES = [
   },
 ];
 
+const VIDEO_SRC = encodeURI('/PORTAFOLIO video.mp4');
+
 function MetricWidget({
   metric,
   index,
@@ -147,10 +149,14 @@ function InterestWidget({
 export default function Home() {
   const empresaRef = useRef(null);
   const experienciaRef = useRef(null);
+  const videoRef = useRef(null);
 
   const [activeMetric, setActiveMetric] = useState(0);
   const [activeArea, setActiveArea] = useState(0);
   const [videoExpanded, setVideoExpanded] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [videoError, setVideoError] = useState('');
 
   useTilt(empresaRef, {
     maxX: 4,
@@ -161,6 +167,59 @@ export default function Home() {
     maxX: 4,
     maxY: 4,
   });
+
+  const openVideo = () => {
+    setVideoExpanded(true);
+    setVideoReady(false);
+    setVideoStarted(false);
+    setVideoError('');
+  };
+
+  const closeVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+
+    setVideoExpanded(false);
+    setVideoReady(false);
+    setVideoStarted(false);
+    setVideoError('');
+  };
+
+  const playVideo = async () => {
+    if (!videoRef.current) {
+      return;
+    }
+
+    try {
+      await videoRef.current.play();
+    } catch (error) {
+      console.error('No fue posible reproducir el video:', error);
+      setVideoError(
+        'El navegador no pudo iniciar el video. Revisa el nombre del archivo o su formato.'
+      );
+    }
+  };
+
+  const handleVideoError = () => {
+    const mediaError = videoRef.current?.error;
+    const errorCode = mediaError?.code;
+
+    const messages = {
+      1: 'La carga del video fue cancelada.',
+      2: 'No fue posible descargar el archivo de video.',
+      3: 'El video existe, pero no pudo decodificarse.',
+      4: 'El formato o la ruta del video no son compatibles.',
+    };
+
+    setVideoReady(false);
+    setVideoStarted(false);
+    setVideoError(
+      messages[errorCode] ||
+        'No fue posible cargar el video de presentación.'
+    );
+  };
 
   return (
     <div className={styles.page}>
@@ -374,17 +433,12 @@ export default function Home() {
               delay={0.1}
               className={styles.perfilVideoBlock}
             >
-              <button
-                type="button"
+              <article
                 className={`${styles.videoWidget} ${
                   videoExpanded
                     ? styles.videoWidgetExpanded
                     : ''
                 }`}
-                onClick={() =>
-                  setVideoExpanded((current) => !current)
-                }
-                aria-expanded={videoExpanded}
               >
                 <div className={styles.videoWidgetTop}>
                   <span className={styles.videoNumber}>
@@ -396,71 +450,177 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className={styles.videoWidgetCenter}>
-                  <span className={styles.videoPlay}>
-                    {videoExpanded ? '×' : (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
+                {!videoExpanded ? (
+                  <>
+                    <div className={styles.videoWidgetCenter}>
+                      <button
+                        type="button"
+                        className={styles.videoPlay}
+                        onClick={openVideo}
+                        aria-label="Abrir video de presentación"
                       >
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                    )}
-                  </span>
+                        <svg
+                          width="28"
+                          height="28"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                      </button>
 
-                  <div>
-                    <p className={styles.videoLabel}>
-                      Conoce mi perfil
-                    </p>
+                      <div>
+                        <p className={styles.videoLabel}>
+                          Conoce mi perfil
+                        </p>
 
-                    <h3>
-                      Comunicación estratégica con enfoque
-                      humano
-                    </h3>
+                        <h3>
+                          Comunicación estratégica con
+                          enfoque humano
+                        </h3>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      className={styles.videoWidgetBottom}
+                      onClick={openVideo}
+                    >
+                      <span>Abrir presentación</span>
+                      <span aria-hidden="true">↗</span>
+                    </button>
+                  </>
+                ) : (
+                  <div className={styles.videoPlayerContent}>
+                    <div className={styles.videoPlayerHeader}>
+                      <div>
+                        <p className={styles.videoLabel}>
+                          Presentación profesional
+                        </p>
+
+                        <h3>Conoce mi portafolio</h3>
+                      </div>
+
+                      <button
+                        type="button"
+                        className={styles.videoClose}
+                        onClick={closeVideo}
+                        aria-label="Cerrar video"
+                      >
+                        ×
+                      </button>
+                    </div>
+
+                    <div className={styles.videoPlayerFrame}>
+                      <video
+                        ref={videoRef}
+                        className={styles.presentationVideo}
+                        src={VIDEO_SRC}
+                        controls
+                        playsInline
+                        preload="auto"
+                        onLoadedMetadata={() => {
+                          setVideoReady(true);
+                          setVideoError('');
+                        }}
+                        onCanPlay={() => setVideoReady(true)}
+                        onPlay={() => setVideoStarted(true)}
+                        onEnded={() => setVideoStarted(false)}
+                        onError={handleVideoError}
+                      >
+                        Tu navegador no permite reproducir
+                        este video.
+                      </video>
+
+                      {!videoStarted && !videoError && (
+                        <button
+                          type="button"
+                          className={styles.videoOverlayPlay}
+                          onClick={playVideo}
+                          disabled={!videoReady}
+                          aria-label={
+                            videoReady
+                              ? 'Reproducir presentación'
+                              : 'Cargando presentación'
+                          }
+                        >
+                          <span
+                            className={styles.videoOverlayIcon}
+                            aria-hidden="true"
+                          >
+                            ▶
+                          </span>
+
+                          <span>
+                            {videoReady
+                              ? 'Reproducir presentación'
+                              : 'Cargando video...'}
+                          </span>
+                        </button>
+                      )}
+
+                      {videoError && (
+                        <div
+                          className={styles.videoError}
+                          role="alert"
+                        >
+                          <span
+                            className={styles.videoErrorIcon}
+                            aria-hidden="true"
+                          >
+                            !
+                          </span>
+
+                          <div>
+                            <strong>
+                              No se pudo cargar el video
+                            </strong>
+
+                            <p>{videoError}</p>
+
+                            <small>
+                              Archivo esperado:
+                              {' '}
+                              public/PORTAFOLIO video.mp4
+                            </small>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className={styles.videoInfoRow}>
+                      <span className={styles.videoInfoPill}>
+                        Video de presentación
+                      </span>
+
+                      <span className={styles.videoInfoPath}>
+                        PORTAFOLIO video.mp4
+                      </span>
+                    </div>
+
+                    <div className={styles.videoDetailsVisible}>
+                      <p>
+                        Mi formación integra comunicación
+                        institucional, creación de contenidos,
+                        producción audiovisual y narración de
+                        procesos sociales.
+                      </p>
+
+                      <p>
+                        Mi propósito es construir mensajes que
+                        acerquen a las organizaciones con sus
+                        comunidades y permitan visibilizar
+                        historias con impacto social.
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <div
-                  className={`${styles.videoDetails} ${
-                    videoExpanded
-                      ? styles.videoDetailsVisible
-                      : ''
-                  }`}
-                >
-                  <p>
-                    Mi formación integra comunicación
-                    institucional, creación de contenidos,
-                    producción audiovisual y narración de
-                    procesos sociales.
-                  </p>
-
-                  <p>
-                    Mi propósito es construir mensajes que
-                    acerquen a las organizaciones con sus
-                    comunidades y permitan visibilizar
-                    historias con impacto social.
-                  </p>
-                </div>
-
-                <div className={styles.videoWidgetBottom}>
-                  <span>
-                    {videoExpanded
-                      ? 'Cerrar presentación'
-                      : 'Abrir presentación'}
-                  </span>
-
-                  <span>
-                    {videoExpanded ? '−' : '↗'}
-                  </span>
-                </div>
-              </button>
+                )}
+              </article>
             </Reveal>
 
             <div className={styles.profileSide}>
