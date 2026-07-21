@@ -176,7 +176,7 @@ export default function Home() {
         <div className={`${styles.blob} ${styles.b2}`} />
         <div className={styles.heroGridPattern} />
 
-        <div className={styles.heroText}>
+        <div className={styles.heroHeading}>
           <div className={styles.heroTopLabel}>
             <span className={styles.heroTopDot} />
             Portafolio profesional
@@ -202,6 +202,9 @@ export default function Home() {
             Conectar, visibilizar y transformar.
           </p>
 
+        </div>
+
+        <div className={styles.heroText}>
           <div className={styles.heroPerfil}>
             <div className={styles.heroPerfilHeading}>
               <div>
