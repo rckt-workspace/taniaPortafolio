@@ -9,25 +9,29 @@ const FACTS = [
     label: 'Sector',
     value: 'Cafetero',
     icon: '☕',
-    description: 'Desarrollo y fortalecimiento de la caficultura regional.',
+    description:
+      'Desarrollo y fortalecimiento de la caficultura regional.',
   },
   {
     label: 'Fundado',
     value: '1928',
     icon: '✦',
-    description: 'Más de nueve décadas acompañando al sector cafetero.',
+    description:
+      'Más de nueve décadas acompañando al sector cafetero.',
   },
   {
     label: 'Familias representadas',
     value: '+23.000',
     icon: '⌂',
-    description: 'Familias caficultoras representadas en el departamento.',
+    description:
+      'Familias caficultoras representadas en el departamento.',
   },
   {
     label: 'Municipios productores',
     value: '39',
     icon: '◉',
-    description: 'Presencia institucional en las zonas cafeteras del Valle.',
+    description:
+      'Presencia institucional en las zonas cafeteras del Valle.',
   },
 ];
 
@@ -68,7 +72,12 @@ const IMPACTS = [
   },
 ];
 
-function FactCard({ label, value, icon, description }) {
+function FactCard({
+  label,
+  value,
+  icon,
+  description,
+}) {
   const cardRef = useRef(null);
 
   useTilt(cardRef, {
@@ -87,7 +96,9 @@ function FactCard({ label, value, icon, description }) {
       <div className={styles.factContent}>
         <p className={styles.factLabel}>{label}</p>
         <p className={styles.factValue}>{value}</p>
-        <p className={styles.factDescription}>{description}</p>
+        <p className={styles.factDescription}>
+          {description}
+        </p>
       </div>
 
       <span className={styles.factArrow}>↗</span>
@@ -95,7 +106,12 @@ function FactCard({ label, value, icon, description }) {
   );
 }
 
-function FunctionCard({ item, index, isOpen, onToggle }) {
+function FunctionCard({
+  item,
+  index,
+  isOpen,
+  onToggle,
+}) {
   return (
     <li className={styles.funcItem}>
       <button
@@ -115,7 +131,9 @@ function FunctionCard({ item, index, isOpen, onToggle }) {
 
           <span
             className={`${styles.funcDescription} ${
-              isOpen ? styles.funcDescriptionOpen : ''
+              isOpen
+                ? styles.funcDescriptionOpen
+                : ''
             }`}
           >
             {item.text}
@@ -130,7 +148,12 @@ function FunctionCard({ item, index, isOpen, onToggle }) {
   );
 }
 
-function ImpactCard({ impact, index, activeImpact, onSelect }) {
+function ImpactCard({
+  impact,
+  index,
+  activeImpact,
+  onSelect,
+}) {
   const impactRef = useRef(null);
 
   useTilt(impactRef, {
@@ -145,13 +168,18 @@ function ImpactCard({ impact, index, activeImpact, onSelect }) {
       ref={impactRef}
       type="button"
       className={`${styles.importCard} ${
-        isActive ? styles.importCardActive : ''
+        isActive
+          ? styles.importCardActive
+          : ''
       }`}
       onClick={() => onSelect(index)}
       aria-pressed={isActive}
     >
       <div className={styles.importCardTop}>
-        <span className={styles.importNumber}>{impact.number}</span>
+        <span className={styles.importNumber}>
+          {impact.number}
+        </span>
+
         <span className={styles.importIcon}>
           {isActive ? '✦' : '○'}
         </span>
@@ -163,18 +191,25 @@ function ImpactCard({ impact, index, activeImpact, onSelect }) {
       </div>
 
       <span className={styles.importAction}>
-        {isActive ? 'Información seleccionada' : 'Conocer más'}
+        {isActive
+          ? 'Información seleccionada'
+          : 'Conocer más'}
       </span>
     </button>
   );
 }
 
 export default function Empresa() {
-  const [openFunction, setOpenFunction] = useState(0);
-  const [activeImpact, setActiveImpact] = useState(0);
+  const [openFunction, setOpenFunction] =
+    useState(0);
+
+  const [activeImpact, setActiveImpact] =
+    useState(0);
 
   const toggleFunction = (index) => {
-    setOpenFunction((current) => (current === index ? null : index));
+    setOpenFunction((current) =>
+      current === index ? null : index,
+    );
   };
 
   return (
@@ -192,7 +227,9 @@ export default function Empresa() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <p className={styles.heroLabel}>Empresa de prácticas</p>
+            <p className={styles.heroLabel}>
+              Empresa de prácticas
+            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -205,24 +242,42 @@ export default function Empresa() {
           <Reveal delay={0.15}>
             <p className={styles.heroSector}>
               Federación Nacional de Cafeteros
-              <span className={styles.heroSeparator}>•</span>
+
+              <span
+                className={styles.heroSeparator}
+              >
+                •
+              </span>
+
               Cali, Colombia
             </p>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <a href="#informacion" className={styles.scrollButton}>
+            <a
+              href="#informacion"
+              className={styles.scrollButton}
+            >
               <span>Explorar la empresa</span>
-              <span className={styles.scrollIcon}>↓</span>
+
+              <span className={styles.scrollIcon}>
+                ↓
+              </span>
             </a>
           </Reveal>
         </div>
       </section>
 
-      <main id="informacion" className={styles.pageContent}>
+      <main
+        id="informacion"
+        className={styles.pageContent}
+      >
         <Reveal className={styles.quickFacts}>
           {FACTS.map((fact) => (
-            <FactCard key={fact.label} {...fact} />
+            <FactCard
+              key={fact.label}
+              {...fact}
+            />
           ))}
         </Reveal>
 
@@ -231,7 +286,9 @@ export default function Empresa() {
           className={`${styles.sectionBlock} ${styles.aboutSection}`}
         >
           <div className={styles.sectionHeading}>
-            <p className={styles.blockLabel}>¿Quiénes son?</p>
+            <p className={styles.blockLabel}>
+              ¿Quiénes son?
+            </p>
 
             <h2 className={styles.blockTitle}>
               Sobre la <span>empresa</span>
@@ -244,52 +301,77 @@ export default function Empresa() {
 
           <div className={styles.aboutLayout}>
             <div className={styles.aboutSidebar}>
-              <span className={styles.aboutNumber}>95+</span>
-              <p>Años de trayectoria institucional</p>
+              <span className={styles.aboutNumber}>
+                95+
+              </span>
 
-              <div className={styles.aboutDecorativeLine} />
+              <p>
+                Años de trayectoria institucional
+              </p>
+
+              <div
+                className={
+                  styles.aboutDecorativeLine
+                }
+              />
             </div>
 
             <div className={styles.blockText}>
               <p>
                 El{' '}
                 <strong>
-                  Comité de Cafeteros del Valle del Cauca
+                  Comité de Cafeteros del Valle
+                  del Cauca
                 </strong>{' '}
-                es la entidad gremial encargada de representar y
-                acompañar a los caficultores del departamento dentro
-                del sistema institucional del café colombiano.
+                es la entidad gremial encargada
+                de representar y acompañar a los
+                caficultores del departamento
+                dentro del sistema institucional
+                del café colombiano.
               </p>
 
               <p>
-                Este Comité hace parte de la estructura regional de la{' '}
+                Este Comité hace parte de la
+                estructura regional de la{' '}
                 <strong>
-                  Federación Nacional de Cafeteros de Colombia
+                  Federación Nacional de
+                  Cafeteros de Colombia
                 </strong>
-                , organización privada, sin ánimo de lucro y de
-                carácter gremial fundada en 1927 por los propios
+                , organización privada, sin ánimo
+                de lucro y de carácter gremial
+                fundada en 1927 por los propios
                 productores de café del país.
               </p>
 
               <p>
-                La Federación cuenta con una estructura organizativa
-                que incluye{' '}
+                La Federación cuenta con una
+                estructura organizativa que
+                incluye{' '}
                 <strong>
-                  comités departamentales y municipales
+                  comités departamentales y
+                  municipales
                 </strong>{' '}
-                en las zonas productoras del país. Esta organización
-                permite mantener una relación directa con las
-                comunidades cafeteras y garantizar la implementación
-                de programas y servicios en los territorios.
+                en las zonas productoras del país.
+                Esta organización permite mantener
+                una relación directa con las
+                comunidades cafeteras y garantizar
+                la implementación de programas y
+                servicios en los territorios.
               </p>
 
               <p>
-                En el Valle del Cauca, la representación institucional
-                se ejerce a través del Comité fundado el{' '}
-                <strong>14 de mayo de 1928</strong>, entidad que agrupa
-                y representa a{' '}
+                En el Valle del Cauca, la
+                representación institucional se
+                ejerce a través del Comité fundado
+                el{' '}
                 <strong>
-                  más de 23.000 familias caficultoras del departamento
+                  14 de mayo de 1928
+                </strong>
+                , entidad que agrupa y representa
+                a{' '}
+                <strong>
+                  más de 23.000 familias
+                  caficultoras del departamento
                 </strong>
                 .
               </p>
@@ -303,19 +385,27 @@ export default function Empresa() {
           className={`${styles.sectionBlock} ${styles.functionsSection}`}
         >
           <div className={styles.sectionHeading}>
-            <p className={styles.blockLabel}>Rol institucional</p>
+            <p className={styles.blockLabel}>
+              Rol institucional
+            </p>
 
             <h2 className={styles.blockTitle}>
-              Funciones del <span>Comité</span>
+              Funciones del{' '}
+              <span>Comité</span>
             </h2>
 
             <div className={styles.blockDivider}>
               <span />
             </div>
 
-            <p className={styles.sectionIntroduction}>
-              Selecciona cada función para conocer más información
-              sobre el trabajo institucional del Comité.
+            <p
+              className={
+                styles.sectionIntroduction
+              }
+            >
+              Selecciona cada función para conocer
+              más información sobre el trabajo
+              institucional del Comité.
             </p>
           </div>
 
@@ -325,33 +415,44 @@ export default function Empresa() {
                 key={item.title}
                 item={item}
                 index={index}
-                isOpen={openFunction === index}
-                onToggle={() => toggleFunction(index)}
+                isOpen={
+                  openFunction === index
+                }
+                onToggle={() =>
+                  toggleFunction(index)
+                }
               />
             ))}
           </ul>
         </Reveal>
 
-        {/* Las tarjetas aparecen progresivamente mientras se baja por la página. */}
         <Reveal
           as="section"
           delay={0.1}
           className={`${styles.sectionBlock} ${styles.impactSection}`}
         >
           <div className={styles.sectionHeading}>
-            <p className={styles.blockLabel}>Su impacto</p>
+            <p className={styles.blockLabel}>
+              Su impacto
+            </p>
 
             <h2 className={styles.blockTitle}>
-              Importancia del <span>Comité</span>
+              Importancia del{' '}
+              <span>Comité</span>
             </h2>
 
             <div className={styles.blockDivider}>
               <span />
             </div>
 
-            <p className={styles.sectionIntroduction}>
-              Cada tarjeta presenta una dimensión de su impacto
-              económico, social y cultural.
+            <p
+              className={
+                styles.sectionIntroduction
+              }
+            >
+              Cada tarjeta presenta una dimensión
+              de su impacto económico, social y
+              cultural.
             </p>
           </div>
 
@@ -374,11 +475,15 @@ export default function Empresa() {
           className={`${styles.sectionBlock} ${styles.choiceSection}`}
         >
           <div className={styles.sectionHeading}>
-            <p className={styles.blockLabel}>Mi decisión</p>
+            <p className={styles.blockLabel}>
+              Mi decisión
+            </p>
 
             <h2 className={styles.blockTitle}>
               ¿Por qué elegí el{' '}
-              <span>Comité de Cafeteros?</span>
+              <span>
+                Comité de Cafeteros?
+              </span>
             </h2>
 
             <div className={styles.blockDivider}>
@@ -390,65 +495,90 @@ export default function Empresa() {
             <div className={styles.porqueText}>
               <p>
                 Elegí realizar mi{' '}
-                <strong>práctica profesional</strong> en el{' '}
                 <strong>
-                  Comité de Cafeteros del Valle del Cauca
+                  práctica profesional
                 </strong>{' '}
-                porque encontré en esta institución un espacio donde{' '}
+                en el{' '}
                 <strong>
-                  la comunicación trasciende lo corporativo
+                  Comité de Cafeteros del Valle
+                  del Cauca
                 </strong>{' '}
-                y se convierte en una herramienta para conectar
-                territorios, comunidades e historias humanas.
+                porque encontré en esta
+                institución un espacio donde{' '}
+                <strong>
+                  la comunicación trasciende lo
+                  corporativo
+                </strong>{' '}
+                y se convierte en una herramienta
+                para conectar territorios,
+                comunidades e historias humanas.
               </p>
 
               <p>
                 El Comité representaba para mí{' '}
                 <strong>
-                  la oportunidad de integrarme a un entorno donde la
-                  comunicación tiene un propósito
+                  la oportunidad de integrarme a
+                  un entorno donde la comunicación
+                  tiene un propósito
                 </strong>{' '}
-                ligado al desarrollo rural, la identidad cafetera y
-                el fortalecimiento de las comunidades productoras del
-                departamento.
+                ligado al desarrollo rural, la
+                identidad cafetera y el
+                fortalecimiento de las comunidades
+                productoras del departamento.
               </p>
 
               <p>
-                Me interesaba comprender cómo una institución de gran
-                trayectoria construye estrategias de comunicación
-                para <strong>visibilizar proyectos</strong> y{' '}
+                Me interesaba comprender cómo una
+                institución de gran trayectoria
+                construye estrategias de
+                comunicación para{' '}
                 <strong>
-                  fortalecer los vínculos con los caficultores
+                  visibilizar proyectos
+                </strong>{' '}
+                y{' '}
+                <strong>
+                  fortalecer los vínculos con los
+                  caficultores
                 </strong>
                 .
               </p>
 
               <p>
-                Esta experiencia me permitía articular varios enfoques
-                que han marcado mi trayectoria académica: la{' '}
-                <strong>comunicación organizacional</strong>, la
-                creación de contenidos, el cubrimiento audiovisual y
-                la comunicación con enfoque humano y social.
+                Esta experiencia me permitía
+                articular varios enfoques que han
+                marcado mi trayectoria académica:
+                la{' '}
+                <strong>
+                  comunicación organizacional
+                </strong>
+                , la creación de contenidos, el
+                cubrimiento audiovisual y la
+                comunicación con enfoque humano y
+                social.
               </p>
 
-              <blockquote className={styles.porqueQuote}>
+              <blockquote
+                className={styles.porqueQuote}
+              >
                 <span>“</span>
-                La comunicación como un puente entre las instituciones
-                y las comunidades.
+                La comunicación como un puente
+                entre las instituciones y las
+                comunidades.
               </blockquote>
             </div>
 
-            <div className={styles.porqueVisual}>
-              <div className={styles.porqueVisualCircle}>
-                <span>✦</span>
-              </div>
-
-              <div className={styles.porqueVisualText}>
-                <strong>Comunicar</strong>
-                <span>Conectar</span>
-                <span>Transformar</span>
-              </div>
-            </div>
+            <figure
+              className={
+                styles.porqueImageContainer
+              }
+            >
+              <img
+                src="/comite.png"
+                alt="Comité de Cafeteros del Valle del Cauca"
+                className={styles.porqueImage}
+                loading="lazy"
+              />
+            </figure>
           </div>
         </Reveal>
 
@@ -458,10 +588,13 @@ export default function Empresa() {
           className={`${styles.sectionBlock} ${styles.socialSection}`}
         >
           <div className={styles.sectionHeading}>
-            <p className={styles.blockLabel}>Síguelos</p>
+            <p className={styles.blockLabel}>
+              Síguelos
+            </p>
 
             <h2 className={styles.blockTitle}>
-              Redes sociales del <span>Comité</span>
+              Redes sociales del{' '}
+              <span>Comité</span>
             </h2>
 
             <div className={styles.blockDivider}>
@@ -505,11 +638,16 @@ export default function Empresa() {
               </span>
 
               <span className={styles.socialText}>
-                <small>Contenido visual</small>
+                <small>
+                  Contenido visual
+                </small>
+
                 <strong>Instagram</strong>
               </span>
 
-              <span className={styles.socialArrow}>↗</span>
+              <span className={styles.socialArrow}>
+                ↗
+              </span>
             </a>
 
             <a
@@ -536,7 +674,9 @@ export default function Empresa() {
                 <strong>Facebook</strong>
               </span>
 
-              <span className={styles.socialArrow}>↗</span>
+              <span className={styles.socialArrow}>
+                ↗
+              </span>
             </a>
 
             <a
@@ -561,17 +701,25 @@ export default function Empresa() {
               </span>
 
               <span className={styles.socialText}>
-                <small>Contenido audiovisual</small>
+                <small>
+                  Contenido audiovisual
+                </small>
+
                 <strong>YouTube</strong>
               </span>
 
-              <span className={styles.socialArrow}>↗</span>
+              <span className={styles.socialArrow}>
+                ↗
+              </span>
             </a>
           </div>
         </Reveal>
 
         <Reveal className={styles.backBtnWrap}>
-          <Link to="/#empresa" className={styles.btnBack}>
+          <Link
+            to="/#empresa"
+            className={styles.btnBack}
+          >
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -580,7 +728,13 @@ export default function Empresa() {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <line x1="19" y1="12" x2="5" y2="12" />
+              <line
+                x1="19"
+                y1="12"
+                x2="5"
+                y2="12"
+              />
+
               <polyline points="12 19 5 12 12 5" />
             </svg>
 
