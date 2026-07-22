@@ -91,17 +91,27 @@ function FactCard({
       className={styles.factCard}
       tabIndex={0}
     >
-      <div className={styles.factIcon}>{icon}</div>
+      <div className={styles.factIcon}>
+        {icon}
+      </div>
 
       <div className={styles.factContent}>
-        <p className={styles.factLabel}>{label}</p>
-        <p className={styles.factValue}>{value}</p>
+        <p className={styles.factLabel}>
+          {label}
+        </p>
+
+        <p className={styles.factValue}>
+          {value}
+        </p>
+
         <p className={styles.factDescription}>
           {description}
         </p>
       </div>
 
-      <span className={styles.factArrow}>↗</span>
+      <span className={styles.factArrow}>
+        ↗
+      </span>
     </article>
   );
 }
@@ -222,7 +232,11 @@ export default function Empresa() {
         <div className={styles.heroContent}>
           <Reveal>
             <div className={styles.heroLogo}>
-              <span>✦</span>
+              <img
+                src="/logo.png"
+                alt="Logo del Comité de Cafeteros del Valle del Cauca"
+                className={styles.heroLogoImage}
+              />
             </div>
           </Reveal>
 
@@ -235,7 +249,10 @@ export default function Empresa() {
           <Reveal delay={0.1}>
             <h1 className={styles.heroName}>
               Comité de Cafeteros
-              <span>del Valle del Cauca</span>
+
+              <span>
+                del Valle del Cauca
+              </span>
             </h1>
           </Reveal>
 
@@ -258,7 +275,9 @@ export default function Empresa() {
               href="#informacion"
               className={styles.scrollButton}
             >
-              <span>Explorar la empresa</span>
+              <span>
+                Explorar la empresa
+              </span>
 
               <span className={styles.scrollIcon}>
                 ↓
@@ -561,6 +580,7 @@ export default function Empresa() {
                 className={styles.porqueQuote}
               >
                 <span>“</span>
+
                 La comunicación como un puente
                 entre las instituciones y las
                 comunidades.
@@ -642,7 +662,9 @@ export default function Empresa() {
                   Contenido visual
                 </small>
 
-                <strong>Instagram</strong>
+                <strong>
+                  Instagram
+                </strong>
               </span>
 
               <span className={styles.socialArrow}>
@@ -670,8 +692,13 @@ export default function Empresa() {
               </span>
 
               <span className={styles.socialText}>
-                <small>Comunidad</small>
-                <strong>Facebook</strong>
+                <small>
+                  Comunidad
+                </small>
+
+                <strong>
+                  Facebook
+                </strong>
               </span>
 
               <span className={styles.socialArrow}>
@@ -705,7 +732,9 @@ export default function Empresa() {
                   Contenido audiovisual
                 </small>
 
-                <strong>YouTube</strong>
+                <strong>
+                  YouTube
+                </strong>
               </span>
 
               <span className={styles.socialArrow}>
@@ -738,7 +767,9 @@ export default function Empresa() {
               <polyline points="12 19 5 12 12 5" />
             </svg>
 
-            <span>Volver al portafolio</span>
+            <span>
+              Volver al portafolio
+            </span>
           </Link>
         </Reveal>
       </main>

@@ -314,7 +314,13 @@ export default function Experiencia() {
         <div className={styles.heroGrid}>
           <div className={styles.heroContent}>
             <Reveal>
-              <div className={styles.heroSymbol}>✦</div>
+              <div className={styles.heroSymbol}>
+                <img
+                  src="/logo.png"
+                  alt="Logo TPV"
+                  className={styles.heroLogo}
+                />
+              </div>
             </Reveal>
 
             <Reveal delay={0.05}>

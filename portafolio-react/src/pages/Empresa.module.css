@@ -104,18 +104,19 @@
   text-align: center;
 }
 
+/* Logo nuevo de la carpeta public */
+
 .heroLogo {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(226, 125, 151, 0.3);
+  width: 160px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
-  color: var(--rose);
+  padding: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(226, 125, 151, 0.32);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
   box-shadow:
     0 20px 45px rgba(0, 0, 0, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -123,14 +124,34 @@
   transition:
     transform 0.35s ease,
     border-color 0.35s ease,
-    background 0.35s ease;
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.heroLogoImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: inherit;
+  filter: drop-shadow(
+    0 10px 18px rgba(0, 0, 0, 0.18)
+  );
+  transition: transform 0.35s ease;
 }
 
 .heroLogo:hover {
-  transform: translateY(-7px) rotate(7deg)
-    scale(1.05);
+  transform: translateY(-7px) scale(1.05);
   border-color: var(--rose);
   background: rgba(226, 125, 151, 0.13);
+  box-shadow:
+    0 28px 58px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(226, 125, 151, 0.18);
+}
+
+.heroLogo:hover .heroLogoImage {
+  transform: scale(1.06);
 }
 
 .heroLabel {
@@ -151,11 +172,11 @@
 
 .heroName span {
   display: block;
+  margin-top: 0.5rem;
   font-size: 0.42em;
   font-weight: 400;
-  color: var(--rose);
-  margin-top: 0.5rem;
   letter-spacing: 0.02em;
+  color: var(--rose);
 }
 
 .heroSector {
@@ -225,8 +246,8 @@
   border: 1px solid rgba(74, 61, 51, 0.08);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 20px 55px
-    rgba(74, 61, 51, 0.08);
+  box-shadow:
+    0 20px 55px rgba(74, 61, 51, 0.08);
   backdrop-filter: blur(12px);
   transition:
     transform 0.35s ease,
@@ -237,8 +258,8 @@
 .sectionBlock:hover {
   transform: translateY(-4px);
   border-color: rgba(226, 125, 151, 0.2);
-  box-shadow: 0 28px 70px
-    rgba(74, 61, 51, 0.12);
+  box-shadow:
+    0 28px 70px rgba(74, 61, 51, 0.12);
 }
 
 .sectionHeading {
@@ -339,8 +360,8 @@
     rgba(255, 255, 255, 0.98),
     rgba(244, 235, 221, 0.9)
   );
-  box-shadow: 0 15px 38px
-    rgba(74, 61, 51, 0.08);
+  box-shadow:
+    0 15px 38px rgba(74, 61, 51, 0.08);
   transition:
     box-shadow 0.35s ease,
     border-color 0.35s ease;
@@ -365,8 +386,8 @@
 
 .factCard:hover {
   border-color: rgba(226, 125, 151, 0.45);
-  box-shadow: 0 25px 55px
-    rgba(74, 61, 51, 0.15);
+  box-shadow:
+    0 25px 55px rgba(74, 61, 51, 0.15);
 }
 
 .factCard:hover::before {
@@ -494,8 +515,8 @@
   border: 1px solid rgba(226, 125, 151, 0.13);
   border-radius: 16px;
   background: #fff;
-  box-shadow: 0 10px 25px
-    rgba(74, 61, 51, 0.04);
+  box-shadow:
+    0 10px 25px rgba(74, 61, 51, 0.04);
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
@@ -637,8 +658,8 @@
   border: 1px solid rgba(226, 125, 151, 0.15);
   border-radius: 22px;
   background: #fff;
-  box-shadow: 0 15px 40px
-    rgba(74, 61, 51, 0.08);
+  box-shadow:
+    0 15px 40px rgba(74, 61, 51, 0.08);
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease,
@@ -650,8 +671,8 @@
 .importCard:focus-visible {
   transform: translateY(-10px);
   border-color: rgba(226, 125, 151, 0.4);
-  box-shadow: 0 30px 65px
-    rgba(74, 61, 51, 0.16);
+  box-shadow:
+    0 30px 65px rgba(74, 61, 51, 0.16);
 }
 
 .importCardActive {
@@ -661,8 +682,8 @@
     #fff,
     rgba(226, 125, 151, 0.06)
   );
-  box-shadow: 0 30px 65px
-    rgba(74, 61, 51, 0.16);
+  box-shadow:
+    0 30px 65px rgba(74, 61, 51, 0.16);
 }
 
 .importCardTop {
@@ -785,7 +806,8 @@
   overflow: hidden;
   border-radius: 24px;
   background: var(--brown);
-  box-shadow: 0 25px 60px rgba(74, 61, 51, 0.18);
+  box-shadow:
+    0 25px 60px rgba(74, 61, 51, 0.18);
 }
 
 .porqueImageContainer::after {
@@ -835,8 +857,8 @@
     rgba(226, 125, 151, 0.3);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 12px 30px
-    rgba(74, 61, 51, 0.06);
+  box-shadow:
+    0 12px 30px rgba(74, 61, 51, 0.06);
   text-decoration: none;
   color: var(--rose);
   transition:
@@ -851,8 +873,8 @@
   border-color: var(--rose);
   color: #fff;
   transform: translateY(-8px);
-  box-shadow: 0 22px 45px
-    rgba(226, 125, 151, 0.22);
+  box-shadow:
+    0 22px 45px rgba(226, 125, 151, 0.22);
 }
 
 .socialIcon {
@@ -937,8 +959,8 @@
   color: var(--rose);
   text-decoration: none;
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 12px 30px
-    rgba(74, 61, 51, 0.07);
+  box-shadow:
+    0 12px 30px rgba(74, 61, 51, 0.07);
   transition:
     background 0.3s ease,
     color 0.3s ease,
@@ -1002,6 +1024,12 @@
     padding: 7rem 1.2rem 4rem;
   }
 
+  .heroLogo {
+    width: 135px;
+    height: 135px;
+    padding: 10px;
+  }
+
   .heroSector {
     font-size: 0.7rem;
     line-height: 1.6;
@@ -1043,6 +1071,7 @@
   }
 
   .porqueImageContainer {
+    width: 70%;
     border-radius: 18px;
   }
 }
@@ -1050,6 +1079,12 @@
 @media (max-width: 600px) {
   .pageContent {
     padding: 3.5rem 1rem;
+  }
+
+  .heroLogo {
+    width: 118px;
+    height: 118px;
+    padding: 8px;
   }
 
   .quickFacts {
@@ -1084,6 +1119,7 @@
   }
 
   .porqueImageContainer {
+    width: 90%;
     border-radius: 14px;
   }
 }
@@ -1095,6 +1131,8 @@
     animation: none;
   }
 
+  .heroLogo,
+  .heroLogoImage,
   .porqueImage,
   .sectionBlock,
   .factCard,
