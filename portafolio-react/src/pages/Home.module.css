@@ -508,7 +508,12 @@
   transform: translateY(-5px);
   background: var(--rose-dark);
   box-shadow: 0 22px 42px rgba(226, 125, 151, 0.32);
-  bottom:1000px;
+
+}
+
+.heroPhotoBtnCv {
+  position: relative;
+  bottom: -80px;
 }
 
 /* =========================================================
@@ -2092,7 +2097,7 @@ a.contactCard:hover .contactArrow {
   column-gap: 0;
   row-gap: 2rem;
   /* Reserva espacio para el navbar fijo y evita que tape el encabezado. */
-  padding: 7.25rem 0 4.5rem;
+  padding: 4.5rem 0 4.5rem;
 }
 
 .heroHeading {
@@ -2190,7 +2195,7 @@ a.contactCard:hover .contactArrow {
     grid-template-areas:
       "heading heading"
       "content photo";
-    padding: 7rem 0 4rem;
+    padding: 4.5rem 0 4rem;
   }
 
   .heroHeading {
@@ -2215,7 +2220,7 @@ a.contactCard:hover .contactArrow {
       "photo"
       "content";
     row-gap: 2rem;
-    padding: 6.75rem 0 0;
+    padding: 4.25rem 0 0;
   }
 
   .heroHeading {
@@ -2247,7 +2252,7 @@ a.contactCard:hover .contactArrow {
 
 @media (max-width: 520px) {
   .hero {
-    padding-top: 6.25rem;
+    padding-top: 4rem;
   }
 
   .heroHeading {

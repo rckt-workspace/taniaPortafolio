@@ -65,7 +65,7 @@ const ANALYSIS_PLATFORMS = [
   {
     id: 'facebook',
     name: 'Facebook',
-    followers: '9.900',
+    followers: '10.000',
     role: 'Informar y mantener la confianza',
     audience: 'Caficultores 40+ · votantes',
     consumption: 'Lento · denso · informativo',
@@ -78,7 +78,7 @@ const ANALYSIS_PLATFORMS = [
   {
     id: 'instagram',
     name: 'Instagram',
-    followers: '7.555',
+    followers: '7.564',
     role: 'Informar y activar a los jóvenes',
     audience: 'Caficultores 40+ y jóvenes del sector',
     consumption: 'Rápido · scroll · visual',
