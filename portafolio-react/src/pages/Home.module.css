@@ -389,6 +389,7 @@
   background: rgba(255, 255, 255, 0.64);
   box-shadow: 0 35px 75px rgba(74, 61, 51, 0.18);
   backdrop-filter: blur(10px);
+  bottom: -80px;
 }
 
 .heroFrame::before {
@@ -507,6 +508,7 @@
   transform: translateY(-5px);
   background: var(--rose-dark);
   box-shadow: 0 22px 42px rgba(226, 125, 151, 0.32);
+  bottom:1000px;
 }
 
 /* =========================================================
