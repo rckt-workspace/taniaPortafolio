@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import Lightbox from '../components/publicaciones/Lightbox';
 import PublicacionCard from '../components/publicaciones/PublicacionCard';
+import cardStyles from '../components/publicaciones/PublicacionCard.module.css';
 import ExoticCarousel from '../components/carousel/ExoticCarousel';
 import { categorias } from '../data/publicaciones';
 import styles from './Portafolio.module.css';
@@ -387,9 +388,33 @@ function StatIcon({ type }) {
   );
 }
 
-function PublicationGrid({ categoria, onOpen }) {
+function VoteCarouselCard({ onOpen }) {
+  return (
+    <article className={styles.publicacionItem}>
+      <div className={cardStyles.card}>
+        <div className={cardStyles.thumb}>
+          <ExoticCarousel
+            media={VOTE_CAROUSEL_1}
+            compact
+            onOpen={onOpen}
+          />
+        </div>
+
+        <div className={cardStyles.meta}>
+          <span className={cardStyles.num}>
+            Publicación 00
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function PublicationGrid({ categoria, onOpen, leading }) {
   if (!categoria?.publicaciones?.length) {
-    return (
+    return leading ? (
+      <div className={styles.pubGrid}>{leading}</div>
+    ) : (
       <p className={styles.emptyPublications}>
         No hay publicaciones disponibles en esta sección.
       </p>
@@ -400,6 +425,8 @@ function PublicationGrid({ categoria, onOpen }) {
 
   return (
     <div className={styles.pubGrid}>
+      {leading}
+
       {categoria.publicaciones.map((publicacion, index) => {
         const itemStats = stats[index];
 
@@ -728,10 +755,6 @@ function VoteCampaignSection({ onOpen }) {
 
   return (
     <div className={styles.voteCampaignContent}>
-      <Reveal className={styles.voteCarouselTop}>
-        <ExoticCarousel media={VOTE_CAROUSEL_1} />
-      </Reveal>
-
       <Reveal className={styles.voteCampaignHeader}>
         <div>
           <p className={styles.campaignEyebrow}>
@@ -968,6 +991,9 @@ function VoteCampaignSection({ onOpen }) {
               <PublicationGrid
                 categoria={ELECTION_CATEGORY}
                 onOpen={onOpen}
+                leading={
+                  <VoteCarouselCard onOpen={onOpen} />
+                }
               />
             </div>
           </div>

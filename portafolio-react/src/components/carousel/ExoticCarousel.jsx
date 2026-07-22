@@ -9,7 +9,13 @@ function shortestOffset(i, active, length) {
   return diff;
 }
 
-export default function ExoticCarousel({ media, reverse = false, interval = 4200 }) {
+export default function ExoticCarousel({
+  media,
+  reverse = false,
+  interval = 4200,
+  compact = false,
+  onOpen,
+}) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchX = useRef(null);
@@ -48,18 +54,30 @@ export default function ExoticCarousel({ media, reverse = false, interval = 4200
     if (e.key === 'ArrowRight') go(1);
   }
 
+  function handleSlideClick(i, active) {
+    if (active && onOpen) {
+      onOpen({ media });
+      return;
+    }
+    setIndex(i);
+  }
+
   return (
     <div
-      className={`${styles.outer} ${reverse ? styles.outerReverse : ''}`}
+      className={`${styles.outer} ${compact ? styles.outerCompact : ''} ${reverse ? styles.outerReverse : ''}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <span className={styles.blobA} aria-hidden="true" />
-      <span className={styles.blobB} aria-hidden="true" />
-      <span className={styles.ring} aria-hidden="true" />
+      {!compact && (
+        <>
+          <span className={styles.blobA} aria-hidden="true" />
+          <span className={styles.blobB} aria-hidden="true" />
+          <span className={styles.ring} aria-hidden="true" />
+        </>
+      )}
 
       <div
-        className={styles.stage}
+        className={`${styles.stage} ${compact ? styles.stageCompact : ''}`}
         role="group"
         aria-roledescription="carrusel"
         tabIndex={0}
@@ -75,9 +93,9 @@ export default function ExoticCarousel({ media, reverse = false, interval = 4200
           return (
             <div
               key={path}
-              className={`${styles.slide} ${active ? styles.slideActive : ''}`}
+              className={`${styles.slide} ${compact ? styles.slideCompact : ''} ${active ? styles.slideActive : ''}`}
               style={{ '--offset': offset, '--abs': abs, zIndex: 10 - abs }}
-              onClick={() => setIndex(i)}
+              onClick={() => handleSlideClick(i, active)}
             >
               <div className={styles.slideInner}>
                 <img src={path} alt="" loading="lazy" />
@@ -86,40 +104,63 @@ export default function ExoticCarousel({ media, reverse = false, interval = 4200
           );
         })}
 
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowLeft}`}
-          onClick={() => go(-1)}
-          aria-label="Anterior"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
+        {!compact && (
+          <>
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.arrowLeft}`}
+              onClick={() => go(-1)}
+              aria-label="Anterior"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
 
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowRight}`}
-          onClick={() => go(1)}
-          aria-label="Siguiente"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.arrowRight}`}
+              onClick={() => go(1)}
+              aria-label="Siguiente"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </>
+        )}
+
+        {compact && (
+          <div className={`${styles.dots} ${styles.dotsCompact}`}>
+            {media.map((path, i) => (
+              <button
+                key={path}
+                type="button"
+                className={`${styles.dot} ${i === index ? styles.dotActive : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIndex(i);
+                }}
+                aria-label={`Ir a la imagen ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className={styles.dots}>
-        {media.map((path, i) => (
-          <button
-            key={path}
-            type="button"
-            className={`${styles.dot} ${i === index ? styles.dotActive : ''}`}
-            onClick={() => setIndex(i)}
-            aria-label={`Ir a la imagen ${i + 1}`}
-          />
-        ))}
-      </div>
+      {!compact && (
+        <div className={styles.dots}>
+          {media.map((path, i) => (
+            <button
+              key={path}
+              type="button"
+              className={`${styles.dot} ${i === index ? styles.dotActive : ''}`}
+              onClick={() => setIndex(i)}
+              aria-label={`Ir a la imagen ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
