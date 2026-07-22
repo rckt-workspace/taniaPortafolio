@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import Lightbox from '../components/publicaciones/Lightbox';
 import PublicacionCard from '../components/publicaciones/PublicacionCard';
+import ExoticCarousel from '../components/carousel/ExoticCarousel';
 import { categorias } from '../data/publicaciones';
 import styles from './Portafolio.module.css';
 
@@ -281,6 +282,22 @@ const ELECTION_CATEGORY = categorias.find(
 const ESDELC_CATEGORY = categorias.find(
   (categoria) => categoria.id === 'esdelc'
 );
+
+/* =========================================================
+   CARRUSELES DE TU VOTO, TU GREMIO
+========================================================= */
+
+const VOTE_CAROUSEL_1 = [
+  '/portafolio/carrusel1/imagen1.png',
+  '/portafolio/carrusel1/imagen2.png',
+  '/portafolio/carrusel1/imagen3.png',
+];
+
+const VOTE_CAROUSEL_2 = [
+  '/portafolio/carrusel2/imagen1.png',
+  '/portafolio/carrusel2/imagen2.png',
+  '/portafolio/carrusel2/imagen3.jpg',
+];
 
 const COBERTURA_CATEGORY = categorias.find(
   (categoria) => categoria.id === 'cobertura'
@@ -711,6 +728,10 @@ function VoteCampaignSection({ onOpen }) {
 
   return (
     <div className={styles.voteCampaignContent}>
+      <Reveal className={styles.voteCarouselTop}>
+        <ExoticCarousel media={VOTE_CAROUSEL_1} />
+      </Reveal>
+
       <Reveal className={styles.voteCampaignHeader}>
         <div>
           <p className={styles.campaignEyebrow}>
@@ -952,6 +973,10 @@ function VoteCampaignSection({ onOpen }) {
           </div>
         </div>
       )}
+
+      <Reveal className={styles.voteCarouselBottom}>
+        <ExoticCarousel media={VOTE_CAROUSEL_2} reverse />
+      </Reveal>
     </div>
   );
 }

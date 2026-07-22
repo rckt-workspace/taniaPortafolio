@@ -1,0 +1,220 @@
+.outer {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  padding: 4.5rem 0 3.2rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.blobA,
+.blobB {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blobA {
+  top: -12%;
+  left: 6%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(233, 116, 163, .38), transparent 70%);
+  animation: exoticBlob 12s ease-in-out infinite;
+}
+
+.blobB {
+  bottom: -16%;
+  right: 8%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(216, 179, 106, .34), transparent 70%);
+  animation: exoticBlob 15s ease-in-out infinite reverse;
+}
+
+.outerReverse .blobA {
+  left: auto;
+  right: 6%;
+}
+
+.outerReverse .blobB {
+  right: auto;
+  left: 8%;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(720px, 72vw);
+  height: min(720px, 72vw);
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(226, 125, 151, .25);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: exoticSpin 34s linear infinite;
+}
+
+.outerReverse .ring {
+  animation-direction: reverse;
+  border-color: rgba(216, 179, 106, .3);
+}
+
+@keyframes exoticBlob {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-18px, 22px, 0) scale(1.08); }
+}
+
+@keyframes exoticSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  height: clamp(300px, 44vw, 520px);
+  perspective: 1800px;
+  outline: none;
+}
+
+.slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(240px, 40vw, 900px);
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  transform:
+    translate(-50%, -50%)
+    translateX(calc(var(--offset) * 60vw))
+    translateZ(calc(var(--abs) * -230px))
+    rotateY(calc(var(--offset) * -34deg))
+    scale(calc(1 - var(--abs) * .26));
+  opacity: calc(1 - var(--abs) * .42);
+  transition: transform .85s cubic-bezier(.23, 1, .32, 1), opacity .85s ease;
+}
+
+.slideActive {
+  cursor: default;
+}
+
+.slideInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, .55);
+  background: var(--brown-dark, #302821);
+  box-shadow: 0 30px 65px rgba(74, 61, 51, .3);
+  transition: border-color .5s ease, box-shadow .5s ease;
+}
+
+.slideActive .slideInner {
+  border-color: var(--gold, #d8b36a);
+  box-shadow: 0 40px 85px rgba(226, 125, 151, .4);
+  animation: exoticPulse 5s ease-in-out infinite;
+}
+
+@keyframes exoticPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.slideInner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  color: #fff;
+  background: rgba(74, 61, 51, .55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.arrow:hover {
+  background: var(--rose, #e27d97);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.arrowLeft { left: 2.5vw; }
+.arrowRight { right: 2.5vw; }
+
+.dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: 1.6rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(74, 61, 51, .22);
+  cursor: pointer;
+  padding: 0;
+  transition: background .25s ease, width .25s ease;
+}
+
+.dot:hover {
+  background: rgba(226, 125, 151, .5);
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--rose, #e27d97);
+}
+
+@media (max-width: 720px) {
+  .slide {
+    width: min(320px, 74vw);
+  }
+
+  .stage {
+    height: clamp(240px, 60vw, 360px);
+  }
+
+  .arrowLeft { left: 3%; }
+  .arrowRight { right: 3%; }
+
+  .ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blobA,
+  .blobB,
+  .ring,
+  .slideActive .slideInner {
+    animation: none !important;
+  }
+
+  .slide,
+  .slideInner {
+    transition: none !important;
+  }
+}
