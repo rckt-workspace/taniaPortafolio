@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal';
 import Lightbox from '../components/publicaciones/Lightbox';
@@ -388,25 +389,72 @@ function StatIcon({ type }) {
   );
 }
 
-function VoteCarouselCard({ onOpen }) {
-  return (
-    <article className={styles.publicacionItem}>
-      <div className={cardStyles.card}>
-        <div className={cardStyles.thumb}>
-          <ExoticCarousel
-            media={VOTE_CAROUSEL_1}
-            compact
-            onOpen={onOpen}
-          />
-        </div>
+function VoteCarouselCard() {
+  const [expanded, setExpanded] = useState(false);
 
-        <div className={cardStyles.meta}>
-          <span className={cardStyles.num}>
-            Publicación 00
-          </span>
+  useEffect(() => {
+    if (!expanded) return;
+
+    document.body.style.overflow = 'hidden';
+
+    function handleKey(e) {
+      if (e.key === 'Escape') setExpanded(false);
+    }
+
+    document.addEventListener('keydown', handleKey);
+
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [expanded]);
+
+  return (
+    <>
+      <article className={styles.publicacionItem}>
+        <div className={cardStyles.card}>
+          <div className={cardStyles.thumb}>
+            <ExoticCarousel
+              media={VOTE_CAROUSEL_1}
+              compact
+              onOpen={() => setExpanded(true)}
+            />
+          </div>
+
+          <div className={cardStyles.meta}>
+            <span className={cardStyles.num}>
+              Publicación 00
+            </span>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      {expanded &&
+        createPortal(
+          <div
+            className={styles.voteCarouselOverlay}
+            onClick={(e) =>
+              e.target === e.currentTarget &&
+              setExpanded(false)
+            }
+          >
+            <button
+              type="button"
+              className={styles.voteCarouselClose}
+              onClick={() => setExpanded(false)}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              Cerrar
+            </button>
+
+            <ExoticCarousel media={VOTE_CAROUSEL_1} />
+          </div>,
+          document.body
+        )}
+    </>
   );
 }
 
@@ -991,9 +1039,7 @@ function VoteCampaignSection({ onOpen }) {
               <PublicationGrid
                 categoria={ELECTION_CATEGORY}
                 onOpen={onOpen}
-                leading={
-                  <VoteCarouselCard onOpen={onOpen} />
-                }
+                leading={<VoteCarouselCard />}
               />
             </div>
           </div>

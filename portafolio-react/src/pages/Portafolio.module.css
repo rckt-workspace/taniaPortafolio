@@ -1889,6 +1889,42 @@
   gap: 1.5rem;
 }
 
+.voteCarouselOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+  background: rgba(58, 46, 40, .95);
+}
+
+.voteCarouselClose {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .5rem .9rem;
+  border: 1px solid rgba(254, 252, 247, .25);
+  border-radius: 20px;
+  background: rgba(58, 46, 40, .6);
+  color: rgba(254, 252, 247, .8);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+
+.voteCarouselClose:hover {
+  color: var(--rose);
+  border-color: var(--rose);
+}
+
 .publicacionItem {
   min-width: 0;
   display: flex;
