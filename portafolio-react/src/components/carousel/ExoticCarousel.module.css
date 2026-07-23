@@ -3,7 +3,7 @@
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  padding: 4.5rem 0 3.2rem;
+  padding: 2rem 0 1.25rem;
   overflow: hidden;
   isolation: isolate;
 }
@@ -85,7 +85,7 @@
 .stage {
   position: relative;
   z-index: 1;
-  height: clamp(380px, 62vw, 680px);
+  height: clamp(300px, 48vw, 540px);
   perspective: 1800px;
   outline: none;
 }
