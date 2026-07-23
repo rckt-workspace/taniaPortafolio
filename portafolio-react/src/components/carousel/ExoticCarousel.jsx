@@ -9,6 +9,36 @@ function shortestOffset(i, active, length) {
   return diff;
 }
 
+function isVideo(path) {
+  return /\.mp4$/i.test(path);
+}
+
+function SlideMedia({ path, active }) {
+  if (isVideo(path)) {
+    return active ? (
+      <video
+        key={path}
+        src={path}
+        controls
+        autoPlay
+        playsInline
+      />
+    ) : (
+      <video
+        src={path}
+        muted
+        preload="metadata"
+        playsInline
+        onLoadedMetadata={(e) => {
+          e.currentTarget.currentTime = 0.1;
+        }}
+      />
+    );
+  }
+
+  return <img src={path} alt="" loading="lazy" />;
+}
+
 export default function ExoticCarousel({
   media,
   reverse = false,
@@ -22,7 +52,7 @@ export default function ExoticCarousel({
   const length = media.length;
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || length <= 1) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const id = setInterval(() => {
@@ -98,13 +128,13 @@ export default function ExoticCarousel({
               onClick={() => handleSlideClick(i, active)}
             >
               <div className={styles.slideInner}>
-                <img src={path} alt="" loading="lazy" />
+                <SlideMedia path={path} active={active} />
               </div>
             </div>
           );
         })}
 
-        {!compact && (
+        {!compact && length > 1 && (
           <>
             <button
               type="button"
@@ -130,7 +160,7 @@ export default function ExoticCarousel({
           </>
         )}
 
-        {compact && (
+        {compact && length > 1 && (
           <div className={`${styles.dots} ${styles.dotsCompact}`}>
             {media.map((path, i) => (
               <button
@@ -148,7 +178,7 @@ export default function ExoticCarousel({
         )}
       </div>
 
-      {!compact && (
+      {!compact && length > 1 && (
         <div className={styles.dots}>
           {media.map((path, i) => (
             <button

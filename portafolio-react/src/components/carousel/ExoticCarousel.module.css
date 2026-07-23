@@ -160,7 +160,8 @@
   50% { transform: scale(1.02); }
 }
 
-.slideInner img {
+.slideInner img,
+.slideInner video {
   width: 100%;
   height: 100%;
   object-fit: contain;

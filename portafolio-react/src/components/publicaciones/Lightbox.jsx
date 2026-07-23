@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import MediaCarousel from './MediaCarousel';
+import ExoticCarousel from '../carousel/ExoticCarousel';
 import styles from './Lightbox.module.css';
 
 export default function Lightbox({ item, onClose }) {
@@ -28,7 +28,7 @@ export default function Lightbox({ item, onClose }) {
             Cerrar
           </button>
         </div>
-        <MediaCarousel media={item.media} />
+        <ExoticCarousel media={item.media} />
       </div>
     </div>
   );
