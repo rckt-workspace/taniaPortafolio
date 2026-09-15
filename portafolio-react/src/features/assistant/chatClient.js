@@ -1,23 +1,17 @@
 /**
- * Cliente centralizado para comunicación con el Worker
+ * Cliente centralizado para comunicación con /api/chat
  */
 
-const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL || null;
+const CHAT_API_ENDPOINT = '/api/chat';
 const REQUEST_TIMEOUT = 30000;
 
 /**
- * Realiza una solicitud de chat al Worker
+ * Realiza una solicitud de chat al servidor
  * @param {Array} messages - Historial de mensajes
  * @param {AbortSignal} signal - Signal para cancelar la solicitud
  * @returns {Promise<{role: string, content: string}>}
  */
 export async function sendChatMessage(messages, signal) {
-  if (!CHAT_API_URL) {
-    throw new Error(
-      'VITE_CHAT_API_URL no está configurado. El asistente no está disponible.'
-    );
-  }
-
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
@@ -26,7 +20,7 @@ export async function sendChatMessage(messages, signal) {
       ? AbortSignal.race([signal, controller.signal])
       : controller.signal;
 
-    const response = await fetch(CHAT_API_URL, {
+    const response = await fetch(CHAT_API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,18 +60,4 @@ export async function sendChatMessage(messages, signal) {
 
     throw error;
   }
-}
-
-/**
- * Valida si el cliente está correctamente configurado
- */
-export function isChatClientConfigured() {
-  return !!CHAT_API_URL;
-}
-
-/**
- * Obtiene la URL del API (para debugging)
- */
-export function getChatAPIUrl() {
-  return CHAT_API_URL;
 }

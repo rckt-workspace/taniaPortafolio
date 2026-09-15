@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { sendChatMessage, isChatClientConfigured } from './chatClient';
+import { sendChatMessage } from './chatClient';
 
 /**
  * Hook para gestionar el estado de la conversación del asistente
@@ -10,18 +10,11 @@ export function useAssistantChat() {
   const [error, setError] = useState(null);
   const abortControllerRef = useRef(null);
 
-  const isConfigured = isChatClientConfigured();
-
   /**
    * Envía un mensaje y obtiene respuesta del asistente
    */
   const sendMessage = useCallback(
     async (userMessage) => {
-      if (!isConfigured) {
-        setError('El asistente no está configurado correctamente.');
-        return;
-      }
-
       if (!userMessage || userMessage.trim().length === 0) {
         return;
       }
@@ -140,6 +133,5 @@ export function useAssistantChat() {
     clearChat,
     retryLastMessage,
     cancelMessage,
-    isConfigured,
   };
 }

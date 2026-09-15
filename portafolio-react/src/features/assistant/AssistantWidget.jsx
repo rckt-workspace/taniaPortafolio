@@ -29,7 +29,6 @@ export default function AssistantWidget() {
     clearChat,
     retryLastMessage,
     cancelMessage,
-    isConfigured,
   } = useAssistantChat();
 
   // Auto-scroll al último mensaje
@@ -145,10 +144,8 @@ export default function AssistantWidget() {
                   Tania <span>✦</span>
                 </h2>
                 <span
-                  className={`${styles.statusIndicator} ${
-                    isConfigured ? styles.available : styles.unavailable
-                  }`}
-                  title={isConfigured ? 'Disponible' : 'No disponible'}
+                  className={`${styles.statusIndicator} ${styles.available}`}
+                  title="Disponible"
                 >
                   ●
                 </span>
@@ -173,28 +170,15 @@ export default function AssistantWidget() {
             role="log"
             aria-live="polite"
           >
-            {/* Mensaje de no disponible */}
-            {!isConfigured && (
-              <div className={styles.unavailableNotice}>
-                <span className={styles.unavailableIcon}>⚠</span>
-                <div>
-                  <strong>Temporalmente no disponible</strong>
-                  <p>El servicio de chat está siendo configurado. Intenta más tarde.</p>
-                </div>
+            {/* Mostrar siempre el mensaje inicial */}
+            <div className={`${styles.message} ${styles.assistantMessage}`}>
+              <div className={styles.messageBubble}>
+                {INITIAL_MESSAGE.content}
               </div>
-            )}
+            </div>
 
-            {/* Mostrar siempre el mensaje inicial si está configurado */}
-            {isConfigured && (
-              <div className={`${styles.message} ${styles.assistantMessage}`}>
-                <div className={styles.messageBubble}>
-                  {INITIAL_MESSAGE.content}
-                </div>
-              </div>
-            )}
-
-            {/* Mostrar sugerencias si no hay mensajes del usuario y está configurado */}
-            {showSuggestions && isConfigured && (
+            {/* Mostrar sugerencias si no hay mensajes del usuario */}
+            {showSuggestions && (
               <div className={styles.suggestionsContainer}>
                 {SUGGESTED_PROMPTS.map((prompt) => (
                   <button
@@ -293,28 +277,20 @@ export default function AssistantWidget() {
             <input
               type="text"
               className={styles.chatInput}
-              placeholder={
-                isConfigured
-                  ? 'Escribe tu pregunta...'
-                  : 'Servicio no disponible'
-              }
+              placeholder="Escribe tu pregunta..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              disabled={isLoading || !isConfigured}
-              aria-label={
-                isConfigured
-                  ? 'Campo de entrada para preguntas'
-                  : 'Servicio no disponible'
-              }
+              disabled={isLoading}
+              aria-label="Campo de entrada para preguntas"
               autoComplete="off"
             />
             <button
               type="submit"
               className={styles.sendButton}
               disabled={
-                isLoading || !inputValue.trim() || !isConfigured
+                isLoading || !inputValue.trim()
               }
-              aria-label={isConfigured ? 'Enviar mensaje' : 'Servicio no disponible'}
+              aria-label="Enviar mensaje"
             >
               <svg
                 width="18"
