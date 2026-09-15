@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Cursor from './components/Cursor';
+import AssistantWidget from './features/assistant/AssistantWidget';
 import Home from './pages/Home';
 import Empresa from './pages/Empresa';
 import Experiencia from './pages/Experiencia';
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/portafolio" element={<Portafolio />} />
       </Routes>
       <Footer />
+      <AssistantWidget />
     </>
   );
 }
