@@ -18,6 +18,7 @@ const SUGGESTED_PROMPTS = [
 export default function AssistantWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [avatarFailed, setAvatarFailed] = useState(false);
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
 
@@ -53,7 +54,7 @@ export default function AssistantWidget() {
   // Enviar mensaje
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim() && !isLoading && isConfigured) {
+    if (inputValue.trim() && !isLoading) {
       sendMessage(inputValue);
       setInputValue('');
     }
@@ -67,10 +68,9 @@ export default function AssistantWidget() {
 
   // Mostrar sugerencias solo si:
   // - El chat está abierto
-  // - Está configurado
   // - No hay mensajes del usuario aún
   const showSuggestions =
-    isOpen && isConfigured && messages.filter((m) => m.role === 'user').length === 0;
+    isOpen && messages.filter((m) => m.role === 'user').length === 0;
 
   return (
     <>
@@ -98,20 +98,21 @@ export default function AssistantWidget() {
           </svg>
         ) : (
           <>
-            <img
-              src="/tania-avatar.webp"
-              alt="Avatar Tania"
-              className={styles.avatarImage}
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
-            <span
-              className={styles.avatarFallback}
-              style={{ display: 'none' }}
-            >
-              TP
-            </span>
+            {!avatarFailed && (
+              <img
+                src="/tania-avatar.webp"
+                alt="Avatar Tania"
+                className={styles.avatarImage}
+                onError={() => {
+                  setAvatarFailed(true);
+                }}
+              />
+            )}
+            {avatarFailed && (
+              <span className={styles.avatarFallback}>
+                TP
+              </span>
+            )}
             <svg
               width="24"
               height="24"

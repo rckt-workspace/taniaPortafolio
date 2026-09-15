@@ -2,8 +2,18 @@
  * Cliente centralizado para comunicación con /api/chat
  */
 
-const CHAT_API_ENDPOINT = '/api/chat';
 const REQUEST_TIMEOUT = 30000;
+
+/**
+ * Obtiene la URL base del API
+ */
+function getChatApiUrl() {
+  const baseUrl = import.meta.env.VITE_CHAT_API_URL;
+  if (!baseUrl) {
+    throw new Error('VITE_CHAT_API_URL no está configurado');
+  }
+  return baseUrl.replace(/\/$/, ''); // Remover trailing slash si existe
+}
 
 /**
  * Realiza una solicitud de chat al servidor
@@ -13,6 +23,9 @@ const REQUEST_TIMEOUT = 30000;
  */
 export async function sendChatMessage(messages, signal) {
   try {
+    const baseUrl = getChatApiUrl();
+    const endpoint = `${baseUrl}/api/chat`;
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
@@ -20,7 +33,7 @@ export async function sendChatMessage(messages, signal) {
       ? AbortSignal.race([signal, controller.signal])
       : controller.signal;
 
-    const response = await fetch(CHAT_API_ENDPOINT, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

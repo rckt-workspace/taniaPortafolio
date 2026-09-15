@@ -55,7 +55,7 @@ export function useAssistantChat() {
         abortControllerRef.current = null;
       }
     },
-    [messages, isConfigured]
+    [messages]
   );
 
   /**

@@ -1,2 +1,10 @@
 .env
 .claude/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.pyo
+.pytest_cache/
+.coverage
+*.egg-info/
