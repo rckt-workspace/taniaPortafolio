@@ -74,15 +74,30 @@ export default function AssistantWidget() {
 
   return (
     <>
-      {/* Botón flotante */}
-      <button
-        className={`${styles.floatingButton} ${isOpen ? styles.active : ''}`}
-        onClick={isOpen ? handleClose : handleOpen}
-        aria-label={isOpen ? 'Cerrar chat' : 'Hablar con Tania'}
-        aria-expanded={isOpen}
-        title="Habla con Tania ✦"
-      >
-        {isOpen ? (
+      {/* Botón flotante - Solo mostrar cuando el chat está cerrado */}
+      {!isOpen && (
+        <button
+          className={styles.floatingButton}
+          onClick={handleOpen}
+          aria-label="Hablar con Tania"
+          aria-expanded={isOpen}
+          title="Habla con Tania ✦"
+        >
+          {!avatarFailed && (
+            <img
+              src="/tania-avatar.webp"
+              alt="Avatar Tania"
+              className={styles.avatarImage}
+              onError={() => {
+                setAvatarFailed(true);
+              }}
+            />
+          )}
+          {avatarFailed && (
+            <span className={styles.avatarFallback}>
+              TP
+            </span>
+          )}
           <svg
             width="24"
             height="24"
@@ -92,43 +107,12 @@ export default function AssistantWidget() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className={styles.chatIcon}
           >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
-        ) : (
-          <>
-            {!avatarFailed && (
-              <img
-                src="/tania-avatar.webp"
-                alt="Avatar Tania"
-                className={styles.avatarImage}
-                onError={() => {
-                  setAvatarFailed(true);
-                }}
-              />
-            )}
-            {avatarFailed && (
-              <span className={styles.avatarFallback}>
-                TP
-              </span>
-            )}
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={styles.chatIcon}
-            >
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          </>
-        )}
-      </button>
+        </button>
+      )}
 
       {/* Panel conversacional */}
       {isOpen && (

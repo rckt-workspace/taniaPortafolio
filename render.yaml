@@ -1,5 +1,4 @@
 services:
-  # Frontend: React/Vite Static Site
   - type: web
     name: tania-portafolio
     runtime: static
@@ -9,15 +8,12 @@ services:
     pullRequestPreviewsEnabled: false
     envVars:
       - key: VITE_CHAT_API_URL
-        # TODO: Configurar DESPUÉS de crear el Web Service (backend)
-        # Reemplazar con: https://<backend-service-name>.onrender.com
-        value: http://localhost:5173
+        sync: false
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
 
-  # Backend: FastAPI Web Service
   - type: web
     name: tania-portafolio-api
     runtime: python
@@ -25,31 +21,40 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     pullRequestPreviewsEnabled: false
+
     envVars:
       - key: OPENROUTER_API_KEY
         sync: false
-        # Obtener en: https://openrouter.ai/keys
+
       - key: OPENROUTER_BASE_URL
         value: https://openrouter.ai/api/v1
+
       - key: OPENROUTER_SITE_URL
-        # TODO: Reemplazar con URL pública del Frontend después de deploy
-        value: http://localhost:3000
+        value: https://taniaportafolio.onrender.com
+
       - key: OPENROUTER_SITE_NAME
-        value: Tania Peláez Valverde Portfolio
+        value: Tania Pelaez Valverde Portfolio
+
       - key: CHAT_PRIMARY_LLM
         value: google/gemini-2.5-flash-lite
+
       - key: CHAT_FALLBACK_LLM
         value: openrouter/free
+
       - key: CHAT_USE_FALLBACK
         value: "true"
+
       - key: CHAT_TEMPERATURE
         value: "0.2"
+
       - key: CHAT_TOP_P
         value: "0.8"
+
       - key: CHAT_MAX_TOKENS
         value: "450"
+
       - key: CHAT_TIMEOUT_MS
         value: "45000"
+
       - key: ALLOWED_ORIGINS
-        # TODO: Reemplazar con URL pública del Frontend después de deploy
-        value: "http://localhost:5173,https://taniaportafolio.onrender.com"
+        value: "https://taniaportafolio.onrender.com"

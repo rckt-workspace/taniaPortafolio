@@ -22,16 +22,22 @@ function getChatApiUrl() {
  * @returns {Promise<{role: string, content: string}>}
  */
 export async function sendChatMessage(messages, signal) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+  let abortListener = null;
+
   try {
     const baseUrl = getChatApiUrl();
     const endpoint = `${baseUrl}/api/chat`;
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
-
-    const combinedSignal = signal
-      ? AbortSignal.race([signal, controller.signal])
-      : controller.signal;
+    if (signal) {
+      if (signal.aborted) {
+        controller.abort();
+      } else {
+        abortListener = () => controller.abort();
+        signal.addEventListener('abort', abortListener);
+      }
+    }
 
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -39,10 +45,8 @@ export async function sendChatMessage(messages, signal) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ messages }),
-      signal: combinedSignal,
+      signal: controller.signal,
     });
-
-    clearTimeout(timeoutId);
 
     if (!response.ok) {
       if (response.status === 429) {
@@ -72,5 +76,10 @@ export async function sendChatMessage(messages, signal) {
     }
 
     throw error;
+  } finally {
+    clearTimeout(timeoutId);
+    if (signal && abortListener) {
+      signal.removeEventListener('abort', abortListener);
+    }
   }
 }
