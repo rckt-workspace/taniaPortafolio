@@ -28,6 +28,8 @@
   z-index: 999;
   padding: 0;
   font-size: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .floatingButton:hover {
@@ -47,6 +49,33 @@
 
 .floatingButton.active:hover {
   background: #3a2d23;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatarFallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background: var(--rose);
+  color: var(--white);
+}
+
+.chatIcon {
+  width: 24px;
+  height: 24px;
 }
 
 /* Panel de chat */
@@ -92,19 +121,44 @@
   flex: 1;
 }
 
+.headerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
 .headerTitle {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--brown);
   margin: 0;
-  margin-bottom: 0.25rem;
+}
+
+.headerTitle span {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+.statusIndicator {
+  font-size: 0.7rem;
+  transition: color 0.3s;
+}
+
+.statusIndicator.available {
+  color: #10b981;
+}
+
+.statusIndicator.unavailable {
+  color: #f97316;
 }
 
 .headerSubtitle {
   font-size: 0.75rem;
   color: var(--rose);
   margin: 0;
+  font-weight: 500;
 }
 
 .closeButton {
@@ -206,11 +260,27 @@
 }
 
 /* Loading indicator */
+.loadingBubble {
+  max-width: 75%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--sand);
+  color: var(--brown);
+  border-bottom-left-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loadingText {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
 .loadingDots {
   display: flex;
   gap: 4px;
   align-items: center;
-  height: 1.2rem;
 }
 
 .loadingDots span {
@@ -238,6 +308,39 @@
   30% {
     opacity: 1;
   }
+}
+
+/* Unavailable notice */
+.unavailableNotice {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.unavailableIcon {
+  font-weight: bold;
+  color: #856404;
+  font-size: 1.2rem;
+  min-width: 24px;
+  text-align: center;
+}
+
+.unavailableNotice strong {
+  color: #856404;
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.unavailableNotice p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #856404;
+  text-align: left;
 }
 
 /* Sugerencias iniciales */

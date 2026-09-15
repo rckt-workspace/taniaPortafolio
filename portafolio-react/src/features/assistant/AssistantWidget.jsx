@@ -5,14 +5,14 @@ import styles from './AssistantWidget.module.css';
 const INITIAL_MESSAGE = {
   role: 'assistant',
   content:
-    'Hola 👋 Soy el asistente del portafolio de Tania. Puedo contarte sobre su experiencia, proyectos, habilidades y trabajo en comunicación. ¿Qué te gustaría conocer?',
+    '¡Hola! Soy Tania 👋\n\nSoy comunicadora social y periodista. Puedo contarte sobre mi experiencia, mis proyectos y el trabajo que he desarrollado en comunicación.\n\n¿En qué puedo ayudarte?',
 };
 
 const SUGGESTED_PROMPTS = [
-  '¿Cuál es la experiencia de Tania?',
-  '¿Qué hizo en el Comité de Cafeteros?',
-  'Muéstrame sus proyectos',
-  '¿Cómo puedo contactar a Tania?',
+  'Conoce mi experiencia',
+  'Ver mis proyectos',
+  'Mis habilidades',
+  '¿Cómo contactarme?',
 ];
 
 export default function AssistantWidget() {
@@ -73,19 +73,15 @@ export default function AssistantWidget() {
   const showSuggestions =
     isOpen && isConfigured && messages.filter((m) => m.role === 'user').length === 0;
 
-  if (!isConfigured) {
-    // Si no está configurado, mostrar un botón deshabilitado o nada
-    return null;
-  }
-
   return (
     <>
       {/* Botón flotante */}
       <button
         className={`${styles.floatingButton} ${isOpen ? styles.active : ''}`}
         onClick={isOpen ? handleClose : handleOpen}
-        aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente'}
+        aria-label={isOpen ? 'Cerrar chat' : 'Hablar con Tania'}
         aria-expanded={isOpen}
+        title="Habla con Tania ✦"
       >
         {isOpen ? (
           <svg
@@ -102,18 +98,35 @@ export default function AssistantWidget() {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         ) : (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
+          <>
+            <img
+              src="/tania-avatar.webp"
+              alt="Avatar Tania"
+              className={styles.avatarImage}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+            <span
+              className={styles.avatarFallback}
+              style={{ display: 'none' }}
+            >
+              TP
+            </span>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={styles.chatIcon}
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </>
         )}
       </button>
 
@@ -122,16 +135,26 @@ export default function AssistantWidget() {
         <div
           className={styles.chatPanel}
           role="complementary"
-          aria-label="Asistente conversacional"
+          aria-label="Chat con Tania"
         >
           {/* Encabezado */}
           <div className={styles.chatHeader}>
             <div className={styles.headerContent}>
-              <h2 className={styles.headerTitle}>
-                Asistente de Tania
-              </h2>
+              <div className={styles.headerTitleRow}>
+                <h2 className={styles.headerTitle}>
+                  Tania <span>✦</span>
+                </h2>
+                <span
+                  className={`${styles.statusIndicator} ${
+                    isConfigured ? styles.available : styles.unavailable
+                  }`}
+                  title={isConfigured ? 'Disponible' : 'No disponible'}
+                >
+                  ●
+                </span>
+              </div>
               <p className={styles.headerSubtitle}>
-                Pregúntame sobre su experiencia y proyectos
+                Tu comunicadora con propósito
               </p>
             </div>
             <button
@@ -150,15 +173,28 @@ export default function AssistantWidget() {
             role="log"
             aria-live="polite"
           >
-            {/* Mostrar siempre el mensaje inicial */}
-            <div className={`${styles.message} ${styles.assistantMessage}`}>
-              <div className={styles.messageBubble}>
-                {INITIAL_MESSAGE.content}
+            {/* Mensaje de no disponible */}
+            {!isConfigured && (
+              <div className={styles.unavailableNotice}>
+                <span className={styles.unavailableIcon}>⚠</span>
+                <div>
+                  <strong>Temporalmente no disponible</strong>
+                  <p>El servicio de chat está siendo configurado. Intenta más tarde.</p>
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Mostrar sugerencias si no hay mensajes del usuario */}
-            {showSuggestions && (
+            {/* Mostrar siempre el mensaje inicial si está configurado */}
+            {isConfigured && (
+              <div className={`${styles.message} ${styles.assistantMessage}`}>
+                <div className={styles.messageBubble}>
+                  {INITIAL_MESSAGE.content}
+                </div>
+              </div>
+            )}
+
+            {/* Mostrar sugerencias si no hay mensajes del usuario y está configurado */}
+            {showSuggestions && isConfigured && (
               <div className={styles.suggestionsContainer}>
                 {SUGGESTED_PROMPTS.map((prompt) => (
                   <button
@@ -191,7 +227,8 @@ export default function AssistantWidget() {
             {/* Indicador de cargando */}
             {isLoading && (
               <div className={`${styles.message} ${styles.assistantMessage}`}>
-                <div className={styles.messageBubble}>
+                <div className={styles.loadingBubble}>
+                  <span className={styles.loadingText}>Tania está escribiendo</span>
                   <div className={styles.loadingDots}>
                     <span />
                     <span />
@@ -256,11 +293,19 @@ export default function AssistantWidget() {
             <input
               type="text"
               className={styles.chatInput}
-              placeholder="Escribe tu pregunta..."
+              placeholder={
+                isConfigured
+                  ? 'Escribe tu pregunta...'
+                  : 'Servicio no disponible'
+              }
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               disabled={isLoading || !isConfigured}
-              aria-label="Campo de entrada para preguntas"
+              aria-label={
+                isConfigured
+                  ? 'Campo de entrada para preguntas'
+                  : 'Servicio no disponible'
+              }
               autoComplete="off"
             />
             <button
@@ -269,7 +314,7 @@ export default function AssistantWidget() {
               disabled={
                 isLoading || !inputValue.trim() || !isConfigured
               }
-              aria-label="Enviar mensaje"
+              aria-label={isConfigured ? 'Enviar mensaje' : 'Servicio no disponible'}
             >
               <svg
                 width="18"

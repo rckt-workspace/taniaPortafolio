@@ -103,15 +103,34 @@ export function useAssistantChat() {
 
     const userMessage = messages[lastUserMessageIndex].content;
 
-    // Remover mensajes después del último mensaje del usuario
+    // Remover cualquier mensaje de error o respuesta incompleta después del último usuario
     setMessages((prev) => prev.slice(0, lastUserMessageIndex + 1));
     setError(null);
+    setIsLoading(true);
 
-    // Reenviar el mensaje
-    setTimeout(() => {
-      sendMessage(userMessage);
-    }, 0);
-  }, [messages, sendMessage]);
+    // Reenviar sin duplicar (usar el historial actual sin volver a agregar)
+    const historyToSend = messages.slice(0, lastUserMessageIndex + 1).slice(-12);
+
+    try {
+      abortControllerRef.current = new AbortController();
+
+      sendChatMessage(
+        historyToSend,
+        abortControllerRef.current.signal
+      ).then((response) => {
+        setMessages((prev) => [...prev, response]);
+        setError(null);
+        setIsLoading(false);
+      }).catch((err) => {
+        const errorMessage = err.message || 'Ocurrió un error al procesar tu solicitud.';
+        setError(errorMessage);
+        setIsLoading(false);
+      });
+    } catch (err) {
+      setError(err.message || 'Error desconocido');
+      setIsLoading(false);
+    }
+  }, [messages]);
 
   return {
     messages,

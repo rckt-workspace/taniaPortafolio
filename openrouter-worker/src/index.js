@@ -11,14 +11,14 @@ const LIMITS = {
 /**
  * Respuesta de error estructurada
  */
-function errorResponse(message, status = 400) {
+function errorResponse(message, status = 400, allowedOrigin = '*') {
   return new Response(
     JSON.stringify({ error: message }),
     {
       status,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowedOrigin,
       },
     }
   );
@@ -27,14 +27,14 @@ function errorResponse(message, status = 400) {
 /**
  * Respuesta de éxito estructurada
  */
-function successResponse(data, origin) {
+function successResponse(data, allowedOrigin = '*') {
   return new Response(
     JSON.stringify(data),
     {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': origin || '*',
+        'Access-Control-Allow-Origin': allowedOrigin,
       },
     }
   );
@@ -191,17 +191,29 @@ async function callOpenRouter(messages, env) {
 }
 
 /**
+ * Valida si el origin está permitido
+ */
+function isOriginAllowed(origin, allowedOrigin) {
+  if (allowedOrigin === '*') return true;
+  return origin === allowedOrigin;
+}
+
+/**
  * Manejador de preflight CORS
  */
-function handleCORS(request, origin) {
+function handleCORS(request, origin, allowedOrigin) {
   if (request.method !== 'OPTIONS') {
     return null;
+  }
+
+  if (!isOriginAllowed(origin, allowedOrigin)) {
+    return new Response(null, { status: 403 });
   }
 
   return new Response(null, {
     status: 204,
     headers: {
-      'Access-Control-Allow-Origin': origin || '*',
+      'Access-Control-Allow-Origin': allowedOrigin === '*' ? '*' : origin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',
@@ -217,8 +229,8 @@ async function handleChat(request, env) {
   const origin = request.headers.get('Origin');
   const allowedOrigin = env.ALLOWED_ORIGIN || '*';
 
-  if (allowedOrigin !== '*' && origin !== allowedOrigin) {
-    return errorResponse('Origin no permitido', 403);
+  if (!isOriginAllowed(origin, allowedOrigin)) {
+    return errorResponse('Origin no permitido', 403, allowedOrigin);
   }
 
   // Parsear JSON del request
@@ -226,29 +238,29 @@ async function handleChat(request, env) {
   try {
     body = await request.json();
   } catch {
-    return errorResponse('JSON inválido en el request');
+    return errorResponse('JSON inválido en el request', 400, allowedOrigin);
   }
 
   // Validar estructura del request
   if (!body.messages) {
-    return errorResponse('El request debe contener "messages"');
+    return errorResponse('El request debe contener "messages"', 400, allowedOrigin);
   }
 
   // Validar historial
   const historyValidation = validateMessageHistory(body.messages);
   if (!historyValidation.valid) {
-    return errorResponse(historyValidation.error);
+    return errorResponse(historyValidation.error, 400, allowedOrigin);
   }
 
   // Validar último mensaje
   const lastMessage = body.messages[body.messages.length - 1];
   if (lastMessage.role !== 'user') {
-    return errorResponse('El último mensaje debe ser del usuario');
+    return errorResponse('El último mensaje debe ser del usuario', 400, allowedOrigin);
   }
 
   const messageValidation = validateMessage(lastMessage.content);
   if (!messageValidation.valid) {
-    return errorResponse(messageValidation.error);
+    return errorResponse(messageValidation.error, 400, allowedOrigin);
   }
 
   // Llamar a OpenRouter
@@ -260,7 +272,7 @@ async function handleChat(request, env) {
         role: 'assistant',
         content: response,
       },
-      origin || allowedOrigin
+      allowedOrigin === '*' ? '*' : origin
     );
   } catch (error) {
     console.error('OpenRouter error:', error.message);
@@ -268,17 +280,19 @@ async function handleChat(request, env) {
     if (error.message.includes('Timeout')) {
       return errorResponse(
         'El servidor tardó demasiado. Por favor, intenta de nuevo.',
-        504
+        504,
+        allowedOrigin
       );
     }
 
     if (error.message.includes('401')) {
-      return errorResponse('Configuración de autenticación incorrecta', 500);
+      return errorResponse('Configuración de autenticación incorrecta', 500, allowedOrigin);
     }
 
     return errorResponse(
       'No se pudo procesar tu solicitud. Intenta de nuevo más tarde.',
-      500
+      500,
+      allowedOrigin
     );
   }
 }
@@ -290,9 +304,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const origin = request.headers.get('Origin');
+    const allowedOrigin = env.ALLOWED_ORIGIN || '*';
 
     // Preflight CORS
-    const corsResponse = handleCORS(request, request.headers.get('Origin'));
+    const corsResponse = handleCORS(request, origin, allowedOrigin);
     if (corsResponse) {
       return corsResponse;
     }
@@ -308,14 +324,23 @@ export default {
         JSON.stringify({ status: 'ok' }),
         {
           status: 200,
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': allowedOrigin === '*' ? '*' : origin,
+          },
         }
       );
     }
 
     return new Response(
       JSON.stringify({ error: 'Not found' }),
-      { status: 404, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': allowedOrigin === '*' ? '*' : origin,
+        },
+      }
     );
   },
 };
