@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAssistantChat } from './useAssistantChat';
+import { isTaniaBirthday, getTaniaAge } from './birthDateUtils';
 import styles from './AssistantWidget.module.css';
 
 const INITIAL_MESSAGE = {
@@ -144,7 +145,12 @@ export default function AssistantWidget() {
             </div>
             <div className={styles.headerContent}>
               <div className={styles.headerTitleRow}>
-                <h2 className={styles.headerTitle}>Tania ✦</h2>
+                <div className={styles.titleWithBirthday}>
+                  <h2 className={styles.headerTitle}>Tania ✦</h2>
+                  {isTaniaBirthday() && (
+                    <span className={styles.birthdayBadge}>🎂 {getTaniaAge()}</span>
+                  )}
+                </div>
                 <div className={styles.statusIndicator}>
                   <span className={styles.statusDot}>●</span>
                   Disponible

@@ -2,6 +2,8 @@
  * Cliente centralizado para comunicación con el Worker
  */
 
+import { getTaniaContextInfo } from './birthDateUtils';
+
 const CHAT_API_URL = import.meta.env.VITE_CHAT_API_URL || null;
 const REQUEST_TIMEOUT = 30000;
 
@@ -26,12 +28,24 @@ export async function sendChatMessage(messages, signal) {
       ? AbortSignal.race([signal, controller.signal])
       : controller.signal;
 
+    // Agregar información de contexto sobre Tania (edad y cumpleaños)
+    const taniaContextMessage = {
+      role: 'system',
+      content: `Información sobre Tania: ${getTaniaContextInfo()}`,
+    };
+
+    // Incluir contexto al inicio del historial si no está ya presente
+    const messagesWithContext =
+      messages.length > 0 && messages[0].role === 'system'
+        ? messages
+        : [taniaContextMessage, ...messages];
+
     const response = await fetch(CHAT_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify({ messages: messagesWithContext }),
       signal: combinedSignal,
     });
 
