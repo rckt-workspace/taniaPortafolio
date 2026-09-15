@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAssistantChat } from './useAssistantChat';
+import { isTaniaBirthday, getTaniaAge } from './birthDateUtils';
 import styles from './AssistantWidget.module.css';
 
 const INITIAL_MESSAGE = {
@@ -72,9 +73,28 @@ export default function AssistantWidget() {
   const showSuggestions =
     isOpen && messages.filter((m) => m.role === 'user').length === 0;
 
+  const renderAvatar = (className = styles.avatarImage) => {
+    if (avatarFailed) {
+      return (
+        <span className={styles.avatarFallback}>
+          TP
+        </span>
+      );
+    }
+
+    return (
+      <img
+        src="/taniaAgente.png"
+        alt="Avatar de Tania"
+        className={className}
+        onError={() => setAvatarFailed(true)}
+      />
+    );
+  };
+
   return (
     <>
-      {/* Botón flotante - Solo mostrar cuando el chat está cerrado */}
+      {/* Botón flotante - Siempre visible */}
       {!isOpen && (
         <button
           className={styles.floatingButton}
@@ -83,34 +103,10 @@ export default function AssistantWidget() {
           aria-expanded={isOpen}
           title="Habla con Tania ✦"
         >
-          {!avatarFailed && (
-            <img
-              src="/tania-avatar.webp"
-              alt="Avatar Tania"
-              className={styles.avatarImage}
-              onError={() => {
-                setAvatarFailed(true);
-              }}
-            />
-          )}
-          {avatarFailed && (
-            <span className={styles.avatarFallback}>
-              TP
-            </span>
-          )}
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={styles.chatIcon}
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
+          <div className={styles.floatingAvatarContainer}>
+            {renderAvatar(styles.floatingAvatarImage)}
+          </div>
+          <span className={styles.buttonText}>Habla con Tania ✦</span>
         </button>
       )}
 
@@ -123,21 +119,31 @@ export default function AssistantWidget() {
         >
           {/* Encabezado */}
           <div className={styles.chatHeader}>
-            <div className={styles.headerContent}>
-              <div className={styles.headerTitleRow}>
-                <h2 className={styles.headerTitle}>
-                  Tania <span>✦</span>
-                </h2>
-                <span
-                  className={`${styles.statusIndicator} ${styles.available}`}
-                  title="Disponible"
-                >
-                  ●
-                </span>
+            <div className={styles.headerIdentity}>
+              <div className={styles.headerAvatar}>
+                {renderAvatar(styles.headerAvatarImage)}
               </div>
-              <p className={styles.headerSubtitle}>
-                Tu comunicadora con propósito
-              </p>
+              <div className={styles.headerContent}>
+                <div className={styles.headerTitleRow}>
+                  <div className={styles.titleWithBirthday}>
+                    <h2 className={styles.headerTitle}>
+                      Tania <span>✦</span>
+                    </h2>
+                    {isTaniaBirthday() && (
+                      <span className={styles.birthdayBadge}>🎂 {getTaniaAge()}</span>
+                    )}
+                  </div>
+                  <span
+                    className={`${styles.statusIndicator} ${styles.available}`}
+                    title="Disponible"
+                  >
+                    ●
+                  </span>
+                </div>
+                <p className={styles.headerSubtitle}>
+                  Tu comunicadora con propósito
+                </p>
+              </div>
             </div>
             <button
               className={styles.closeButton}

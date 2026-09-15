@@ -212,6 +212,18 @@
   flex-direction: column;
   gap: 0.75rem;
   scroll-behavior: smooth;
+  position: relative;
+  background-image:
+    linear-gradient(
+      rgba(254, 252, 247, 0.60),
+      rgba(254, 252, 247, 0.60)
+    ),
+    url('/taniaAgente.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 350px auto;
+  background-attachment: scroll;
+  background-color: var(--cream);
 }
 
 .messagesContainer::-webkit-scrollbar {
@@ -266,15 +278,19 @@
 }
 
 .userMessage .messageBubble {
-  background: var(--rose);
+  background: rgba(233, 116, 163, 0.88);
   color: var(--white);
   border-bottom-right-radius: 4px;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .assistantMessage .messageBubble {
-  background: var(--sand);
+  background: rgba(245, 236, 225, 0.75);
   color: var(--brown);
   border-bottom-left-radius: 4px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 /* Loading indicator */
@@ -282,12 +298,14 @@
   max-width: 75%;
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  background: var(--sand);
+  background: rgba(245, 236, 225, 0.75);
   color: var(--brown);
   border-bottom-left-radius: 4px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .loadingText {
@@ -370,7 +388,7 @@
 }
 
 .suggestionButton {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--sand);
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
@@ -379,10 +397,12 @@
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .suggestionButton:hover {
-  background: var(--sand);
+  background: rgba(245, 236, 225, 0.88);
   border-color: var(--gold);
 }
 
@@ -558,6 +578,109 @@
   color: #999;
 }
 
+/* Avatar containers */
+.floatingAvatarContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--sand);
+  border: 2px solid rgba(216, 179, 106, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.buttonText {
+  white-space: nowrap;
+  display: inline;
+}
+
+/* Header identity */
+.headerIdentity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.headerAvatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--sand);
+  border: 2px solid rgba(216, 179, 106, 0.45);
+  box-shadow: 0 4px 12px rgba(74, 61, 51, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.titleWithBirthday {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.birthdayBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: var(--brown);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Avatar animations */
+@keyframes taniaIdle {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+.avatarImage,
+.headerAvatarImage,
+.floatingAvatarImage {
+  animation: taniaIdle 3.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
 /* Responsive - Tablet */
 @media (max-width: 768px) {
   .floatingButton {
@@ -577,6 +700,14 @@
 /* Responsive - Mobile */
 @media (max-width: 480px) {
   .floatingButton {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .buttonText {
     display: none;
   }
 
