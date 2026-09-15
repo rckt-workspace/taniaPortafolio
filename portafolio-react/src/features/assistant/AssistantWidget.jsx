@@ -5,14 +5,14 @@ import styles from './AssistantWidget.module.css';
 const INITIAL_MESSAGE = {
   role: 'assistant',
   content:
-    'Hola 👋 Soy el asistente del portafolio de Tania. Puedo contarte sobre su experiencia, proyectos, habilidades y trabajo en comunicación. ¿Qué te gustaría conocer?',
+    '¡Hola! Soy comunicadora social y periodista. Puedo contarte sobre mi experiencia, mis proyectos y el trabajo que he desarrollado en comunicación. ¿En qué puedo ayudarte?',
 };
 
 const SUGGESTED_PROMPTS = [
-  '¿Cuál es la experiencia de Tania?',
-  '¿Qué hizo en el Comité de Cafeteros?',
-  'Muéstrame sus proyectos',
-  '¿Cómo puedo contactar a Tania?',
+  'Conoce mi experiencia',
+  'Ver mis proyectos',
+  'Mis habilidades',
+  '¿Cómo contactarme?',
 ];
 
 export default function AssistantWidget() {
@@ -78,6 +78,24 @@ export default function AssistantWidget() {
     return null;
   }
 
+  const renderAvatar = () => (
+    <img
+      src="/tania-avatar.webp"
+      alt="Tania"
+      className={styles.avatarImage}
+      onError={(e) => {
+        e.target.style.display = 'none';
+        e.target.nextElementSibling.style.display = 'flex';
+      }}
+    />
+  );
+
+  const renderAvatarFallback = () => (
+    <div className={styles.avatarFallback} style={{ display: 'none' }}>
+      TP
+    </div>
+  );
+
   return (
     <>
       {/* Botón flotante */}
@@ -87,34 +105,28 @@ export default function AssistantWidget() {
         aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente'}
         aria-expanded={isOpen}
       >
-        {isOpen ? (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        ) : (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        )}
+        <div className={styles.floatingButtonContent}>
+          <div className={styles.avatarContainer}>
+            {renderAvatar()}
+            {renderAvatarFallback()}
+          </div>
+          {!isOpen && <span className={styles.buttonText}>Habla con Tania ✦</span>}
+          {isOpen && (
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          )}
+        </div>
       </button>
 
       {/* Panel conversacional */}
@@ -126,12 +138,20 @@ export default function AssistantWidget() {
         >
           {/* Encabezado */}
           <div className={styles.chatHeader}>
+            <div className={styles.headerAvatar}>
+              {renderAvatar()}
+              {renderAvatarFallback()}
+            </div>
             <div className={styles.headerContent}>
-              <h2 className={styles.headerTitle}>
-                Asistente de Tania
-              </h2>
+              <div className={styles.headerTitleRow}>
+                <h2 className={styles.headerTitle}>Tania ✦</h2>
+                <div className={styles.statusIndicator}>
+                  <span className={styles.statusDot}>●</span>
+                  Disponible
+                </div>
+              </div>
               <p className={styles.headerSubtitle}>
-                Pregúntame sobre su experiencia y proyectos
+                Tu comunicadora con propósito
               </p>
             </div>
             <button
